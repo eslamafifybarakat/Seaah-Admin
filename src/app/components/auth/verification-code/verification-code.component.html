@@ -1,0 +1,44 @@
+<div id="verification-code" class="auth-form">
+  <h2 class="fs-2 text-center text-main-color mb-3">
+    <!-- {{'auth.verificationOtp'|translate}} -->
+  </h2>
+  <p class="mt-2 text-center fs-8 m-auto lh-base mb-0"><span>
+      {{'auth.checkEmail'|translate}}
+    </span>
+    <span class="ps-1">
+      {{email || ''}}
+    </span>
+  </p>
+  <div class="py-4">
+    <div class="mb-3 otp-code">
+      <code-input class="justify-content-center gap-2" [code]="codeLength"
+        [isCodeHidden]="false" [isCodeHidden]="false" [codeLength]="5" (codeChanged)="onCodeChanged($event)"
+        (codeCompleted)="onCodeCompleted($event)" [initialFocusField]="0">
+      </code-input>
+    </div>
+
+    <button type="button" class="btn w-100 btn-solid-main form-btn mt-4" (click)="verifyCode()"
+      [disabled]="isLoadingBtn || codeLength?.length < 5">
+      <span>
+        {{'auth.send'|translate}}
+      </span>
+      <ng-container *ngIf="isLoadingBtn">
+        <i class="pi pi-spin pi-spinner" style="font-size: 1rem"></i>
+      </ng-container>
+    </button>
+    <div class="text-center mt-4">
+      <p class="text-desc-color d-flex justify-content-center"> <span>
+          {{'auth.notReceive'|translate}}
+        </span>
+        <ng-container *ngIf="isWaiting">
+          <a (click)="resendCode(true)" class="text-main-color ps-1">
+            {{'auth.resend'|translate}}
+          </a>
+        </ng-container>
+        <ng-container *ngIf="!isWaiting">
+          <countdown [customTitle]="minute" (emitServicePrice)="printTimeEnd($event)"></countdown>
+        </ng-container>
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+#error500-page {
+  background-color: var(--bg-white-color);
+
+  .btn-solid-main {
+    background-color: var(--bg-main-color);
+    border-color: var(--bg-main-color);
+    color: var(--text-white-color);
+    height: 50px;
+  }
+}

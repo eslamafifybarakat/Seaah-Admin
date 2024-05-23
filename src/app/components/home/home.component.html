@@ -1,0 +1,232 @@
+<div id="home-page">
+  <!--========== Start Hero Section ================= -->
+  <section id="hero-section" class="pt-hero">
+    <div class="container mx-auto">
+      <div class="row align-items-center">
+        <article class="col-lg-7 order-lg-1 order-2 p-0">
+          <h1 class="title w-content text-capitalize fw-bold">
+            {{ 'home.hero.heroTitle' | translate }}
+          </h1>
+          <p class="description mt-3 w-75">
+            {{ 'home.hero.heroDescription' | translate }}
+          </p>
+          <a href="/Auth/Login" class="btn btn-outline-white w-auto text-nowrap mt-3" role="button">
+            <span class="d-flex align-items-center justify-content-center gap-2">
+              {{'general.heroBtn' | translate}}
+            </span>
+          </a>
+        </article>
+        <aside class="col-lg-5 col-md-8 col-sm-9 col-11 m-lg-0 m-auto order-lg-2 order-1 mb-lg-0 mb-3 p-0">
+          <div class="main-hero-image-container">
+            <img src="assets/images/home/bg-hero.webp" width="800" height="600" alt="hero-image" class="w-100">
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+  <!--============= End Hero Section ================= -->
+
+  <!--========== Start About Section ================= -->
+  <section id="about-section" class="pt-7">
+    <div class="container mx-auto">
+      <div class="row align-items-center">
+        <article class="col-lg-7 col-md-6 col-sm-12 col-12 mb-3">
+          <div class="about-card p-xl-4 p-lg-4 p-md-3 p-sm-3 p-3">
+            <h2 class="title fw-bold text-white-color">
+              {{'about.titleHome' | translate}}
+            </h2>
+            <p class="description text-white-color fs-5 mt-3 lh-lg">
+              {{'about.descriptionHome' | translate}}
+            </p>
+            <div class="d-flex align-items-center flex-row w-100 gap-2">
+              <a href="/Auth/Login" class="btn btn-outline-white w-auto text-nowrap py-2" role="button">
+                {{'general.heroBtn' | translate}}
+              </a>
+              <a href="/Auth/Login" class="btn btn-video w-auto text-nowrap py-2" role="button">
+                <img src="assets/images/home/video-popup.svg" alt="Watch video icon">
+                {{'general.watchVideo' | translate}}
+              </a>
+            </div>
+          </div>
+        </article>
+        <aside class="col-lg-5 col-md-6 col-sm-12 col-12 mb-3">
+          <div class="about-card p-xl-4 p-lg-4 p-md-3 p-sm-3 p-3">
+            <div class="row boxes">
+              <div class="col-6 pr-3">
+                <div class="content text-white-color">
+                  <h3 class="count">
+                    38M+
+                  </h3>
+                  <p class="count-label fw-bold">
+                    {{'about.counts.count1'| translate}}
+                  </p>
+                </div>
+              </div>
+              <div class="col-6 pl-3">
+                <div class="content text-white-color">
+                  <h4 class="count">
+                    0%
+                  </h4>
+                  <p class="count-label fw-bold">
+                    {{'about.counts.count2'| translate}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="d-flex align-items-center gap-2 flex-wrap justify-content-center text-sm-start text-center mt-3">
+              <!-- For SEO, make these actual profiles linkable if applicable -->
+              <div class="d-flex">
+                <ng-container *ngFor="let item of jobOpportunities;let i=index">
+                  <div class="person-img position-relative" *ngIf="i<3">
+                    <img [src]="item.img" alt="person" class="w-100 h-100 rounded-circle" [class.blur-img]="i==2">
+                    <ng-container *ngIf="i==2">
+                      <div class="job-num position-absolute text-white-color fw-bold fs-8">
+                        +{{jobOpportunities?.length-2}}
+                      </div>
+                    </ng-container>
+                  </div>
+                </ng-container>
+              </div>
+              <div class="stars">
+                <!-- Ensure the rating widget is properly labeled for screen readers -->
+                <p-rating [(ngModel)]="rate" [readonly]="true" [stars]="5" [cancel]="false" step="0.5"
+                  aria-label="Rating"></p-rating>
+                <p class="mb-0 fst-normal text-white-color">
+                  {{'about.ratingText'|translate}}
+                </p>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+  <!--============= End About Section ================= -->
+
+  <!--========== Start Digital Power Section ================= -->
+  <section id="digital-power-section" class="pt-7">
+    <div class="container mx-auto">
+      <h4 class="section-title">
+        {{'digitalPower.titleHome' | translate}}
+      </h4>
+      <p class="section-decription mt-3">
+        {{'digitalPower.descriptionHome' | translate}}
+      </p>
+      <div class="row mt-4 h-100">
+        <div class="col-xl-4 col-md-6 col-sm-6 col-12 100">
+          <div class="box p-3 mb-3 100">
+            <div class="image-container">
+              <img src="assets/images/home/digital-power/digitalPower1.svg" alt="icon">
+            </div>
+            <h6 class="title fw-bold mt-4">
+              {{'digitalPower.list.title1' | translate}}
+            </h6>
+            <p class="description text-center">
+              {{'digitalPower.list.description1' | translate}}
+            </p>
+          </div>
+        </div>
+        <div class="col-xl-4 col-md-6 col-sm-6 col-12 100">
+          <div class="box p-3 mb-3 100">
+            <div class="image-container">
+              <img src="assets/images/home/digital-power/digitalPower1.svg" alt="icon">
+            </div>
+            <h6 class="title fw-bold mt-4">
+              {{'digitalPower.list.title2' | translate}}
+            </h6>
+            <p class="description text-center">
+              {{'digitalPower.list.description2' | translate}}
+            </p>
+          </div>
+        </div>
+        <div class="col-xl-4 col-md-6 col-sm-6 col-12 100">
+          <div class="box p-3 mb-3 100">
+            <div class="image-container">
+              <img src="assets/images/home/digital-power/digitalPower1.svg" alt="icon">
+            </div>
+            <h6 class="title fw-bold mt-4">
+              {{'digitalPower.list.title1' | translate}}
+            </h6>
+            <p class="description text-center">
+              {{'digitalPower.list.description1' | translate}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--============= End Digital Power Section ================= -->
+
+  <!--========== Start Payment Steps Section ================= -->
+  <section id="payment-steps-section" class="pt-7">
+    <div class="container mx-auto">
+      <div class="row">
+        <div class="col-md-7 mb-3">
+          <h4 class="title">
+            {{'paymentSteps.titleHome' | translate}}
+          </h4>
+          <p class="decription mt-3">
+            {{'paymentSteps.descriptionHome' | translate}}
+          </p>
+          <div class="payment-step-item mt-4 mb-3">
+            <div class="d-flex align-items-center gap-4">
+              <div class="icon">
+                <img src="assets/images/home/digital-power/digitalPower1.svg" alt="icon">
+              </div>
+              <div class="content-texts d-flex align-items-center flex-column gap-1">
+                <h6 class="title w-100 text-wrap">
+                  {{'paymentSteps.steps.title1' | translate}}
+                </h6>
+                <p class="description w-100 text-wrap">
+                  {{'paymentSteps.steps.description1' | translate}}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="payment-step-item mt-4 mb-3">
+            <div class="d-flex align-items-center gap-4">
+              <div class="icon">
+                <img src="assets/images/home/digital-power/digitalPower2.svg" alt="icon">
+              </div>
+              <div class="content-texts d-flex align-items-center flex-column gap-1">
+                <h6 class="title w-100 text-wrap">
+                  {{'paymentSteps.steps.title2' | translate}}
+                </h6>
+                <p class="description w-100 text-wrap">
+                  {{'paymentSteps.steps.description2' | translate}}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="payment-step-item mt-4">
+            <div class="d-flex align-items-center gap-4">
+              <div class="icon">
+                <img src="assets/images/home/digital-power/digitalPower3.svg" alt="icon">
+              </div>
+              <div class="content-texts d-flex align-items-center flex-column gap-1">
+                <h6 class="title w-100 text-wrap">
+                  {{'paymentSteps.steps.title3' | translate}}
+                </h6>
+                <p class="description w-100 text-wrap">
+                  {{'paymentSteps.steps.description3' | translate}}
+                </p>
+              </div>
+            </div>
+          </div>
+          <a href="/Auth/Login" class="btn btn-outline-white w-auto text-nowrap mt-3" role="button">
+            <span class="d-flex align-items-center justify-content-center gap-2">
+              {{'general.startNow' | translate}}
+            </span>
+          </a>
+        </div>
+        <div class="col-md-5 mb-3">
+          <div class="steps-hero-image-container">
+            <img src="assets/images/home/steps-image.webp" width="800" height="600" alt="hero-image" class="w-100">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--============= End Payment Steps Section ================= -->
+</div>

@@ -1,0 +1,38 @@
+<div class="auth" id="auth-form">
+  <div class="row g-0">
+    <div class="d-flex align-items-center justify-content-between flex-column"
+      [ngClass]="!showSlider?'col-12':'col-lg-7'">
+      <div class="form-content row align-items-center justify-content-center form-h w-100 m-0">
+        <div class="col-md-8 col-sm-10 col-11 m-auto">
+          <div class="py-4 bg-transparent">
+            <!-- <div class="d-flex">
+              <a [routerLink]="['/']" class="form-logo d-flex">
+                <img src="assets/images/logo/logo.webp" alt="logo" class="w-100 h-100">
+              </a>
+            </div> -->
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="showSlider">
+      <div class="col-lg-5 d-lg-block d-none p-0 position-fixed slider">
+        <div class="bg-form round-banner h-100">
+          <div class="p-5 d-flex align-items-center h-100">
+            <!-- <div class="p-5 d-flex justify-content-between flex-column min-h"> -->
+            <!-- <div class="d-flex justify-content-end">
+              <a class="text-white-color d-flex align-items-center gap-2 home" [routerLink]="['/']"> <i
+                  class="pi pi-arrow-left scaleX-rtl"></i>
+                <span>{{'general.backToHome'|translate}}</span></a>
+            </div> -->
+            <div class="text-center">
+              <auth-carousel></auth-carousel>
+            </div>
+            <div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

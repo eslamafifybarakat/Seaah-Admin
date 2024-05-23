@@ -1,0 +1,17 @@
+.loader-container {
+  background-color: #fff;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  inset: 0;
+  z-index: 1000;
+  .logo {
+    width: 11rem;
+    animation: crescendo 1s alternate infinite ease-in;
+  }
+}
+@keyframes crescendo {
+  100% {
+    transform: scale(1.1);
+  }
+}

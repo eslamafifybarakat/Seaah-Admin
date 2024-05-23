@@ -1,0 +1,40 @@
+<div id="login" class="auth-form">
+  <div class="d-flex justify-content-end mb-md-4 mb-2">
+    <a class="lang-item">
+      <language-selector></language-selector>
+    </a>
+  </div>
+  <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap mb-3">
+    <img src="assets/images/logo/logo.svg" class="form-logo mb-2 pointer" alt="logo" [routerLink]="['/']">
+  </div>
+  <h1 class="fs-2 text-center">
+    {{ 'auth.loginToYourAccount' | translate }}
+  </h1>
+  <form [formGroup]="loginForm" (ngSubmit)="loginNow()" class="pt-sm-4 pt-2">
+    <div class="mb-3">
+      <label for="phone">{{ 'labels.phone' | translate }}</label>
+      <input id="phone" class="form-control" type="text" placeholder="{{ 'placeholders.phone' | translate }}"
+        formControlName="phone" MaxDigits [maxNumber]="9"
+        [class.border-red]="(formControls.phone.touched || formControls.phone.dirty) && formControls.phone.invalid" />
+      <ng-container *ngIf="formControls.phone.invalid && (formControls.phone.dirty || formControls.phone.touched)">
+        <div class="mt-1">
+          <span *ngIf="formControls.phone.errors.required" class="text-danger fs-8">
+            {{ 'validations.required' | translate }}
+          </span>
+          <span *ngIf="formControls.phone.errors.pattern" class="text-danger fs-8">
+            {{ 'validations.phoneNotCorrect' | translate }}
+          </span>
+        </div>
+      </ng-container>
+    </div>
+    <button type="submit" class="btn w-100 btn-solid-main form-btn mt-4 fs-6">
+      {{ 'auth.signIn' | translate }}
+    </button>
+    <div class="mt-4 fs-8 d-flex justify-content-center align-items-center gap-1 flex-wrap text-center">
+      <p class="mb-0">{{ 'auth.notHaveAccount' | translate }}</p>
+      <a class="text-main-color" [routerLink]="['/Auth/Register']">
+        {{ 'auth.register' | translate }}
+      </a>
+    </div>
+  </form>
+</div>

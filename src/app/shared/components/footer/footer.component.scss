@@ -1,0 +1,28 @@
+#footer {
+  background-color: transparent;
+  color: var(--text-white-color);
+  .footer-logo {
+    width: 12rem;
+  }
+  .input-group {
+    border: 2px solid var(--bg-white-color);
+    .form-control {
+      height: 3rem;
+    }
+    .input-group-text {
+      background-color: transparent !important;
+    }
+    .join-btn {
+      width: 2rem;
+      min-width: 2rem;
+      height: 2rem;
+    }
+  }
+  .social-icon {
+    width: 31px;
+    min-width: 31px;
+    height: 31px;
+    background: linear-gradient(180deg, #004FB3 0%, #006960 72.5%);
+    color: white !important;
+  }
+}

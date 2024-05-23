@@ -1,0 +1,360 @@
+#home-page {
+  .pt-hero {
+    padding-top: 7rem;
+  }
+
+  .pt-7 {
+    padding-top: 7rem;
+  }
+
+  section {
+    .section-title {
+      font-size: 50px;
+      font-weight: 600;
+      line-height: 58px;
+      text-align: center;
+    }
+
+    .section-decription {
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 22px;
+      text-align: center;
+    }
+  }
+
+  #hero-section {
+    min-height: calc(100vh + 1rem);
+
+    background: {
+      size: cover;
+      repeat: no-repeat;
+      position: center center;
+    }
+
+    .title {
+      color: var(--text-white-color);
+
+      font: {
+        size: 55px;
+        weight: 600;
+      }
+
+      line-height: 70px;
+    }
+
+    .description {
+      color: var(--text-white-color);
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 40px;
+      width: 75%;
+    }
+
+    .main-hero-image-container img {
+      width: 100%;
+      object-fit: fill;
+    }
+  }
+
+  .btn {
+
+    &-solid-main,
+    &-outline-white,
+    &-video {
+      min-width: 7rem;
+      border-radius: 30px;
+      padding: 0.8rem 1.5rem;
+      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.4s ease-in-out;
+    }
+
+    &-solid-main {
+      background-color: var(--bg-main-color);
+      border-color: var(--text-main-color);
+      color: var(--text-white-color);
+
+      &:hover,
+      &:focus {
+        color: var(--text-white-color);
+      }
+    }
+
+    &-outline-white {
+      border: 2px solid #8ED3FF;
+      background-color: transparent;
+      color: var(--text-white-color);
+    }
+
+    &-video {
+      border: 2px solid transparent;
+      background-color: transparent;
+      color: var(--text-white-color);
+    }
+  }
+
+  #about-section {
+    .about-card {
+      border: 1px solid #00967C;
+      border-radius: 25px;
+      background-color: transparent;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+
+      &:hover {
+        background: #0B1E37;
+      }
+
+      .person-img {
+        width: 2.7rem;
+        min-width: 2.7rem;
+        height: 2.7rem;
+        margin-left: -1.3rem;
+
+        .blur-img {
+          filter: blur(1px);
+        }
+
+        &:dir(rtl) {
+          margin-right: -1.3rem;
+          margin-left: inherit;
+        }
+
+        .job-num {
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+
+      .row {
+        display: flex;
+        flex-grow: 1;
+        align-items: stretch;
+
+        .col-lg-7,
+        .col-lg-5 {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 0;
+
+          .about-card {
+            flex: 1;
+          }
+        }
+      }
+
+      .boxes {
+        display: flex;
+        flex: 1;
+
+        .count {
+          font-size: 35px;
+          font-weight: 600;
+          line-height: 42px;
+          letter-spacing: -2px;
+          color: #00D7B8;
+        }
+
+        .count-label {
+          font-size: 28px;
+          font-weight: 600;
+          line-height: 45px;
+        }
+
+        .col-6 {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding-right: 20px;
+          padding-left: 20px;
+
+          &:first-child::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 1px;
+            background-color: var(--bg-white-color);
+          }
+        }
+      }
+    }
+  }
+
+  #digital-power-section {
+    color: var(--text-white-color);
+
+    .box {
+      gap: 3px;
+      border-radius: 25px;
+      border: 1.5px solid #01554E;
+      background: #0B1E37;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      .title {
+        font-size: 24px;
+      }
+
+      .description {
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 25px;
+      }
+
+      .image-container {
+        width: 105.77px;
+        height: 105.23px;
+        background: linear-gradient(180deg, #004FB3 0%, #006960 72.5%);
+        border-radius: 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+
+        img {
+          object-fit: fill;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  #payment-steps-section {
+    color: var(--text-white-color);
+
+    .title {
+      font-size: 55px;
+      font-weight: 700;
+      line-height: 80px;
+    }
+
+    .decription {
+      font-size: 19px;
+      font-weight: 400;
+      line-height: 32px;
+      color: #E4E4E4;
+    }
+
+    .payment-step-item {
+      .icon {
+        width: 65px;
+        height: 65px;
+        background: linear-gradient(180deg, #004FB3 0%, #006960 72.5%);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+
+        img {
+          object-fit: fill;
+          width: 45px;
+        height: 45px;
+        }
+      }
+
+      .content-texts {
+        .title {
+          font-size: 23px;
+          font-weight: 700;
+          line-height: 32px;
+          color: #E4E4E4;
+          text-align: initial;
+        }
+
+        .description {
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 30px;
+          color: #E4E4E4;
+        }
+      }
+    }
+  }
+}
+
+:host::ng-deep {
+  .p-rating {
+    gap: 0.5rem;
+
+    .p-rating-item {
+      .p-icon {
+        width: 0.9rem;
+        height: 0.9rem;
+      }
+
+      &.p-rating-item-active .p-rating-icon {
+        color: #FADC42;
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media only screen and (max-width: 1199px) {
+  .pt-7 {
+    padding-top: 6rem;
+  }
+
+  #home-page {
+    #hero-section {
+      padding-top: 0;
+
+      .title {
+        font-size: 2.5rem;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .pt-7 {
+    padding-top: 4rem;
+  }
+
+  #home-page {
+    #hero-section {
+      min-height: auto;
+
+      .title {
+        font-size: 2.2rem;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .pt-7 {
+    padding-top: 3.2rem;
+  }
+
+  #home-page {
+
+    .fs-2,
+    .fs-1 {
+      font-size: 1.3rem !important;
+    }
+
+    #hero-section {
+
+      .title,
+      .sub-title,
+      .description {
+        text-align: center;
+        font-size: 1.4rem;
+        margin: auto;
+      }
+    }
+  }
+}
