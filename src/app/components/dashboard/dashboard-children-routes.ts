@@ -9,6 +9,7 @@ import { ParentChildrenRoutes } from '../dashboard/parent/parent-child-route';
 import { installmentWaysChildrenRoutes } from '../dashboard/installment-ways/installment-ways-children-routes';
 import { errorsChildrenRoutes } from '../errors/errors-children-routes';
 import { BankChildrenRoutes } from './banks/banks-child-route';
+import { OrganizationshildrenRoutes } from './organizations/organizations-child-route';
 
 export const dashBoardChildrenRoutes: any[] = [
   { path: '', redirectTo: 'Statistics', pathMatch: 'full' },
@@ -18,6 +19,21 @@ export const dashBoardChildrenRoutes: any[] = [
     component: StatisticsComponent,
     pathMatch: 'full'
   },
+  // Organizations
+  {
+    path: 'Organizations',
+    // canActivate: [PermissionGuard],
+    data: {
+      permission: 'Pages.Organizations',
+      title: 'Organizations'
+    },
+    loadComponent: () =>
+      import('./../dashboard/organizations/organizations.component').then(
+        (c) => c.OrganizationsComponent
+      ),
+    children: OrganizationshildrenRoutes
+  },
+
   // Parents
   {
     path: 'Parent',
@@ -86,19 +102,6 @@ export const dashBoardChildrenRoutes: any[] = [
       ),
     children: SchoolsChildrenRoutes
   },
-  // {
-  //   path: 'Installment-Ways',
-  //   // canActivate: [PermissionGuard],
-  //   data: {
-  //     permission: 'Pages.installmentWays.List',
-  //     title: 'installmentWays'
-  //   },
-  //   loadComponent: () =>
-  //     import('../dashboard/installment-ways/installment-ways.component').then(
-  //       (c) => c.InstallmentWaysComponent
-  //     ),
-  //   children: installmentWaysChildrenRoutes
-  // },
 
   // Errors
   {

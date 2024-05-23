@@ -56,10 +56,8 @@ export class AsideMenuService {
         <path d="M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16" />
       </svg>
     `,
-        // routerLink: '/Dashboard/Organizations',
         state: false, //Opened Or Closed
         permission: true,
-        // permission: this.checkPermissionService.hasPermission('Pages.Sales.List'),
         children: [
           {
             text: 'dashboard.banks.banks',
@@ -104,6 +102,7 @@ export class AsideMenuService {
         ]
       },
     ];
+
     return menuListItems;
   }
 
