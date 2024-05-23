@@ -1,6 +1,6 @@
 export const roots = {
   auth: {
-    login: 'login',
+    login: 'dashboard/login',
     currentUserInformation: 'users/user-loggned',
     registerParent: 'register',
     validateCode: 'check-otp',

@@ -7,17 +7,18 @@ import { LocalizationLanguageService } from 'src/app/services/generic/localizati
 import { CurrentUserInformationApiResponse, LoginApiResponse } from 'src/app/interfaces/auth';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MetaDetails, MetadataService } from 'src/app/services/generic/metadata.service';
+import { MaxDigitsDirective } from '../../dashboard/directives/max-digits.directive';
 import { AuthService } from '../../../services/authentication/auth.service';
 import { AlertsService } from './../../../services/generic/alerts.service';
 import { PublicService } from './../../../services/generic/public.service';
 import { Subscription, catchError, finalize, tap } from 'rxjs';
-import { patterns } from './../../../shared/configs/patterns';
+import { patterns } from 'src/app/shared/configs/patterns';
 import { CommonModule, Location } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { DialogService } from 'primeng/dynamicdialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { Component } from '@angular/core';
-import { DialogService } from 'primeng/dynamicdialog';
-import { MaxDigitsDirective } from '../../dashboard/directives/max-digits.directive';
+import { PasswordModule } from 'primeng/password';
 @Component({
   standalone: true,
   imports: [
@@ -27,6 +28,7 @@ import { MaxDigitsDirective } from '../../dashboard/directives/max-digits.direct
     // Modules
     ReactiveFormsModule,
     TranslateModule,
+    PasswordModule,
     CommonModule,
     RouterModule,
     FormsModule,
@@ -42,11 +44,9 @@ export class LoginComponent {
   private subscriptions: Subscription[] = [];
 
   loginForm = this.fb.group({
-    phone: ['', [
-      Validators.required,
-      // Validators.pattern(patterns.phone)
-    ]
-    ]
+    email: ['', { validators: [Validators.required, Validators.pattern(patterns.email)], updateOn: 'blur' }],
+    password: ['', { validators: Validators.required, updateOn: 'blur' }],
+    remember: [false, []],
   });
   get formControls(): any {
     return this.loginForm?.controls;
@@ -78,82 +78,60 @@ export class LoginComponent {
     this.metadataService.updateMetaTagsForSEO(metaData);
   }
 
-  // Start Login Functions
-  loginNow(): void {
-    if (this.loginForm?.valid) {
-      this.publicService.showGlobalLoader.next(true);
-      let formData = new FormData();
-      formData.append('phone', this.loginForm?.value?.phone);
-      //Send Request to login
-      let loginSubscription: Subscription = this.authService?.login(formData)?.pipe(
-        tap((res: LoginApiResponse) => this.handleSuccessLoggedIn(res)),
-        catchError(err => this.handleError(err)),
-        finalize(() => this.publicService.showGlobalLoader.next(false))
-      ).subscribe();
-      this.subscriptions.push(loginSubscription);
-    } else {
-      this.publicService.validateAllFormFields(this.loginForm);
-    }
-  }
-  private handleSuccessLoggedIn(res: LoginApiResponse): void {
-    if (res?.status == 200) {
-      // this.authService.saveUserLoginData(res?.data);
-      // this.authService.saveToken(res?.data?.user_info?.token);
-      // this.getCurrentUserInformation();
-      this.handleSuccess(res?.message);
-      this.verifyAccountModal(this.loginForm?.value);
-    } else {
-      this.handleError(res?.message);
-    }
-  }
-  // End Login Functions
-
-  // Start Verify Account Modal
-  verifyAccountModal(data?: any): void {
-    const ref: any = this.dialogService?.open(VerificationCodeComponent, {
-      data: {
-        data
-      },
-      header: this.publicService?.translateTextFromJson('auth.verificationOtp'),
-      dismissableMask: false,
-      width: '35%',
-      styleClass: 'custom-modal',
-    });
-    ref?.onClose?.subscribe((res: any) => {
-      if (res?.listChanged) {
-        this.loginForm.reset();
-        this.authService.saveUserLoginData(res?.data);
-        this.authService.saveCurrentUserInformation(res?.data);
-        this.authService.saveToken(res?.data?.token);
-        this.router.navigate(['/Dashboard/']);
-      }
-    });
-  }
-  // End Verfiy Account Modal
-
-
-  // Start Current User Information Functions
-  private getCurrentUserInformation(): void {
-    let currentUserInformationSubscription: Subscription = this.authService?.getCurrentUserInformation()?.pipe(
-      tap((res: CurrentUserInformationApiResponse) => this.handleSuccessCurrentUserInformation(res)),
+ // Start Login Functions
+ loginNow(): void {
+  if (this.loginForm?.valid) {
+    this.publicService.showGlobalLoader.next(true);
+    let formData = new FormData();
+    formData.append('email', this.loginForm?.value?.email);
+    formData.append('password', this.loginForm?.value?.password);
+    //Send Request to login
+    let loginSubscription: Subscription = this.authService?.login(formData)?.pipe(
+      tap((res: LoginApiResponse) => this.handleSuccessLoggedIn(res)),
       catchError(err => this.handleError(err)),
-      finalize(() => this.finalizeCurrentUserInformation())
+      finalize(() => this.finalizeLogin())
     ).subscribe();
-    this.subscriptions.push(currentUserInformationSubscription);
+    this.subscriptions.push(loginSubscription);
+  } else {
+    this.publicService.validateAllFormFields(this.loginForm);
   }
-  private handleSuccessCurrentUserInformation(res: CurrentUserInformationApiResponse): void {
-    if (res?.status == 200 && res?.data?.status == true) {
-      this.authService.saveCurrentUserInformation(res?.data?.data);
-      this.publicService.showGlobalLoader.next(false);
-      this.router.navigate(['/Dashboard']);
-    } else {
-      this.handleError(res?.message);
-    }
+}
+private handleSuccessLoggedIn(res: LoginApiResponse): void {
+  if (res?.status == 200) {
+    this.authService.saveUserLoginData(res?.data);
+    this.authService.saveToken(res?.data?.user_info?.token);
+    this.getCurrentUserInformation();
+  } else {
+    this.handleError(res?.message);
   }
-  private finalizeCurrentUserInformation(): void {
+}
+private finalizeLogin(): void {
 
+}
+// End Login Functions
+
+// Start Current User Information Functions
+private getCurrentUserInformation(): void {
+  let currentUserInformationSubscription: Subscription = this.authService?.getCurrentUserInformation()?.pipe(
+    tap((res: CurrentUserInformationApiResponse) => this.handleSuccessCuurentUserInformation(res)),
+    catchError(err => this.handleError(err)),
+    finalize(() => this.finalizeCurrentUserInformation())
+  ).subscribe();
+  this.subscriptions.push(currentUserInformationSubscription);
+}
+private handleSuccessCuurentUserInformation(res: CurrentUserInformationApiResponse): void {
+  if (res?.status == 200) {
+    this.authService.saveCurrentUserInformation(res?.data?.data);
+    this.publicService.showGlobalLoader.next(false);
+    this.router.navigate(['/Dashboard']);
+  } else {
+    this.handleError(res?.message);
   }
-  // End Current User Information Functions
+}
+private finalizeCurrentUserInformation(): void {
+
+}
+// End Current User Information Functions
 
   back(): void {
     this.location.back();

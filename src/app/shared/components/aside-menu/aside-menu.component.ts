@@ -86,6 +86,9 @@ export class AsideMenuComponent {
     if (this.currentUserInformation?.type == 'bank') {
       this.menuListItems = this.asideMenuService.getBankAsideMenuItem();
     }
+    if (this.currentUserInformation?.user?.type == 'admin') {
+      this.menuListItems = this.asideMenuService.getAdminAsideMenuItem();
+    }
   }
 
   // Handle click event on menu item

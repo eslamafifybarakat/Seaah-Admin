@@ -12,29 +12,52 @@
   </h1>
   <form [formGroup]="loginForm" (ngSubmit)="loginNow()" class="pt-sm-4 pt-2">
     <div class="mb-3">
-      <label for="phone">{{ 'labels.phone' | translate }}</label>
-      <input id="phone" class="form-control" type="text" placeholder="{{ 'placeholders.phone' | translate }}"
-        formControlName="phone" MaxDigits [maxNumber]="9"
-        [class.border-red]="(formControls.phone.touched || formControls.phone.dirty) && formControls.phone.invalid" />
-      <ng-container *ngIf="formControls.phone.invalid && (formControls.phone.dirty || formControls.phone.touched)">
+      <label for="email">
+        {{'labels.email' | translate}}
+      </label>
+      <input id="email" class="form-control" type="text" placeholder="{{'placeholders.email' | translate}}"
+        formControlName="email" (input)="publicService?.clearValidationErrors(formControls.email)"
+        [class.border-red]="(formControls?.email?.touched||formControls?.email?.dirty)&&formControls?.email?.invalid" />
+      <ng-container
+        *ngIf="formControls?.email?.invalid && (formControls?.email?.dirty || formControls?.email?.touched)">
         <div class="mt-1">
-          <span *ngIf="formControls.phone.errors.required" class="text-danger fs-8">
-            {{ 'validations.required' | translate }}
-          </span>
-          <span *ngIf="formControls.phone.errors.pattern" class="text-danger fs-8">
-            {{ 'validations.phoneNotCorrect' | translate }}
-          </span>
+          <ng-container *ngIf="formControls?.email?.errors?.required">
+            <span class="text-danger fs-8">
+              {{'validations.email'|translate}}
+            </span>
+          </ng-container>
+          <ng-container *ngIf="formControls?.email?.errors?.pattern">
+            <span class="text-danger fs-8">
+              {{'validations.emailNotCorrect'|translate}}
+            </span>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+    <div class="mb-2">
+      <label for="password">
+        {{'labels.password' | translate}}
+      </label>
+      <div class="rounded-input p-mask"
+        [class.border-red]="formControls?.password?.invalid && (formControls?.password?.dirty || formControls?.password?.touched)">
+        <p-password [toggleMask]="true" id="p-password" formControlName="password"
+          placeholder="{{'placeholders.password'|translate}}" [attr.autocomplete]="'current-password'"
+          [feedback]="false">
+        </p-password>
+      </div>
+      <ng-container
+        *ngIf="formControls?.password?.invalid && (formControls?.password?.dirty || formControls?.password?.touched) ">
+        <div class="mt-1">
+          <ng-container *ngIf="formControls?.password?.errors?.['required']">
+            <span class="text-danger fs-8">
+              {{'validations.password'|translate}}
+            </span>
+          </ng-container>
         </div>
       </ng-container>
     </div>
     <button type="submit" class="btn w-100 btn-solid-main form-btn mt-4 fs-6">
-      {{ 'auth.signIn' | translate }}
+      {{'auth.signIn'|translate}}
     </button>
-    <div class="mt-4 fs-8 d-flex justify-content-center align-items-center gap-1 flex-wrap text-center">
-      <p class="mb-0">{{ 'auth.notHaveAccount' | translate }}</p>
-      <a class="text-main-color" [routerLink]="['/Auth/Register']">
-        {{ 'auth.register' | translate }}
-      </a>
-    </div>
   </form>
 </div>
