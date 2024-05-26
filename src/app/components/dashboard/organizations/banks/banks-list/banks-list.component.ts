@@ -199,8 +199,9 @@ export class BanksListComponent {
         element['addressName'] = addressBbj[this.currentLanguage];
         // installment ways
         element?.installment_ways?.forEach((item: any) => {
-          let nameObj: any = JSON.parse(item?.name || '{}');
-          item['name'] = nameObj[this.currentLanguage];
+          // let nameObj: any = JSON.parse(item?.name || '{}');
+          // item['name'] = nameObj[this.currentLanguage];
+          item['name'] = item['name'];
         });
         element['usersCount'] = element?.users?.length>0 ? element?.users?.length :'0';
       });

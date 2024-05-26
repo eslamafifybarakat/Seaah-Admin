@@ -29,6 +29,7 @@ import { Subscription } from 'rxjs';
     TranslateModule,
     CalendarModule,
     DropdownModule,
+    DropdownModule,
     CommonModule,
     FormsModule,
 
@@ -47,16 +48,19 @@ export class AddEditInstallmentWayComponent {
   installmentWayId: number;
   installmentWayData: any;
 
-  periodList:any = [
-    {id:1,value:'1',name:'1'},
-    {id:2,value:'2',name:'2'},
-    {id:3,value:'3',name:'3'},
-    {id:4,value:'4',name:'4'},
-    {id:1,value:'1',name:'1'},
-    {id:1,value:'1',name:'1'},
-    {id:1,value:'1',name:'1'},
-    {id:1,value:'1',name:'1'},
-    {id:1,value:'1',name:'1'},
+  periodList: any = [
+    { id: 1, value: '1', name: '1' },
+    { id: 2, value: '2', name: '2' },
+    { id: 3, value: '3', name: '3' },
+    { id: 4, value: '4', name: '4' },
+    { id: 5, value: '5', name: '5' },
+    { id: 6, value: '6', name: '6' },
+    { id: 7, value: '7', name: '7' },
+    { id: 8, value: '8', name: '8' },
+    { id: 9, value: '9', name: '9' },
+    { id: 10, value: '10', name: '10' },
+    { id: 11, value: '11', name: '11' },
+    { id: 12, value: '12', name: '12' },
   ];
 
   installmentWaysForm = this.fb?.group(
@@ -69,7 +73,8 @@ export class AddEditInstallmentWayComponent {
       description: ['', {
         validators: [
           Validators.required, Validators.minLength(6)], updateOn: "blur"
-      }]
+      }],
+      period: [null, { validators: [Validators.required] }],
     }
   );
   get formControls(): any {
@@ -108,6 +113,13 @@ export class AddEditInstallmentWayComponent {
     this.metadataService.updateMetaTagsForSEO(metaData);
   }
   patchValue(): void {
+    this.periodList?.forEach((element: any) => {
+      if (element?.value == this.installmentWayData?.item?.period) {
+        this.installmentWaysForm.patchValue({
+          period: element
+        });
+      }
+    });
     this.installmentWaysForm.patchValue({
       name: this.installmentWayData?.item?.installmentWaysName,
       description: this.installmentWayData?.item?.installmentWaysDetails,
@@ -125,10 +137,12 @@ export class AddEditInstallmentWayComponent {
   }
   private extractFormData(): any {
     let formData = new FormData();
-    formData.append('name[en]', this.installmentWaysForm?.value?.name);
-    formData.append('name[ar]', this.installmentWaysForm?.value?.name);
-    formData.append('description[en]', this.installmentWaysForm?.value?.description);
-    formData.append('description[ar]', this.installmentWaysForm?.value?.description);
+    let formInfo: any = this.installmentWaysForm?.value;
+    formData.append('name[en]', formInfo?.name);
+    formData.append('name[ar]', formInfo?.name);
+    formData.append('description[en]', formInfo?.description);
+    formData.append('description[ar]', formInfo?.description);
+    formData.append('period', formInfo?.period?.value);
     if (this.isEdit) {
       formData.append('_method', 'PUT');
     }

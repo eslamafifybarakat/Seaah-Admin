@@ -359,6 +359,7 @@
     "joinNow": "Join now"
   },
   "labels": {
+    "period": "Period",
     "status":"Status",
     "bank":"Bank",
     "titleAR": "Arabic Title",

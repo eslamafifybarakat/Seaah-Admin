@@ -83,7 +83,7 @@
           [enableFilterDriverStatus]="true" [addBtnText]="'dashboard.installmentWays.addInstallmentWay'" (addHandler)="addEditItem()"
           (resetHandler)="clearTable()" [notFoundImage]="'assets/images/not-found/no-user.svg'"
           [showActionsButtons]="true" [showActions]="true" [showEdit]="true" (editHandler)="addEditItem($event,'edit')"
-          [showDelete]="true" (deleteHandler)="deleteItem($event)" [showDetails]="true"
+          [showDelete]="true" (deleteHandler)="deleteItem($event)" [showDetails]="false"
           (detailsHandler)="itemDetails($event)"></dynamic-table-v2>
       </ng-container>
       <!-- Card -->

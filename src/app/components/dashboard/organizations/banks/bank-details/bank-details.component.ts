@@ -146,8 +146,9 @@ export class BankDetailsComponent {
       this.bankData['addressName'] = addressBbj[this.currentLanguage];
       // installment ways
       this.bankData?.installment_ways?.forEach((element: any) => {
-        let nameObj: any = JSON.parse(element?.name || '{}');
-        element['name'] = nameObj[this.currentLanguage];
+        // let nameObj: any = JSON.parse(element?.name || '{}');
+        // element['name'] = nameObj[this.currentLanguage];
+        element['name'] = element['name'];
       });
       this.bankData['usersCount'] = this.bankData?.users?.length>0 ? this.bankData?.users?.length :'0';
       this.patchValue();
