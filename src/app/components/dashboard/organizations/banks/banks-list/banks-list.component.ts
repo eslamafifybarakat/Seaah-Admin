@@ -70,7 +70,7 @@ export class BanksListComponent {
   page: number = 1;
   perPage: number = 10;
   pagesCount: number = 0;
-  rowsOptions: number[] = [5, 10, 15, 30];
+  rowsOptions: number[] = [10, 15, 30];
   @ViewChild('paginator') paginator: Paginator | undefined;
   // End Pagination Variables
 
@@ -204,19 +204,19 @@ export class BanksListComponent {
           item['name'] = nameObj[this.currentLanguage];
         });
         // Users 
-        element['users'] = [{
-          id: 1,
-          name: 'user',
-          phone: '512142142',
-          iqama_No: '1234567890',
-          email: 'eslam@eslam.com',
-          organization_id: 1,
-          type: 'bank',
-          source_register: 'web',
-          type_coming_otp: 'email',
-          password: '123456'
-        }];
-        element['usersCount'] = element?.users?.length;
+        // element['users'] = [{
+        //   id: 1,
+        //   name: 'user',
+        //   phone: '512142142',
+        //   iqama_No: '1234567890',
+        //   email: 'eslam@eslam.com',
+        //   organization_id: 1,
+        //   type: 'bank',
+        //   source_register: 'web',
+        //   type_coming_otp: 'email',
+        //   password: '123456'
+        // }];
+        element['usersCount'] = element?.users?.length>0 ? element?.users?.length :'0';
       });
     } else {
       this.handleError(response.message);

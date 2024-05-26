@@ -35,6 +35,7 @@ export class OrgnizationUsersComponent {
   private subscriptions: Subscription[] = [];
   @Input() items:any=[];
   @Output() handleDeleteUser: EventEmitter<any> = new EventEmitter();
+  @Output() handleAddUser: EventEmitter<any> = new EventEmitter();
 
   dataStyleType: string = 'list';
 
@@ -182,6 +183,7 @@ export class OrgnizationUsersComponent {
   }
   // Add User
   addItem(item?: any, type?: any): void {
+    this.handleAddUser.emit('Add');
     // const ref = this.dialogService?.open(AddClientComponent, {
     //   data: {
     //     item,

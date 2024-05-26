@@ -68,7 +68,7 @@
                   {{'labels.startTime'|translate}}
                 </label>
                 <p>
-                  {{bankData.start_time||'---'}}
+                  {{bankData?.start_time||'---'}}
                 </p>
               </div>
               <div>
@@ -76,7 +76,15 @@
                   {{'labels.endTime'|translate}}
                 </label>
                 <p>
-                  {{bankData.end_time||'---'}}
+                  {{bankData?.end_time||'---'}}
+                </p>
+              </div>
+              <div>
+                <label class="mb-1 text-muted-color">
+                  {{'dashboard.tableHeader.usersCount'|translate}}
+                </label>
+                <p>
+                  {{bankData?.usersCount||'---'}}
                 </p>
               </div>
               <div>
@@ -84,10 +92,18 @@
                   {{'labels.installmentWays'|translate}}
                 </label>
                 <p class="d-flex gap-2 flex-wrap">
-                  <span class="chid text-nowrap bg-main-color text-white-color"
-                    *ngFor="let item of bankData.installment_ways">
-                    {{item.name}}
-                  </span>
+                  <ng-container
+                    *ngIf="bankData?.installment_ways&&bankData?.installment_ways?.length>0; else elseNoInstallmentWays">
+                    <span class="chid text-nowrap bg-main-color text-white-color"
+                      *ngFor="let item of bankData?.installment_ways">
+                      {{item?.name}}
+                    </span>
+                  </ng-container>
+                  <ng-template #elseNoInstallmentWays>
+                    <p class="text-center noItemAdded">
+                      {{'general.noItemAdded'|translate}}
+                    </p>
+                  </ng-template>
                 </p>
               </div>
             </div>
@@ -199,9 +215,17 @@
                     {{'labels.installmentWays'|translate}}
                   </label>
                   <div class="form-control d-flex gap-2 align-items-center flex-wrap ways">
-                    <span class="chid text-nowrap" *ngFor="let item of bankData.installment_ways">
+                    <ng-container
+                    *ngIf="bankData?.installment_ways&&bankData?.installment_ways?.length>0; else elseNoInstallmentWays">
+                    <span class="chid text-nowrap" *ngFor="let item of bankData?.installment_ways">
                       {{item.name}}
                     </span>
+                  </ng-container>
+                  <ng-template #elseNoInstallmentWays>
+                    <p class="text-center noItemAdded">
+                      {{'general.noItemAdded'|translate}}
+                    </p>
+                  </ng-template>
                   </div>
                 </div>
               </div>
@@ -212,7 +236,8 @@
     </form>
     <ng-container *ngIf="!isLoadingBankData;">
       <div class="global-card my-4 pt-4">
-        <app-orgnization-users [items]="this.bankData?.users" (handleDeleteUser)="deleteBankUser($event)"></app-orgnization-users>
+        <app-orgnization-users [items]="this.bankData?.users" (handleAddUser)="addUser($event)"
+          (handleDeleteUser)="deleteBankUser($event)"></app-orgnization-users>
       </div>
     </ng-container>
   </div>

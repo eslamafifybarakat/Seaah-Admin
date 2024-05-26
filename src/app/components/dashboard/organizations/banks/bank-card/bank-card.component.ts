@@ -18,6 +18,7 @@ export class BankCardComponent {
   @Input() item: any;
   currentLanguage: string;
 
+  @Output() itemAddUserHandler: EventEmitter<any> = new EventEmitter();
   @Output() itemDetailsHandler: EventEmitter<any> = new EventEmitter();
   @Output() editItemHandler: EventEmitter<any> = new EventEmitter();
   @Output() deleteItemHandler: EventEmitter<any> = new EventEmitter();
@@ -34,6 +35,9 @@ export class BankCardComponent {
     if (isPlatformBrowser(this.platformId)) {
       this.currentLanguage = window?.localStorage?.getItem(keys?.language);
     }
+  }
+  addUser(item: any): void {
+    this.itemAddUserHandler.emit(item);
   }
   itemDetails(item: any): void {
     this.itemDetailsHandler.emit(item);

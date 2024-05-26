@@ -23,6 +23,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Component } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { OrgnizationUsersComponent } from '../../../users/orgnization-users/orgnization-users.component';
+import { AddEditUsersComponent } from '../../../users/add-edit-users/add-edit-users.component';
 
 @Component({
   standalone: true,
@@ -218,6 +219,27 @@ export class BankDetailsComponent {
     console.log(event);
   }
   // End Delete Bank User Functions
+
+    // Start Add User Modal
+    addUser(event: any): void {
+      const ref: any = this.dialogService?.open(AddEditUsersComponent, {
+        data: {
+          type: 'add',
+          organizationData: event
+        },
+        header: this.publicService?.translateTextFromJson('dashboard.users.addUser'),
+        dismissableMask: false,
+        width: '50%',
+        styleClass: 'custom-modal',
+      });
+      ref?.onClose.subscribe((res: any) => {
+        if (res?.listChanged) {
+          this.getBankById(this.bankId);
+        }
+      });
+    }
+    // End Add User Modal
+  
 
   /* --- Handle api requests messages --- */
   private handleSuccess(msg: string | null): any {

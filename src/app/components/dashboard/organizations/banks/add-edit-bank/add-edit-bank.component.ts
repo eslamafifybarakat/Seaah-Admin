@@ -92,10 +92,10 @@ export class AddEditBankComponent {
         validators: [
           Validators.required]
       }],
-      installmentWays: [null, {
-        validators: [
-          Validators.required]
-      }],
+      // installmentWays: [null, {
+      //   validators: [
+      //     Validators.required]
+      // }],
       bankFile: [null, {
         validators: [
           Validators.required]
@@ -128,9 +128,9 @@ export class AddEditBankComponent {
       this.bankId = this.bankData?.item?.id;
       this.patchValue();
     } else {
-      this.getInstallmentWays();
+      // this.getInstallmentWays();
     }
-    this.updateMetaTagsForSEO();
+    // this.updateMetaTagsForSEO();
     if (this.isEdit) {
       // Remove the required validator from the bankFile control
       const bankFileControl = this.bankForm.get('bankFile');
@@ -142,8 +142,8 @@ export class AddEditBankComponent {
   }
   private updateMetaTagsForSEO(): void {
     let metaData: MetaDetails = {
-      title: 'البنوك',
-      description: 'البنوك',
+      title: 'البنوك | سعة',
+      description: 'البنوك | سعة',
       image: './assets/images/logo/logo-favicon.svg'
     }
     this.metadataService.updateMetaTagsForSEO(metaData);
@@ -156,7 +156,7 @@ export class AddEditBankComponent {
       endTime: this.convertTime(this.bankData?.item?.end_time),
     });
     this.bankFileSrc = this.bankData?.item?.image_path;
-    this.getInstallmentWays();
+    // this.getInstallmentWays();
   }
   convertTime(date: any): any {
     const timeString = date;
@@ -166,6 +166,7 @@ export class AddEditBankComponent {
     const time: any = new Date(dateTimeString);
     return time;
   }
+
   // Start Installment Ways List Functions
   getInstallmentWays(): void {
     this.isLoadingInstallmentWays = true;
@@ -185,7 +186,6 @@ export class AddEditBankComponent {
         element['name'] = nameObj[this.currentLanguage];
       });
       if (this.isEdit) {
-        // Assuming this.bankData.item.installment_ways is a JSON string
         let waysItems: any = this.bankData?.item?.installment_ways;
         let patchWays: any = [];
         waysItems?.forEach((element: any) => {
@@ -195,9 +195,9 @@ export class AddEditBankComponent {
             }
           });
         });
-        this.bankForm.patchValue({
-          installmentWays: patchWays
-        });
+        // this.bankForm.patchValue({
+        //   installmentWays: patchWays
+        // });
       }
     } else {
       this.handleError(response.message);
@@ -237,11 +237,11 @@ export class AddEditBankComponent {
   }
   private extractFormData(): any {
     let formData = new FormData();
-    let installmentWays: any = this.bankForm.value.installmentWays;
-    let installmentWaysIds: any = [];
-    installmentWays.forEach(element => {
-      installmentWaysIds.push(element.id);
-    });
+    // let installmentWays: any = this.bankForm.value.installmentWays;
+    // let installmentWaysIds: any = [];
+    // installmentWays.forEach(element => {
+    //   installmentWaysIds.push(element.id);
+    // });
     let startTime: any = this.bankForm?.value?.startTime;
     let endTime: any = this.bankForm?.value?.endTime;
     formData.append('name[en]', this.bankForm?.value?.name);
@@ -250,7 +250,7 @@ export class AddEditBankComponent {
     formData.append('location[ar]', this.bankForm?.value?.location);
     formData.append('start_time', startTime.toLocaleTimeString('en-US', { hour12: false }));
     formData.append('end_time', endTime.toLocaleTimeString('en-US', { hour12: false }));
-    formData.append('installment_ways', JSON.stringify(installmentWaysIds));
+    // formData.append('installment_ways', JSON.stringify(installmentWaysIds));
     if (this.bankForm?.value?.bankFile) {
       formData.append('image', this.bankForm?.value?.bankFile);
     }
@@ -279,6 +279,7 @@ export class AddEditBankComponent {
     }
   }
   private finalizeAddEditBank(): void {
+    this.publicService.showGlobalLoader.next(false);
   }
   // End Add/Edit Bank
 
@@ -297,7 +298,6 @@ export class AddEditBankComponent {
     console.log(message);
 
     this.alertsService.openToast(type, type, message);
-    this.publicService.showGlobalLoader.next(false);
   }
 
   ngOnDestroy(): void {

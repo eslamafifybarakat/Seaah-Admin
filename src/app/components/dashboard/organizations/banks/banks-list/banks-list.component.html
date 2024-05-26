@@ -100,9 +100,10 @@
             <ng-template #noLoadingCards>
               <ng-container *ngIf="banksList.length>0; else noBank">
                 <ng-container *ngFor="let card of banksList; let i=index">
-                  <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                  <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
                     <bank-card [item]="card" (editItemHandler)="addEditItem($event,'edit')"
-                    (itemDetailsHandler)="itemDetails()" (deleteItemHandler)="deleteItem($event)"></bank-card>
+                      (itemAddUserHandler)="addUser($event)" (itemDetailsHandler)="itemDetails()"
+                      (deleteItemHandler)="deleteItem($event)"></bank-card>
                   </div>
                 </ng-container>
               </ng-container>
@@ -132,7 +133,7 @@
               <ng-template #noSearchData1>
                 <p class="fw-500 mt-3">{{'general.no_records_found'|translate}}</p>
                 <button (click)="addEditItem()"
-                  class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.bank.addBank'|translate}}</button>
+                  class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.banks.addBank'|translate}}</button>
               </ng-template>
             </div>
           </ng-template>
@@ -151,9 +152,10 @@
           <ng-template #noLoadingCards2>
             <ng-container *ngIf="banksList.length>0; else noBank2">
               <ng-container *ngFor="let card of banksList; let i=index">
-                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
                   <bank-card [item]="card" (editItemHandler)="addEditItem($event,'edit')"
-                  (itemDetailsHandler)="itemDetails()" (deleteItemHandler)="deleteItem($event)"></bank-card>
+                    (itemAddUserHandler)="addUser($event)" (itemDetailsHandler)="itemDetails()"
+                    (deleteItemHandler)="deleteItem($event)"></bank-card>
                 </div>
               </ng-container>
             </ng-container>

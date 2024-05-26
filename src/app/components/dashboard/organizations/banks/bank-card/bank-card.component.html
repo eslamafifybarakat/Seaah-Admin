@@ -36,6 +36,14 @@
           {{item?.end_time||'--'}}
         </p>
       </div>
+      <div>
+        <p class="text-muted-color mb-0 fs-5-2">
+          {{'dashboard.tableHeader.usersCount'|translate}}
+        </p>
+        <p class="mb-0 fs-5-2">
+          {{item?.usersCount||'--'}}
+        </p>
+      </div>
     </div>
     <div *ngIf="false">
       <!-- <div *ngIf="item.installment_ways"> -->
@@ -50,7 +58,10 @@
   </div>
   <div>
     <hr>
-    <div class="d-flex justify-content-end gap-3 flex-wrap">
+    <div class="d-flex justify-content-end gap-2 flex-wrap">
+      <button class="btn btn-solid-main d-flex align-items-center justify-content-center" (click)="addUser(item)">
+        {{'dashboard.users.addUser'|translate}}
+      </button>
       <button class="badge-btn d-flex align-items-center justify-content-center" (click)="itemDetails(item)">
         {{'general.details'|translate}}
       </button>

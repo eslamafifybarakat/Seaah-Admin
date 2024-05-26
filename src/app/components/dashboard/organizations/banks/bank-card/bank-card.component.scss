@@ -2,6 +2,19 @@
   hr {
     border-color: #8c95a32e;
   }
+  .btn {
+    border-radius: 11px;
+    min-width: 5rem;
+    height: 2.6rem;
+    border: none;
+    padding: 0.9rem;
+  }
+
+  .btn-solid-main {
+    background-color: var(--bg-main-color);
+    border: 1px solid var(--bg-main-color);
+    color: var(--text-white-color);
+  }
   .badge-btn {
     border-radius: 11px;
     min-width: 5rem;
