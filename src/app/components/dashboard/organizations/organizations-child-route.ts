@@ -2,6 +2,7 @@ import { UniversitiesChildrenRoutes } from './universities/universities-child-ro
 import { errorsChildrenRoutes } from '../../errors/errors-children-routes';
 import { SchoolsChildrenRoutes } from './schools/schools-child-route';
 import { BanksChildrenRoutes } from './banks/banks-child-route';
+import { InstallmentWaysChildrenRoutes } from './installment-ways/installmentWays-child-route';
 
 
 export const OrganizationshildrenRoutes: any[] = [
@@ -47,6 +48,20 @@ export const OrganizationshildrenRoutes: any[] = [
         (c) => c.UniversitiesComponent
       ),
     children: UniversitiesChildrenRoutes
+  },
+  // Installment Ways
+  {
+    path: 'InstallmentWays',
+    // canActivate: [PermissionGuard],
+    data: {
+      permission: 'Pages.InstallmentWays.List',
+      title: 'InstallmentWays'
+    },
+    loadComponent: () =>
+      import('./installment-ways/installment-ways.component').then(
+        (c) => c.InstallmentWaysComponent
+      ),
+    children: InstallmentWaysChildrenRoutes
   },
 
   // Errors

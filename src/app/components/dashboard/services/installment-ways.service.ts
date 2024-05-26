@@ -14,7 +14,7 @@ export class InstallmentWaysService {
     private http: HttpClient
   ) { }
 
-  getInstallmentWaysList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any): Observable<any> {
+  getInstallmentWaysList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any, status?: any): Observable<any> {
     let params = new HttpParams();
     if (page) {
       params = params?.append("page_number", page);

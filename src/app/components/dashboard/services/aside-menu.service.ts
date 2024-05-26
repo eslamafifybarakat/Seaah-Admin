@@ -80,27 +80,42 @@ export class AsideMenuService {
         ]
       },
       {
-        id: 'Settings',
-        text: 'dashboard.sideMenu.settings',
-        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-settings" width="25" height="25" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        id: 'installmentWays',
+        text: 'dashboard.sideMenu.installmentWays',
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-receipt-dollar" width="25" height="25" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-        <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
-        <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+        <path d="M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16l-3 -2l-2 2l-2 -2l-2 2l-2 -2l-3 2" />
+        <path d="M14.8 8a2 2 0 0 0 -1.8 -1h-2a2 2 0 1 0 0 4h2a2 2 0 1 1 0 4h-2a2 2 0 0 1 -1.8 -1" />
+        <path d="M12 6v10" />
       </svg>
     `,
-        // routerLink: '/Dashboard/Organizations',
+        routerLink: '/Dashboard/Organizations/InstallmentWays',
         state: false, //Opened Or Closed
         permission: true,
-        // permission: this.checkPermissionService.hasPermission('Pages.Sales.List'),
-        children: [
-          {
-            text: 'userInfo.my_profile',
-            routerLink: '/Profile',
-            icon: '',
-            state: false
-          },
-        ]
+        // permission: this.checkPermissionService.hasPermission('Pages.Products.List'),
       },
+    //   {
+    //     id: 'Settings',
+    //     text: 'dashboard.sideMenu.settings',
+    //     icon: `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-settings" width="25" height="25" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    //     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+    //     <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
+    //     <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+    //   </svg>
+    // `,
+    //     // routerLink: '/Dashboard/Organizations',
+    //     state: false, //Opened Or Closed
+    //     permission: true,
+    //     // permission: this.checkPermissionService.hasPermission('Pages.Sales.List'),
+    //     children: [
+    //       {
+    //         text: 'userInfo.my_profile',
+    //         routerLink: '/Profile',
+    //         icon: '',
+    //         state: false
+    //       },
+    //     ]
+    //   },
     ];
 
     return menuListItems;
