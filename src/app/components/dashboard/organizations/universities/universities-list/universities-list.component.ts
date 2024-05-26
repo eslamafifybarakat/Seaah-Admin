@@ -28,6 +28,7 @@ import { AddEditUsersComponent } from '../../../users/add-edit-users/add-edit-us
 import { SchoolsService } from '../../../services/schools.service';
 import { UniversityCardComponent } from '../university-card/university-card.component';
 import { AddEditUniversityComponent } from '../add-edit-university/add-edit-university.component';
+import { UniversitiesService } from '../../../services/universities.service';
 
 @Component({
   selector: 'app-universities-list',
@@ -59,12 +60,12 @@ export class UniversitiesListComponent {
   isLoadingSearch: boolean = false;
   isSearch: boolean = false;
 
-  // Start Schools List Variables
-  isLoadingSchoolsList: boolean = false;
-  schoolsList: any[] = [];
-  schoolsCount: number = 0;
+  // Start Universities List Variables
+  isLoadingUniversitiesList: boolean = false;
+  universitiesList: any[] = [];
+  universitiesCount: number = 0;
   tableHeaders: any = [];
-  // End Schools List Variables
+  // End Universities List Variables
 
   // Start Pagination Variables
   page: number = 1;
@@ -97,8 +98,6 @@ export class UniversitiesListComponent {
 
 
   // Statuses Variables
-  statusesList: any = [];
-  isLoadingStatuses: boolean = false;
   statusValue: string | number | null;
   // Statuses Variables
 
@@ -111,6 +110,7 @@ export class UniversitiesListComponent {
     private alertsService: AlertsService,
     private banksService: BanksService,
     private schoolsService: SchoolsService,
+    private universitiesService: UniversitiesService,
     private kidsService: KidsService,
     private cdr: ChangeDetectorRef,
     private router: Router
@@ -127,7 +127,7 @@ export class UniversitiesListComponent {
   private loadData(): void {
     this.tableHeaders = [
       { field: 'image_path', header: '', title: '', type: 'img' },
-      { field: 'schoolName', header: 'dashboard.tableHeader.name', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), type: 'text', sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false },
+      { field: 'universityName', header: 'dashboard.tableHeader.name', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), type: 'text', sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false },
       { field: 'addressName', header: 'dashboard.tableHeader.location', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.location'), type: 'text', sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false },
       { field: 'start_time', header: 'dashboard.tableHeader.startTime', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.startTime'), type: 'time' },
       { field: 'end_time', header: 'dashboard.tableHeader.endTime', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endTime'), type: 'time' },
@@ -138,8 +138,8 @@ export class UniversitiesListComponent {
   }
   private updateMetaTagsForSEO(): void {
     let metaData: MetaDetails = {
-      title: 'المدارس | سعة',
-      description: 'المدارس | سعة',
+      title: 'الجامعات | سعة',
+      description: 'الجامعات | سعة',
       image: 'https://ik.imagekit.io/2cvha6t2l9/Logo.jpeg?updatedAt=1712577283111'
     }
     this.metadataService.updateMetaTagsForSEO(metaData);
@@ -173,29 +173,29 @@ export class UniversitiesListComponent {
     this.dataStyleType = type;
   }
 
-  // Start Schools List Functions
+  // Start Universities List Functions
   getAllScools(isFiltering?: boolean): void {
-    this.isSearch ? this.publicService.showGlobalLoader.next(true) : this.isLoadingSchoolsList = true;
-    let kidsSubscription: Subscription = this.schoolsService?.getSchoolsList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null, this.statusValue ?? null)
+    this.isSearch ? this.publicService.showGlobalLoader.next(true) : this.isLoadingUniversitiesList = true;
+    let universitiesServiceSubscription: Subscription = this.universitiesService?.getUniversitiesList(this.page, this.perPage, this.searchKeyword, this.sortObj, this.filtersArray ?? null, this.statusValue ?? null)
       .pipe(
         tap((res: any) => {
-          this.processSchoolsListResponse(res);
+          this.processuniversitiesServiceListResponse(res);
         }),
         catchError(err => this.handleError(err)),
-        finalize(() => this.finalizeSchoolsList())
+        finalize(() => this.finalizeuniversitiesServiceList())
       ).subscribe();
-    this.subscriptions.push(kidsSubscription);
+    this.subscriptions.push(universitiesServiceSubscription);
   }
-  private processSchoolsListResponse(response: any): void {
+  private processuniversitiesServiceListResponse(response: any): void {
     if (response.status == 200) {
-      this.schoolsCount = response?.data?.total || 0;
-      this.pagesCount = Math.ceil(this.schoolsCount / this.perPage);
-      this.schoolsList = response?.data?.items;
-      this.schoolsList?.forEach((element: any) => {
+      this.universitiesCount = response?.data?.total || 0;
+      this.pagesCount = Math.ceil(this.universitiesCount / this.perPage);
+      this.universitiesList = response?.data?.items;
+      this.universitiesList?.forEach((element: any) => {
         element['active'] = false;
 
         let nameBbj: any = JSON.parse(element?.name || '{}');
-        element['schoolName'] = nameBbj[this.currentLanguage];
+        element['universityName'] = nameBbj[this.currentLanguage];
         let addressBbj: any = JSON.parse(element?.location || '{}');
         element['addressName'] = addressBbj[this.currentLanguage];
         // installment ways
@@ -223,8 +223,8 @@ export class UniversitiesListComponent {
       return;
     }
   }
-  private finalizeSchoolsList(): void {
-    this.isLoadingSchoolsList = false;
+  private finalizeuniversitiesServiceList(): void {
+    this.isLoadingUniversitiesList = false;
     this.isLoadingSearch = false;
     this.enableSortFilter = false;
     this.publicService.showGlobalLoader.next(false);
@@ -232,7 +232,7 @@ export class UniversitiesListComponent {
       this.enableSortFilter = true;
     }, 200);
   }
-  // End Schools List Functions
+  // End Universities List Functions
 
   // Start Add User Modal
   addUser(event: any): void {
@@ -254,11 +254,11 @@ export class UniversitiesListComponent {
   }
   // End Add User Modal
 
-  // School Details
+  // University Details
   itemDetails(item?: any): void {
     this.router.navigate(['/Dashboard/Organizations/Universities/Details/' + item?.id]);
   }
-  // Add Edit School
+  // Add Edit University
   addEditItem(item?: any, type?: any): void {
     const ref = this.dialogService?.open(AddEditUniversityComponent, {
       data: {
@@ -266,14 +266,14 @@ export class UniversitiesListComponent {
         type: type == 'edit' ? 'edit' : 'add',
         typeValue: 'bank'
       },
-      header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.schools.editSchool') : this.publicService?.translateTextFromJson('dashboard.schools.addSchool'),
+      header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.universities.editUniversity') : this.publicService?.translateTextFromJson('dashboard.universities.addUniversity'),
       dismissableMask: false,
       width: '60%',
       styleClass: 'custom-modal',
     });
     ref.onClose.subscribe((res: any) => {
       if (res?.listChanged) {
-        if (this.schoolsCount == 0) {
+        if (this.universitiesCount == 0) {
           this.getAllScools();
         } else {
           this.page = 1;
@@ -319,9 +319,9 @@ export class UniversitiesListComponent {
     this.perPage = 10;
     this.searchKeyword = keyWord;
     this.isSearch = true;
-    this.isLoadingSchoolsList = true;
+    this.isLoadingUniversitiesList = true;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.schoolsList?.length <= 0 && this.dataStyleType == 'list' ? this.getAllScools(true) : '';
+    this.universitiesList?.length <= 0 && this.dataStyleType == 'list' ? this.getAllScools(true) : '';
     this.dataStyleType == 'grid' ? this.getAllScools() : '';
     if (keyWord?.length > 0) {
       this.isLoadingSearch = true;
@@ -331,7 +331,7 @@ export class UniversitiesListComponent {
   clearSearch(search: any): void {
     search.value = null;
     this.searchKeyword = null;
-    this.schoolsList?.length <= 0 && this.dataStyleType == 'list' ? this.getAllScools(true) : '';
+    this.universitiesList?.length <= 0 && this.dataStyleType == 'list' ? this.getAllScools(true) : '';
     this.dataStyleType == 'grid' ? this.getAllScools() : '';
     this.publicService?.changePageSub?.next({ page: this.page });
 
@@ -454,7 +454,7 @@ export class UniversitiesListComponent {
   }
   onPaginatorOptionsChange(e: any): void {
     this.perPage = e?.value;
-    this.pagesCount = Math?.ceil(this.schoolsCount / this.perPage);
+    this.pagesCount = Math?.ceil(this.universitiesCount / this.perPage);
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
     this.dataStyleType == 'grid' ? this.getAllScools() : '';

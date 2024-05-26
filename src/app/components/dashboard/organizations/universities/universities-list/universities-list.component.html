@@ -3,12 +3,12 @@
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 px-4">
       <div>
         <h4 class="mb-0 text-capitalize">
-          {{'dashboard.schools.schools'|translate}}
+          {{'dashboard.universities.universities'|translate}}
         </h4>
         <p class="mt-2 text-muted-color d-flex gap-1">
           {{'dashboard.total'|translate}}
           <span>
-            {{schoolsCount}}
+            {{universitiesCount}}
           </span>
         </p>
       </div>
@@ -16,7 +16,7 @@
     <div
       class="d-flex justify-content-sm-between justify-content-center align-items-center flex-wrap gap-3 px-4 mt-4 table-caption py-3">
       <!-- Search Handler -->
-      <div [class.disabled-actions]="isLoadingSchoolsList" class="search" role="search">
+      <div [class.disabled-actions]="isLoadingUniversitiesList" class="search" role="search">
         <div class="input-group bg-white-color d-flex flex-nowrap">
           <span class="input-group-text border-0" id="basic-addon1">
             <i class="pi pi-search text-muted-color"></i>
@@ -33,25 +33,25 @@
         </div>
       </div>
       <div class="d-flex gap-3 flex-lg-nowrap flex-wrap justify-content-sm-start justify-content-center"
-        *ngIf="schoolsList?.length>0|| ifFilteration()">
+        *ngIf="universitiesList?.length>0|| ifFilteration()">
         <!-- Add Kid -->
         <button class="btn btn-solid-main d-flex align-items-center gap-2 text-nowrap" (click)="addEditItem()">
           <i class="pi pi-plus"></i>
-          <span>{{'dashboard.schools.addSchool'|translate}}</span>
+          <span>{{'dashboard.universities.addUniversity'|translate}}</span>
         </button>
         <!-- Filter Button -->
         <div [class.d-none]="dataStyleType=='list'">
-          <button [class.disabled-actions]="isLoadingSchoolsList" *ngIf="schoolsList?.length>0|| ifFilteration()"
+          <button [class.disabled-actions]="isLoadingUniversitiesList" *ngIf="universitiesList?.length>0|| ifFilteration()"
             class="btn btn-solid-main d-md-flex d-none align-items-center gap-2" (click)="filterItemModal()">
             <i class="pi pi-filter"></i>
           </button>
         </div>
-        <button [class.disabled-actions]="isLoadingSchoolsList" *ngIf="schoolsList?.length>0 || ifFilteration()"
+        <button [class.disabled-actions]="isLoadingUniversitiesList" *ngIf="universitiesList?.length>0 || ifFilteration()"
           class="btn btn-solid-main d-md-none d-flex align-items-center gap-2" (click)="filterItemModal()">
           <i class="pi pi-filter"></i>
         </button>
         <!-- Data style list 0or grid (table or card) -->
-        <div [class.disabled-actions]="isLoadingSchoolsList"
+        <div [class.disabled-actions]="isLoadingUniversitiesList"
           class="data-style d-md-flex d-none align-items-center gap-2 p-2">
           <a class="scaleX-rtl" [class.active]="dataStyleType=='list'" (click)="changeDateStyle('list')">
             <app-dynamic-svg [name]="'list'"></app-dynamic-svg>
@@ -61,7 +61,7 @@
           </a>
         </div>
         <!-- Clear -->
-        <button [class.disabled-actions]="isLoadingSchoolsList"
+        <button [class.disabled-actions]="isLoadingUniversitiesList"
           class="btn btn-outline-main d-flex align-items-center gap-2 text-nowrap" (click)="clearTable()">
           <i class="pi pi-refresh"></i>
           <span>{{'general.reset'|translate}}</span>
@@ -72,15 +72,15 @@
       <!-- Table -->
       <ng-container *ngIf="dataStyleType=='list'">
         <!-- Table List -->
-        <dynamic-table-v2 [isLoading]="isLoadingSchoolsList" [showHeader]="false" [showClear]="false" [showSearch]="false"
+        <dynamic-table-v2 [isLoading]="isLoadingUniversitiesList" [showHeader]="false" [showClear]="false" [showSearch]="false"
           [isLoadingSearch]="isLoadingSearch" (clearHandler)="enableSortFilter?clearTable():''"
-          [tableHeaders]="tableHeaders" [tableData]="schoolsList" [enableDateFormate]="true"
+          [tableHeaders]="tableHeaders" [tableData]="universitiesList" [enableDateFormate]="true"
           [dateFormateString]="'d MMMM y'" (customSortHandler)="enableSortFilter?sortItems($event):''"
-          (filterHandler)="enableSortFilter?filterItemsTable($event):''" [results]="schoolsCount"
+          (filterHandler)="enableSortFilter?filterItemsTable($event):''" [results]="universitiesCount"
           [paginatorRows]="perPage" [pages]="pagesCount" (paginateHandler)="onPageChange($event)"
-          [rowsPerPageOptions]="rowsOptions" [enableConfirmDeleteDialog]="true" [keyDelete]="'schoolName'"
+          [rowsPerPageOptions]="rowsOptions" [enableConfirmDeleteDialog]="true" [keyDelete]="'universityName'"
           (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
-          [enableFilterDriverStatus]="true" [addBtnText]="'dashboard.schools.addSchool'" (addHandler)="addEditItem()"
+          [enableFilterDriverStatus]="true" [addBtnText]="'dashboard.universities.addUniversity'" (addHandler)="addEditItem()"
           (resetHandler)="clearTable()" [notFoundImage]="'assets/images/not-found/no-user.svg'"
           [showActionsButtons]="true" [showActions]="true" [showEdit]="true" (editHandler)="addEditItem($event,'edit')"
           [showDelete]="true" (deleteHandler)="deleteItem($event)" [showDetails]="true"
@@ -92,14 +92,14 @@
         <div class="container-fluid">
           <div class="row pt-4">
             <!-- Loading Cards -->
-            <ng-container *ngIf="isLoadingSchoolsList; else noLoadingCards">
+            <ng-container *ngIf="isLoadingUniversitiesList; else noLoadingCards">
               <skeleton type="usersList"></skeleton>
             </ng-container>
 
             <!-- Cards List -->
             <ng-template #noLoadingCards>
-              <ng-container *ngIf="schoolsList?.length>0; else noBank">
-                <ng-container *ngFor="let card of schoolsList; let i=index">
+              <ng-container *ngIf="universitiesList?.length>0; else noBank">
+                <ng-container *ngFor="let card of universitiesList; let i=index">
                   <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
                     <app-university-card [item]="card" (editItemHandler)="addEditItem($event,'edit')"
                       (itemAddUserHandler)="addUser($event)" (itemDetailsHandler)="itemDetails()"
@@ -108,9 +108,9 @@
                 </ng-container>
               </ng-container>
             </ng-template>
-            <ng-container *ngIf="schoolsList?.length>0">
-              <div class="d-flex justify-content-center my-3" [class.disabled]="isLoadingSchoolsList">
-                <p-paginator #paginator [rows]="perPage" [totalRecords]="schoolsCount" [showPageLinks]="true"
+            <ng-container *ngIf="universitiesList?.length>0">
+              <div class="d-flex justify-content-center my-3" [class.disabled]="isLoadingUniversitiesList">
+                <p-paginator #paginator [rows]="perPage" [totalRecords]="universitiesCount" [showPageLinks]="true"
                   [pageLinkSize]="3" (onPageChange)="onPageChange($event)"></p-paginator>
                 <div class="d-flex align-items-center gap-3">
                   <p-dropdown [styleClass]="'paginator-options-dropdown'" [dropdownIcon]="'fas fa-caret-down'" #dropdown
@@ -133,7 +133,7 @@
               <ng-template #noSearchData1>
                 <p class="fw-500 mt-3">{{'general.no_records_found'|translate}}</p>
                 <button (click)="addEditItem()"
-                  class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.schools.addSchool'|translate}}</button>
+                  class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.universities.universities'|translate}}</button>
               </ng-template>
             </div>
           </ng-template>
@@ -145,13 +145,13 @@
       <div class="container-fluid">
         <div class="row pt-4">
           <!-- Loading Cards -->
-          <ng-container *ngIf="isLoadingSchoolsList; else noLoadingCards2">
+          <ng-container *ngIf="isLoadingUniversitiesList; else noLoadingCards2">
             <skeleton type="usersList"></skeleton>
           </ng-container>
           <!-- Cards List -->
           <ng-template #noLoadingCards2>
-            <ng-container *ngIf="schoolsList?.length>0; else noBank2">
-              <ng-container *ngFor="let card of schoolsList; let i=index">
+            <ng-container *ngIf="universitiesList?.length>0; else noBank2">
+              <ng-container *ngFor="let card of universitiesList; let i=index">
                 <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
                   <app-university-card [item]="card" (editItemHandler)="addEditItem($event,'edit')"
                     (itemAddUserHandler)="addUser($event)" (itemDetailsHandler)="itemDetails()"
@@ -160,9 +160,9 @@
               </ng-container>
             </ng-container>
           </ng-template>
-          <ng-container *ngIf="schoolsList?.length>0">
-            <div class="d-flex justify-content-center my-3" [class.disabled]="isLoadingSchoolsList">
-              <p-paginator #paginator [rows]="perPage" [totalRecords]="schoolsCount" [showPageLinks]="true"
+          <ng-container *ngIf="universitiesList?.length>0">
+            <div class="d-flex justify-content-center my-3" [class.disabled]="isLoadingUniversitiesList">
+              <p-paginator #paginator [rows]="perPage" [totalRecords]="universitiesCount" [showPageLinks]="true"
                 [pageLinkSize]="3" (onPageChange)="onPageChange($event)"></p-paginator>
               <div class="d-flex align-items-center gap-3">
                 <p-dropdown [styleClass]="'paginator-options-dropdown'" [dropdownIcon]="'fas fa-caret-down'" #dropdown
@@ -185,18 +185,18 @@
             <ng-template #noSearchData>
               <p class="fw-500 mt-3">{{'general.no_records_found'|translate}}</p>
               <button (click)="addEditItem()"
-                class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.schools.addSchool'|translate}}</button>
+                class="btn btn-solid-main d-flex justify-content-center align-items-center">{{'dashboard.universities.addUniversity'|translate}}</button>
             </ng-template>
           </div>
         </ng-template>
       </div>
     </div>
 
-    <ng-container *ngIf="schoolsCount">
+    <ng-container *ngIf="universitiesCount">
       <div class="dash-global-footer px-4 d-flex align-items-center py-3">
         <p class="mb-0">
           <span>{{"dashboard.isTotal"|translate}}</span>
-          <span class="mx-1 fw-bolder fs-5">{{schoolsCount}}</span><span>{{"dashboard.schools.schools"|translate}}</span>
+          <span class="mx-1 fw-bolder fs-5">{{universitiesCount}}</span><span>{{"dashboard.universities.schools"|translate}}</span>
         </p>
       </div>
     </ng-container>

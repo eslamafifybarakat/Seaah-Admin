@@ -110,7 +110,6 @@ export class BanksListComponent {
     private dialogService: DialogService,
     private alertsService: AlertsService,
     private banksService: BanksService,
-    private kidsService: KidsService,
     private cdr: ChangeDetectorRef,
     private router: Router
   ) {
