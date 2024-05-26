@@ -50,7 +50,7 @@ export class SchoolCardComponent {
     if (this.enableConfirmDeleteDialog) {
       const ref = this.dialogService.open(ConfirmDeleteComponent, {
         data: {
-          name: item['bankName'],
+          name: item['schoolName'],
           enableConfirm: this.enableConfirmedByShowInput,
         },
         header: this.publicService?.translateTextFromJson('general.confirm_delete'),

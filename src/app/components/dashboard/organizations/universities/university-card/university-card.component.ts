@@ -50,7 +50,7 @@ export class UniversityCardComponent {
     if (this.enableConfirmDeleteDialog) {
       const ref = this.dialogService.open(ConfirmDeleteComponent, {
         data: {
-          name: item['bankName'],
+          name: item['universityName'],
           enableConfirm: this.enableConfirmedByShowInput,
         },
         header: this.publicService?.translateTextFromJson('general.confirm_delete'),

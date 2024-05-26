@@ -102,7 +102,7 @@
                 <ng-container *ngFor="let card of universitiesList; let i=index">
                   <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
                     <app-university-card [item]="card" (editItemHandler)="addEditItem($event,'edit')"
-                      (itemAddUserHandler)="addUser($event)" (itemDetailsHandler)="itemDetails()"
+                      (itemAddUserHandler)="addUser($event)" (itemDetailsHandler)="itemDetails($event)"
                       (deleteItemHandler)="deleteItem($event)"></app-university-card>
                   </div>
                 </ng-container>
@@ -154,7 +154,7 @@
               <ng-container *ngFor="let card of universitiesList; let i=index">
                 <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
                   <app-university-card [item]="card" (editItemHandler)="addEditItem($event,'edit')"
-                    (itemAddUserHandler)="addUser($event)" (itemDetailsHandler)="itemDetails()"
+                    (itemAddUserHandler)="addUser($event)" (itemDetailsHandler)="itemDetails($event)"
                     (deleteItemHandler)="deleteItem($event)"></app-university-card>
                 </div>
               </ng-container>

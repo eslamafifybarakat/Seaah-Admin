@@ -106,9 +106,9 @@ export class AddEditUsersComponent {
     let data: any = {
       name: this.userForm?.value?.name,
       phone: this.userForm?.value?.phone?.toString(),
-      iqama_No: this.userForm?.value?.nationalIdentify,
+      iqama_No: this.userForm?.value?.nationalIdentify?.toString(),
       email: this.userForm?.value?.email,
-      type: this.modalData?.organizationData?.type,
+      type: this.modalData?.organizationData?.type=='university'?'school':this.modalData?.organizationData?.type,
       source_register: 'web',
       type_coming_otp: 'email',
       password: '123456',
