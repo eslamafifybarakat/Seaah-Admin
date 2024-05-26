@@ -14,7 +14,7 @@ export class BanksService {
     private http: HttpClient
   ) { }
 
-  getBanksList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any): Observable<any> {
+  getBanksList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any, approval_status?: any,): Observable<any> {
     let params = new HttpParams();
     if (page) {
       params = params?.append("page_number", page);
@@ -33,6 +33,9 @@ export class BanksService {
     }
     if (conditions && conditions?.length > 0) {
       params = params?.append("conditions", JSON?.stringify(conditions));
+    }
+    if (approval_status) {
+      params = params?.append("approve_status", approval_status);
     }
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.organizations.organizationByType}`, { params: params });
   }

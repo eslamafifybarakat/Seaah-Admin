@@ -147,6 +147,7 @@
       "requests": "Requests"
     },
     "tableHeader": {
+      "usersCount":"Users Count",
       "title": "Title",
       "kidName": "Kid Name",
       "parentName": "parent Name",

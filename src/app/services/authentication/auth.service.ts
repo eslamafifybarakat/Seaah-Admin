@@ -98,6 +98,9 @@ export class AuthService {
   validateCode(code: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/${roots.auth.validateCode}`, code);
   }
+  addUser(data: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/${roots.auth.addUser}`, data);
+  }
   registerParent(data: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/${roots.auth.registerParent}`, data);
   }

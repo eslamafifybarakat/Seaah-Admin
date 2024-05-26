@@ -52,7 +52,7 @@ export class RegistrationV2Component {
 
     if (!formData) return;
     this.publicService?.showGlobalLoader?.next(true);
-    let registerSubscription = this.authService?.register(formData)?.subscribe(
+    let registerSubscription = this.authService?.registerParent(formData)?.subscribe(
       (res: any) => {
         if (res) {
           this.handleRegistrationSuccess();

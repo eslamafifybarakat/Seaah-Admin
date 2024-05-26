@@ -1,0 +1,154 @@
+<div id="modal-form">
+  <form [formGroup]="userForm" (ngSubmit)="submitNow()" aria-label="add-client-form">
+    <div class="form-content">
+      <div class="row">
+        <!-- Name -->
+        <div class="col-12">
+          <div class="mb-3">
+            <label for="name" class="fw-bold mb-2 required">
+              {{'labels.name'|translate}}
+            </label>
+            <input id="name" type="text" class="form-control" formControlName="name"
+              placeholder="{{'placeholders.name'|translate}}"
+              [class.border-red]="(formControls?.name?.touched||formControls?.name?.dirty)&&formControls?.name?.invalid"
+              (input)="publicService?.clearValidationErrors(formControls?.name)">
+            <ng-container
+              *ngIf="formControls?.name?.invalid && (formControls?.name?.dirty || formControls?.name?.touched)">
+              <div class="mt-1">
+                <ng-container *ngIf="formControls?.name?.errors?.required">
+                  <span class="text-danger fs-8">
+                    {{'validations.name'|translate}}
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="formControls?.name?.errors?.minlength">
+                  <span class="text-danger fs-8">
+                    {{'validations.nameLength'|translate}}
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="formControls?.name?.errors?.maxlength">
+                  <span class="text-danger fs-8">
+                    {{'validations.nameLength'|translate}}
+                  </span>
+                </ng-container>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- National Identify -->
+        <div class="col-12">
+          <div class="mb-3">
+            <label class="fw-bold mb-2 required" for="nationalIdentify">
+              {{'labels.nationalIdentify'|translate}}
+            </label>
+            <input id="nationalIdentify" type="number" class="form-control" formControlName="nationalIdentify"
+              placeholder="{{'placeholders.nationalIdentify'|translate}}"
+              [class.border-red]="(formControls?.nationalIdentify?.touched||formControls?.nationalIdentify?.dirty)&&formControls?.nationalIdentify?.invalid"
+              MaxDigits [maxNumber]="10"
+              (input)="publicService?.clearValidationErrors(formControls?.nationalIdentify)"
+              maxlength="10">
+            <ng-container
+              *ngIf="formControls?.nationalIdentify?.invalid && (formControls?.nationalIdentify?.dirty || formControls?.nationalIdentify?.touched)">
+              <div class="mt-1 d-flex flex-column">
+                <ng-container *ngIf="formControls?.nationalIdentify?.errors?.required">
+                  <span class="text-danger fs-8">
+                    {{'validations.requiredField'|translate}}
+                  </span>
+                </ng-container>
+                <ng-container
+                  *ngIf="formControls?.nationalIdentify?.errors?.minlength || formControls?.nationalIdentify?.errors?.maxlength">
+                  <span class="text-danger fs-8">
+                    {{'validations.idLength'|translate}}
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="formControls?.nationalIdentify?.errors?.pattern">
+                  <span class="text-danger fs-8">
+                    {{'validations.idLength'|translate}}
+                  </span>
+                </ng-container>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- Phone -->
+        <div class="col-12">
+          <div class="mb-3">
+            <label class="fw-bold mb-2 required" for="phone">
+              {{'labels.phone'|translate}}
+            </label>
+            <div class="input-number input-group bg-white-color d-flex flex-nowrap w-100 overflow-hidden"
+              [class.border-red]="formControls?.phone?.invalid && (formControls?.phone?.dirty || formControls?.phone?.touched)">
+              <span class="input-group-text border-0 fs-6-1" id="basic-addon1">
+                +966
+              </span>
+              <input id="phone" type="number" class="form-control border-0" formControlName="phone"
+                placeholder="{{'placeholders.phone'|translate}}" MaxDigits [maxNumber]="9"
+                (input)="publicService?.clearValidationErrors(formControls?.phone)"
+                maxlength="9">
+            </div>
+            <ng-container
+              *ngIf="formControls?.phone?.invalid && (formControls?.phone?.dirty || formControls?.phone?.touched)">
+              <div class="mt-1 d-flex flex-column">
+                <ng-container *ngIf="formControls?.phone?.errors?.required">
+                  <span class="text-danger fs-8">
+                    {{'validations.requiredField'|translate}}
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="formControls?.phone?.errors?.minlength || formControls?.phone?.errors?.maxlength">
+                  <span class="text-danger fs-8">
+                    {{'validations.phoneLength'|translate}}
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="formControls?.phone?.errors?.pattern">
+                  <span class="text-danger fs-8">
+                    {{'validations.phoneNotCorrect'|translate}}
+                  </span>
+                </ng-container>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- Email -->
+        <div class="col-12">
+          <div class="mb-3">
+            <label class="fw-bold mb-2 required" for="email">
+              {{'labels.email' | translate}}
+            </label>
+            <input id="email" class="form-control" type="text" placeholder="{{'placeholders.email' | translate}}"
+              formControlName="email" (input)="publicService?.clearValidationErrors(formControls.email)"
+              [class.border-red]="(formControls?.email?.touched||formControls?.email?.dirty)&&formControls?.email?.invalid" />
+            <ng-container
+              *ngIf="formControls?.email?.invalid && (formControls?.email?.dirty || formControls?.email?.touched)">
+              <div class="mt-1">
+                <ng-container *ngIf="formControls?.email?.errors?.required">
+                  <span class="text-danger fs-8">
+                    {{'validations.email'|translate}}
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="formControls?.email?.errors?.pattern">
+                  <span class="text-danger fs-8">
+                    {{'validations.emailNotCorrect'|translate}}
+                  </span>
+                </ng-container>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="d-flex justify-content-end gap-3 flex-wrap mt-4">
+      <button type="submit" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2">
+        <span>
+          {{'general.save'|translate}}
+        </span>
+        <i class="pi pi-save"></i>
+      </button>
+      <button type="button" class="btn btn-outline-main d-flex align-items-center gap-2" (click)="cancel()">
+        <span>
+          {{'general.cancel'|translate}}
+        </span>
+        <i class="pi pi-times"></i>
+      </button>
+    </div>
+  </form>
+</div>
