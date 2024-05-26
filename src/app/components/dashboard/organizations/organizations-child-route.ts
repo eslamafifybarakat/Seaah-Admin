@@ -1,3 +1,4 @@
+import { UniversitiesChildrenRoutes } from './universities/universities-child-route';
 import { errorsChildrenRoutes } from '../../errors/errors-children-routes';
 import { SchoolsChildrenRoutes } from './schools/schools-child-route';
 import { BanksChildrenRoutes } from './banks/banks-child-route';
@@ -32,6 +33,20 @@ export const OrganizationshildrenRoutes: any[] = [
         (c) => c.SchoolsComponent
       ),
     children: SchoolsChildrenRoutes
+  },
+  // Universities
+  {
+    path: 'Universities',
+    // canActivate: [PermissionGuard],
+    data: {
+      permission: 'Pages.Universities.List',
+      title: 'Universities'
+    },
+    loadComponent: () =>
+      import('./universities/universities.component').then(
+        (c) => c.UniversitiesComponent
+      ),
+    children: UniversitiesChildrenRoutes
   },
 
   // Errors

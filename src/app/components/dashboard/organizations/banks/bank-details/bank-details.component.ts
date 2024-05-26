@@ -211,7 +211,7 @@ export class BankDetailsComponent {
       const ref: any = this.dialogService?.open(AddEditUsersComponent, {
         data: {
           type: 'add',
-          organizationData: event
+          organizationData: this.bankData
         },
         header: this.publicService?.translateTextFromJson('dashboard.users.addUser'),
         dismissableMask: false,

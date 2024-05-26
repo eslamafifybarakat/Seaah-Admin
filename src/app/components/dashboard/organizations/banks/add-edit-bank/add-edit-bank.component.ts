@@ -92,10 +92,10 @@ export class AddEditBankComponent {
         validators: [
           Validators.required]
       }],
-      // installmentWays: [null, {
-      //   validators: [
-      //     Validators.required]
-      // }],
+      installmentWays: [null, {
+        validators: [
+          Validators.required]
+      }],
       bankFile: [null, {
         validators: [
           Validators.required]
@@ -128,7 +128,7 @@ export class AddEditBankComponent {
       this.bankId = this.bankData?.item?.id;
       this.patchValue();
     } else {
-      // this.getInstallmentWays();
+      this.getInstallmentWays();
     }
     // this.updateMetaTagsForSEO();
     if (this.isEdit) {
@@ -156,7 +156,7 @@ export class AddEditBankComponent {
       endTime: this.convertTime(this.bankData?.item?.end_time),
     });
     this.bankFileSrc = this.bankData?.item?.image_path;
-    // this.getInstallmentWays();
+    this.getInstallmentWays();
   }
   convertTime(date: any): any {
     const timeString = date;
@@ -195,9 +195,9 @@ export class AddEditBankComponent {
             }
           });
         });
-        // this.bankForm.patchValue({
-        //   installmentWays: patchWays
-        // });
+        this.bankForm.patchValue({
+          installmentWays: patchWays
+        });
       }
     } else {
       this.handleError(response.message);

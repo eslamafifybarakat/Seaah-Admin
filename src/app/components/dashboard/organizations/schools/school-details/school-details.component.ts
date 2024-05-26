@@ -208,7 +208,7 @@ export class SchoolDetailsComponent {
     const ref: any = this.dialogService?.open(AddEditUsersComponent, {
       data: {
         type: 'add',
-        organizationData: event
+        organizationData: this.organizationData
       },
       header: this.publicService?.translateTextFromJson('dashboard.users.addUser'),
       dismissableMask: false,
