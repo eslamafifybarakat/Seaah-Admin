@@ -1,7 +1,7 @@
 export const keys = {
-  language: 'saeehStackholdersLanguage',
-  userLoginData: 'saeehStackholdersUserLoginData',
-  currentUserInformation: 'saeehStackholdersCurrentUserInformation',
-  accessToken: 'saeehStackholdersAccessToken',
-  enc_AccessToken: 'saeehStackholdersEnc_AccessToken',
+  language: 'saeehSuperAdminLanguage',
+  userLoginData: 'saeehSuperAdminUserLoginData',
+  currentUserInformation: 'saeehSuperAdminCurrentUserInformation',
+  accessToken: 'saeehSuperAdminAccessToken',
+  enc_AccessToken: 'saeehSuperAdminEnc_AccessToken',
 };
