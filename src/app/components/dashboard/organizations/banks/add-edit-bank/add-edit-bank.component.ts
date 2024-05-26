@@ -237,11 +237,11 @@ export class AddEditBankComponent {
   }
   private extractFormData(): any {
     let formData = new FormData();
-    // let installmentWays: any = this.bankForm.value.installmentWays;
-    // let installmentWaysIds: any = [];
-    // installmentWays.forEach(element => {
-    //   installmentWaysIds.push(element.id);
-    // });
+    let installmentWays: any = this.bankForm.value.installmentWays;
+    let installmentWaysIds: any = [];
+    installmentWays.forEach(element => {
+      installmentWaysIds.push(element.id);
+    });
     let startTime: any = this.bankForm?.value?.startTime;
     let endTime: any = this.bankForm?.value?.endTime;
     formData.append('name[en]', this.bankForm?.value?.name);
@@ -250,7 +250,7 @@ export class AddEditBankComponent {
     formData.append('location[ar]', this.bankForm?.value?.location);
     formData.append('start_time', startTime.toLocaleTimeString('en-US', { hour12: false }));
     formData.append('end_time', endTime.toLocaleTimeString('en-US', { hour12: false }));
-    // formData.append('installment_ways', JSON.stringify(installmentWaysIds));
+    formData.append('installment_ways', JSON.stringify(installmentWaysIds));
     if (this.bankForm?.value?.bankFile) {
       formData.append('image', this.bankForm?.value?.bankFile);
     }

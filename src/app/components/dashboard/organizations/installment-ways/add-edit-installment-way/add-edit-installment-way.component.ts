@@ -47,6 +47,18 @@ export class AddEditInstallmentWayComponent {
   installmentWayId: number;
   installmentWayData: any;
 
+  periodList:any = [
+    {id:1,value:'1',name:'1'},
+    {id:2,value:'2',name:'2'},
+    {id:3,value:'3',name:'3'},
+    {id:4,value:'4',name:'4'},
+    {id:1,value:'1',name:'1'},
+    {id:1,value:'1',name:'1'},
+    {id:1,value:'1',name:'1'},
+    {id:1,value:'1',name:'1'},
+    {id:1,value:'1',name:'1'},
+  ];
+
   installmentWaysForm = this.fb?.group(
     {
       name: ['', {

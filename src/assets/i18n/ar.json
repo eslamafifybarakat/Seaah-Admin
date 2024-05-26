@@ -148,6 +148,7 @@
     },
     "hello": "مرحبًا",
     "tableHeader": {
+      "period":"المدة",
       "usersCount":"عدد المستخدمين",
       "kidName": "اسم الطفل",
       "parentName": "اسم الأب",

@@ -147,6 +147,7 @@
       "requests": "Requests"
     },
     "tableHeader": {
+      "period":"Period",
       "usersCount":"Users Count",
       "title": "Title",
       "kidName": "Kid Name",

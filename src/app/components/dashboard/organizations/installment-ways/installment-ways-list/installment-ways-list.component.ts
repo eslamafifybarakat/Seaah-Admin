@@ -130,6 +130,7 @@ export class InstallmentWaysListComponent {
     this.tableHeaders = [
       { field: 'installmentWaysName', header: 'dashboard.tableHeader.name', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
       { field: 'installmentWaysDetails', header: 'dashboard.tableHeader.description', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.description'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
+      { field: 'period', header: 'dashboard.tableHeader.period', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.period'), type: 'text', sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, },
     ];
     this.updateMetaTagsForSEO();
     this.getAllInstallmentWays();
