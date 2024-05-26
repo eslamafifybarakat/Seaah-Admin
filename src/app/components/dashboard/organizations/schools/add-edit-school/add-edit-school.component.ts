@@ -204,7 +204,7 @@ export class AddEditSchoolComponent {
     if (this.organizationForm?.value?.organizationFile) {
       formData.append('image', this.organizationForm?.value?.organizationFile);
     }
-    formData.append('type', 'bank');
+    formData.append('type', 'school');
     if (this.isEdit) {
       formData.append('_method', 'PUT');
     }

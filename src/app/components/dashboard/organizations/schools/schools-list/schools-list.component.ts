@@ -256,6 +256,8 @@ export class SchoolsListComponent {
 
   // School Details
   itemDetails(item?: any): void {
+    console.log(item);
+    
     this.router.navigate(['/Dashboard/Organizations/Schools/Details/' + item?.id]);
   }
   // Add Edit School
