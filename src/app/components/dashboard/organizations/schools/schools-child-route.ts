@@ -1,6 +1,7 @@
 
 import { errorsChildrenRoutes } from 'src/app/components/errors/errors-children-routes';
 import { SchoolsListComponent } from './schools-list/schools-list.component';
+import { SchoolDetailsComponent } from './school-details/school-details.component';
 
 
 export const SchoolsChildrenRoutes: any[] = [
@@ -16,12 +17,23 @@ export const SchoolsChildrenRoutes: any[] = [
     },
     pathMatch: 'full'
   },
+   // School Details
+   {
+    path: 'Details/:id',
+    component: SchoolDetailsComponent,
+    // canActivate: [PermissionGuard],
+    data: {
+      permission: 'Pages.details.List',
+      title: 'details'
+    },
+    pathMatch: 'full'
+  },
 
   // Errors
   {
     path: ':lang/Errors',
     loadComponent: () =>
-      import('./../../../../components/errors/errors.component').then(
+      import('../../../errors/errors.component').then(
         (c) => c.ErrorsComponent
       ),
     children: errorsChildrenRoutes
@@ -29,7 +41,7 @@ export const SchoolsChildrenRoutes: any[] = [
   {
     path: 'Errors',
     loadComponent: () =>
-      import('./../../../../components/errors/errors.component').then(
+      import('../../../errors/errors.component').then(
         (c) => c.ErrorsComponent
       ),
     children: errorsChildrenRoutes

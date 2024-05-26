@@ -14,7 +14,7 @@ export class SchoolsService {
     private http: HttpClient
   ) { }
 
-  getSchoolsList(page?: number | string, per_page?: number, search?: string, sort?: any, conditions?: any): Observable<any> {
+  getSchoolsList(page?: number | string, per_page?: number, search?: string, sort?: any, conditions?: any,approval_status?:any): Observable<any> {
     let params = new HttpParams();
     if (page) {
       params = params?.append("page_number", page);
@@ -34,6 +34,9 @@ export class SchoolsService {
       params = params?.append("conditions", JSON?.stringify(conditions));
     }
     params = params?.append("type", "school");
+    if (approval_status) {
+      params = params?.append("approve_status", approval_status);
+    }
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.organizations.organizationByType}`, { params: params });
   }
   addEditSchool(data: any, id?: number): Observable<any> {

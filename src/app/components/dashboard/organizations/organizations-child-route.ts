@@ -1,5 +1,5 @@
 import { errorsChildrenRoutes } from '../../errors/errors-children-routes';
-import { SchoolsChildrenRoutes } from './schools/banks-child-route';
+import { SchoolsChildrenRoutes } from './schools/schools-child-route';
 import { BanksChildrenRoutes } from './banks/banks-child-route';
 
 
@@ -19,8 +19,8 @@ export const OrganizationshildrenRoutes: any[] = [
       ),
     children: BanksChildrenRoutes
   },
-   // Schools
-   {
+  // Schools
+  {
     path: 'Schools',
     // canActivate: [PermissionGuard],
     data: {

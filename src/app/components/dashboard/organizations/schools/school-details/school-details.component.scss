@@ -1,4 +1,4 @@
-#bank-details {
+#organization-details {
   .noItemAdded {
     background-color: #e8e8e8 !important;
     border-radius: 0.3rem;
@@ -60,7 +60,7 @@
   }
 }
 :host::ng-deep {
-  #bank-details {
+  #organization-details {
     .form-control,
     .p-calendar-w-btn .p-inputtext,
     .date-picker.p-calendar .p-datepicker-trigger {

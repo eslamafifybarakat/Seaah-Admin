@@ -21,7 +21,8 @@
     <div
       class="d-flex justify-content-sm-between justify-content-center align-items-center flex-wrap gap-3 px-4 mt-4 table-caption py-3">
       <!-- Search Handler -->
-      <div [class.disabled-actions]="isLoadingUsersList" class="search" role="search">
+      <div></div>
+      <!-- <div [class.disabled-actions]="isLoadingUsersList" class="search" role="search">
         <div class="input-group bg-white-color d-flex flex-nowrap">
           <span class="input-group-text border-0" id="basic-addon1">
             <i class="pi pi-search text-muted-color"></i>
@@ -35,7 +36,7 @@
               [readOnly]="isLoadingSearch" aria-label="search" aria-describedby="basic-addon1">
           </span>
         </div>
-      </div>
+      </div> -->
       <div class="d-flex gap-3 flex-lg-nowrap flex-wrap justify-content-sm-start justify-content-center"
         *ngIf="usersList?.length>0">
         <!-- Add User -->
@@ -79,7 +80,7 @@
         <dynamic-table-v2 [isLoading]="isLoadingUsersList" [showHeader]="false" [showClear]="false" [showSearch]="false"
           [isLoadingSearch]="isLoadingSearch" [showActionsButtons]="true"
           (clearHandler)="enableSortFilter?clearTable():''" [tableHeaders]="tableHeaders" [tableData]="usersList"
-          [enableDateFormate]="true" [dateFormateString]="'d MMMM y'" [showActions]="true" [showEdit]="false"
+          [enableDateFormate]="true" [dateFormateString]="'d MMMM y'" [showActions]="false" [showEdit]="false"
           [showDelete]="true" (deleteHandler)="deleteItem($event)" [showDetails]="false"
           (detailsHandler)="itemDetails($event)" (editHandler)="editItem($event)"
           (customSortHandler)="enableSortFilter?sortItems($event):''"

@@ -7,13 +7,15 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
+  selector: 'app-school-card',
   standalone: true,
-  imports: [TranslateModule, CommonModule],
-  selector: 'bank-card',
-  templateUrl: './bank-card.component.html',
-  styleUrls: ['./bank-card.component.scss']
+  imports: [
+    TranslateModule, CommonModule
+  ],
+  templateUrl: './school-card.component.html',
+  styleUrls: ['./school-card.component.scss']
 })
-export class BankCardComponent {
+export class SchoolCardComponent {
   @Input() item: any;
   currentLanguage: string;
 

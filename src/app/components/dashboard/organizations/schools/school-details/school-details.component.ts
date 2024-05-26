@@ -7,7 +7,6 @@ import { CommonModule } from '@angular/common';
 import { UploadMultiFilesComponent } from '../../../../../shared/components/upload-files/upload-multi-files/upload-multi-files.component';
 import { DynamicSvgComponent } from './../../../../../shared/components/icons/dynamic-svg/dynamic-svg.component';
 import { SkeletonComponent } from '../../../../../shared/skeleton/skeleton/skeleton.component';
-import { AddEditBankComponent } from '../add-edit-bank/add-edit-bank.component';
 
 //Services
 import { LocalizationLanguageService } from '../../../../../services/generic/localization-language.service';
@@ -23,8 +22,11 @@ import { Component } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { OrgnizationUsersComponent } from '../../../users/orgnization-users/orgnization-users.component';
 import { AddEditUsersComponent } from '../../../users/add-edit-users/add-edit-users.component';
+import { AddEditSchoolComponent } from '../add-edit-school/add-edit-school.component';
+import { SchoolsService } from '../../../services/schools.service';
 
 @Component({
+  selector: 'app-school-details',
   standalone: true,
   imports: [
     // Modules
@@ -42,20 +44,19 @@ import { AddEditUsersComponent } from '../../../users/add-edit-users/add-edit-us
     SkeletonComponent,
     // RecordsComponent
   ],
-  selector: 'app-bank-details',
-  templateUrl: './bank-details.component.html',
-  styleUrls: ['./bank-details.component.scss']
+  templateUrl: './school-details.component.html',
+  styleUrls: ['./school-details.component.scss']
 })
-export class BankDetailsComponent {
+export class SchoolDetailsComponent {
   private subscriptions: Subscription[] = [];
   currentLanguage: string;
   dataStyleType: string = 'list';
 
   bankId: number;
-  isLoadingBankData: boolean = false;
-  bankData: any;
+  isLoadingSchoolData: boolean = false;
+  organizationData: any;
 
-  bankForm = this.fb?.group(
+  organizationForm = this.fb?.group(
     {
       name: ['', {
         validators: [
@@ -85,13 +86,14 @@ export class BankDetailsComponent {
     }
   );
   get formControls(): any {
-    return this.bankForm?.controls;
+    return this.organizationForm?.controls;
   }
 
   constructor(
     private localizationLanguageService: LocalizationLanguageService,
     private metadataService: MetadataService,
     private activatedRoute: ActivatedRoute,
+    private schoolsService: SchoolsService,
     private dialogService: DialogService,
     private alertsService: AlertsService,
     public publicService: PublicService,
@@ -110,14 +112,14 @@ export class BankDetailsComponent {
     this.activatedRoute.params.subscribe((params) => {
       this.bankId = params['id'];
       if (this.bankId) {
-        this.getBankById(this.bankId);
+        this.getSchoolById(this.bankId);
       }
     });
   }
   private updateMetaTagsForSEO(): void {
     let metaData: MetaDetails = {
-      title: 'تفاصيل البنك',
-      description: 'تفاصيل البنك',
+      title: 'تفاصيل المدرسة | سعة',
+      description: 'تفاصيل المدرسة | سعة',
       image: './assets/images/logo/logo-favicon.svg'
     }
     this.metadataService.updateMetaTagsForSEO(metaData);
@@ -127,47 +129,42 @@ export class BankDetailsComponent {
     this.dataStyleType = type;
   }
 
-  // Start Get Bank By Id
-  getBankById(id: number | string): void {
-    this.isLoadingBankData = true;
-    let subscribeGetBank: Subscription = this.banksService?.getBankById(id).pipe(
-      tap((res: any) => this.handleGetBankSuccess(res)),
+  // Start Get School By Id
+  getSchoolById(id: number | string): void {
+    this.isLoadingSchoolData = true;
+    let subscribeGetSchool: Subscription = this.schoolsService?.getSchoolById(id).pipe(
+      tap((res: any) => this.handleGetSchoolSuccess(res)),
       catchError(err => this.handleError(err)),
       finalize(() => this.finalizeGetBank())
     ).subscribe();
-    this.subscriptions.push(subscribeGetBank);
+    this.subscriptions.push(subscribeGetSchool);
   }
-  private handleGetBankSuccess(response: any): void {
+  private handleGetSchoolSuccess(response: any): void {
     if (response?.status == 200) {
-      this.bankData = response.data;
-      let nameBbj: any = JSON.parse(this.bankData?.name || '{}');
-      this.bankData['bankName'] = nameBbj[this.currentLanguage];
-      let addressBbj: any = JSON.parse(this.bankData?.location || '{}');
-      this.bankData['addressName'] = addressBbj[this.currentLanguage];
-      // installment ways
-      this.bankData?.installment_ways?.forEach((element: any) => {
-        let nameObj: any = JSON.parse(element?.name || '{}');
-        element['name'] = nameObj[this.currentLanguage];
-      });
-      this.bankData['usersCount'] = this.bankData?.users?.length>0 ? this.bankData?.users?.length :'0';
+      this.organizationData = response.data;
+      let nameBbj: any = JSON.parse(this.organizationData?.name || '{}');
+      this.organizationData['schoolName'] = nameBbj[this.currentLanguage];
+      let addressBbj: any = JSON.parse(this.organizationData?.location || '{}');
+      this.organizationData['addressName'] = addressBbj[this.currentLanguage];
+      this.organizationData['usersCount'] = this.organizationData?.users?.length>0 ? this.organizationData?.users?.length :'0';
       this.patchValue();
     } else {
       this.handleError(response?.message);
     }
   }
   private finalizeGetBank(): void {
-    this.isLoadingBankData = false;
+    this.isLoadingSchoolData = false;
   }
-  // End Get Bank By Id
+  // End Get School By Id
 
   // Start Patch Values
   patchValue(): void {
-    let installmentWaysData: any = this.bankData?.installment_ways;
-    this.bankForm.patchValue({
-      name: this.bankData['bankName'],
-      location: this.bankData['addressName'],
-      startTime: this.convertTime(this.bankData?.start_time),
-      endTime: this.convertTime(this.bankData?.end_time),
+    let installmentWaysData: any = this.organizationData?.installment_ways;
+    this.organizationForm.patchValue({
+      name: this.organizationData['schoolName'],
+      location: this.organizationData['addressName'],
+      startTime: this.convertTime(this.organizationData?.start_time),
+      endTime: this.convertTime(this.organizationData?.end_time),
       installmentWays: installmentWaysData,
     });
   }
@@ -183,19 +180,19 @@ export class BankDetailsComponent {
 
   // Edit Bank
   editItem(): void {
-    const ref = this.dialogService?.open(AddEditBankComponent, {
+    const ref = this.dialogService?.open(AddEditSchoolComponent, {
       data: {
-        item: this.bankData,
+        item: this.organizationData,
         type: 'edit',
       },
-      header: this.publicService?.translateTextFromJson('dashboard.banks.editBank'),
+      header: this.publicService?.translateTextFromJson('dashboard.schools.editSchool'),
       dismissableMask: false,
       width: '60%',
       styleClass: 'custom-modal',
     });
     ref.onClose.subscribe((res: any) => {
       if (res?.listChanged) {
-        this.getBankById(this.bankId);
+        this.getSchoolById(this.bankId);
       }
     });
   }
@@ -206,26 +203,26 @@ export class BankDetailsComponent {
   }
   // End Delete Bank User Functions
 
-    // Start Add User Modal
-    addUser(event: any): void {
-      const ref: any = this.dialogService?.open(AddEditUsersComponent, {
-        data: {
-          type: 'add',
-          organizationData: event
-        },
-        header: this.publicService?.translateTextFromJson('dashboard.users.addUser'),
-        dismissableMask: false,
-        width: '50%',
-        styleClass: 'custom-modal',
-      });
-      ref?.onClose.subscribe((res: any) => {
-        if (res?.listChanged) {
-          this.getBankById(this.bankId);
-        }
-      });
-    }
-    // End Add User Modal
-  
+  // Start Add User Modal
+  addUser(event: any): void {
+    const ref: any = this.dialogService?.open(AddEditUsersComponent, {
+      data: {
+        type: 'add',
+        organizationData: event
+      },
+      header: this.publicService?.translateTextFromJson('dashboard.users.addUser'),
+      dismissableMask: false,
+      width: '50%',
+      styleClass: 'custom-modal',
+    });
+    ref?.onClose.subscribe((res: any) => {
+      if (res?.listChanged) {
+        this.getSchoolById(this.bankId);
+      }
+    });
+  }
+  // End Add User Modal
+
 
   /* --- Handle api requests messages --- */
   private handleSuccess(msg: string | null): any {
