@@ -24,7 +24,7 @@ export class BanksService {
     }
     if (search) {
       params = params?.append("search", search);
-    }else{
+    } else {
       params = params?.append("search", '');
     }
     params = params?.append("type", "bank");
@@ -44,6 +44,9 @@ export class BanksService {
       return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.organizations.allOrganizations}/${id}`, data)
     }
     return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.organizations.allOrganizations}`, data);
+  }
+  addBankPrecentage(data: any, id?: number): Observable<any> {
+    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.organizations.addBankPrecentage}`, data);
   }
   getBankById(id: any): Observable<any> {
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.organizations.allOrganizations}/${id}`);

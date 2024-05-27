@@ -27,6 +27,7 @@ import { BanksService } from '../../../services/banks.service';
 import { AddEditBankComponent } from '../add-edit-bank/add-edit-bank.component';
 import { BankCardComponent } from '../bank-card/bank-card.component';
 import { AddEditUsersComponent } from '../../../users/add-edit-users/add-edit-users.component';
+import { BankPrecentageModalComponent } from './bank-precentage-modal/bank-precentage-modal.component';
 // import { ShowExpensesModalComponent } from '../show-expenses-modal/show-expenses-modal.component';
 
 @Component({
@@ -300,6 +301,21 @@ export class BanksListComponent {
     }
   }
   //End Delete Bank Functions
+
+  // Start Add Bank Precentage Modal
+  openBankPrecentage(event: any): void {
+    const ref: any = this.dialogService?.open(BankPrecentageModalComponent, {
+      header: this.publicService?.translateTextFromJson('dashboard.banks.bankPercentage'),
+      dismissableMask: false,
+      width: '40%',
+      styleClass: 'custom-modal',
+    });
+    ref?.onClose.subscribe((res: any) => {
+      if (res?.listChanged) {
+      }
+    });
+  }
+  // End Add Bank Precentage Modal
 
   // Start Search Functions
   handleSearch(event: any): void {

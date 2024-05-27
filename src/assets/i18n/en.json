@@ -222,7 +222,8 @@
       "banks": "Banks",
       "addBank": "Add Bank",
       "editBank": "Edit Bank",
-      "bankDetails": "Bank Details"
+      "bankDetails": "Bank Details",
+      "bankPercentage":"The bank's percentage of the loan"
     },
     "schools": {
       "schools": "Schools",
@@ -362,6 +363,8 @@
     "joinNow": "Join now"
   },
   "labels": {
+    "bankPercentage":"Bank's percentage",
+    "seaahPercentage":"Seaah percentage",
     "bankAccountNumber":"Bank Account Number",
     "website":"Website",
     "commercialRegistrationNo":"Commercial Registration No",
@@ -444,6 +447,8 @@
     "communicationPhone":"Communication Phone"
   },
   "placeholders": {
+    "bankPercentage":"Enter bank's percentage",
+    "seaahPercentage":"Enter seaah percentage",
     "bankAccountNumber":"Enter bank account number",
     "website":"Enter website",
     "commercialRegistrationNo":"Enter commercial registration no",

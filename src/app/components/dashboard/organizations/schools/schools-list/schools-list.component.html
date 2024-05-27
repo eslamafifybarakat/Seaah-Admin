@@ -72,8 +72,8 @@
       <!-- Table -->
       <ng-container *ngIf="dataStyleType=='list'">
         <!-- Table List -->
-        <dynamic-table-v2 [isLoading]="isLoadingSchoolsList" [showHeader]="false" [showClear]="false" [showSearch]="false"
-          [isLoadingSearch]="isLoadingSearch" (clearHandler)="enableSortFilter?clearTable():''"
+        <dynamic-table-v2 [isLoading]="isLoadingSchoolsList" [showHeader]="false" [showClear]="false"
+          [showSearch]="false" [isLoadingSearch]="isLoadingSearch" (clearHandler)="enableSortFilter?clearTable():''"
           [tableHeaders]="tableHeaders" [tableData]="schoolsList" [enableDateFormate]="true"
           [dateFormateString]="'d MMMM y'" (customSortHandler)="enableSortFilter?sortItems($event):''"
           (filterHandler)="enableSortFilter?filterItemsTable($event):''" [results]="schoolsCount"
@@ -85,7 +85,8 @@
           [showActionsButtons]="true" [showActions]="true" [showEdit]="true" (editHandler)="addEditItem($event,'edit')"
           [showDelete]="true" (deleteHandler)="deleteItem($event)" [showDetails]="true"
           (detailsHandler)="itemDetails($event)" [showActionItemBtn]="true"
-          [actionButtonText]="'dashboard.users.addUser'" (actionHandlerEmit)="addUser($event)"></dynamic-table-v2>
+          [actionButtonText]="'dashboard.users.addUser'" (actionHandlerEmit)="addUser($event)" [enableSetting]="true"
+          (settingHandler)="openSeaahPrecentage($event)"></dynamic-table-v2>
       </ng-container>
       <!-- Card -->
       <ng-container *ngIf="dataStyleType=='grid'">
@@ -196,7 +197,8 @@
       <div class="dash-global-footer px-4 d-flex align-items-center py-3">
         <p class="mb-0">
           <span>{{"dashboard.isTotal"|translate}}</span>
-          <span class="mx-1 fw-bolder fs-5">{{schoolsCount}}</span><span>{{"dashboard.schools.schools"|translate}}</span>
+          <span
+            class="mx-1 fw-bolder fs-5">{{schoolsCount}}</span><span>{{"dashboard.schools.schools"|translate}}</span>
         </p>
       </div>
     </ng-container>

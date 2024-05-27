@@ -28,6 +28,7 @@ import { AddEditUsersComponent } from '../../../users/add-edit-users/add-edit-us
 import { SchoolCardComponent } from '../school-card/school-card.component';
 import { AddEditSchoolComponent } from '../add-edit-school/add-edit-school.component';
 import { SchoolsService } from '../../../services/schools.service';
+import { SeaahPrecentageModalComponent } from './seaah-precentage-modal/seaah-precentage-modal.component';
 
 @Component({
   selector: 'app-schools-list',
@@ -329,6 +330,21 @@ export class SchoolsListComponent {
     }
   }
   //End Delete School Functions
+
+  // Start Add Seaah Precentage Modal
+  openSeaahPrecentage(event: any): void {
+    const ref: any = this.dialogService?.open(SeaahPrecentageModalComponent, {
+      header: this.publicService?.translateTextFromJson('dashboard.banks.bankPercentage'),
+      dismissableMask: false,
+      width: '40%',
+      styleClass: 'custom-modal',
+    });
+    ref?.onClose.subscribe((res: any) => {
+      if (res?.listChanged) {
+      }
+    });
+  }
+  // End Add Seaah Precentage Modal
 
   // Start Search Functions
   handleSearch(event: any): void {

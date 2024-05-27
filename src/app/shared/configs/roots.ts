@@ -41,6 +41,8 @@ export const roots = {
     organizations: {
       allOrganizations: 'organization',
       organizationByType: 'organization/get-data',
+      addBankPrecentage: 'AddBankPrecentage',
+      addSeaahPrecentage: 'addSeaahPrecentage'
     },
     installmentWays: {
       getInstallmentWays: 'installment_ways'

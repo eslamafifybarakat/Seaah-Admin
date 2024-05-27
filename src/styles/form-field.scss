@@ -294,6 +294,13 @@ input::-webkit-inner-spin-button {
   }
 }
 #modal-form {
+  .p-inputnumber {
+    .p-inputtext:enabled:focus,
+    .p-inputtext:enabled:hover {
+      border-color: #ced4da;
+    }
+  }
+  .p-inputnumber,
   .form-control,
   .form-control:focus,
   .form-control:focus-visible,
@@ -312,6 +319,10 @@ input::-webkit-inner-spin-button {
     height: 3.6rem;
     border-radius: var(--border-input-radius);
     // padding: 1rem;
+  }
+  p-inputnumber,
+  .p-inputnumber {
+    width: 100%;
   }
   .p-dropdown {
     border-color: #ced4da !important;

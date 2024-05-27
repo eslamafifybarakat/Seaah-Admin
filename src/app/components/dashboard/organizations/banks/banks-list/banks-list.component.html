@@ -85,7 +85,8 @@
           [showActionsButtons]="true" [showActions]="true" [showEdit]="true" (editHandler)="addEditItem($event,'edit')"
           [showDelete]="true" (deleteHandler)="deleteItem($event)" [showDetails]="true"
           (detailsHandler)="itemDetails($event)" [showActionItemBtn]="true"
-          [actionButtonText]="'dashboard.users.addUser'" (actionHandlerEmit)="addUser($event)"></dynamic-table-v2>
+          [actionButtonText]="'dashboard.users.addUser'" (actionHandlerEmit)="addUser($event)" [enableSetting]="true"
+          (settingHandler)="openBankPrecentage($event)"></dynamic-table-v2>
       </ng-container>
       <!-- Card -->
       <ng-container *ngIf="dataStyleType=='grid'">

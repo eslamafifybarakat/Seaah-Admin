@@ -14,7 +14,7 @@ export class SchoolsService {
     private http: HttpClient
   ) { }
 
-  getSchoolsList(page?: number | string, per_page?: number, search?: string, sort?: any, conditions?: any,approval_status?:any): Observable<any> {
+  getSchoolsList(page?: number | string, per_page?: number, search?: string, sort?: any, conditions?: any, approval_status?: any): Observable<any> {
     let params = new HttpParams();
     if (page) {
       params = params?.append("page_number", page);
@@ -50,5 +50,8 @@ export class SchoolsService {
   }
   deleteSchoolById(id: number): Observable<any> {
     return this.http.delete<any>(`${this.baseUrl}/${roots?.dashboard.organizations.allOrganizations}/` + id);
+  }
+  addSeaahPrecentage(data: any, id?: number): Observable<any> {
+    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.organizations.addSeaahPrecentage}`, data);
   }
 }

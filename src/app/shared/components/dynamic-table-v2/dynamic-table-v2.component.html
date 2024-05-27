@@ -394,7 +394,7 @@
     </ng-container>
     <ng-container *ngIf="showActions">
       <td>
-        <div class="d-flex gap-2">
+        <div class="d-flex gap-2 align-items-center">
           <ng-container *ngIf="showActionsIcons">
             <ng-container *ngIf="showDetails">
               <a class="fw-500 details" (click)="detailsHandlerEmit(item)" pTooltip="{{'general.details'|translate}}"
@@ -511,6 +511,11 @@
                   {{'general.reject'|translate}}
                 </span>
               </button>
+            </ng-container>
+            <ng-container *ngIf="enableSetting">
+              <a (click)="settingHandlerEmit(item)">
+                <i class="pi pi-cog fs-5"></i>
+              </a>
             </ng-container>
           </ng-container>
         </div>

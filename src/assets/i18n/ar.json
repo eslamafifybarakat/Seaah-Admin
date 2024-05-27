@@ -210,7 +210,8 @@
       "banks": "البنوك",
       "addBank": "إضافة بنك",
       "editBank": "تعديل بنك",
-      "bankDetails": "تفاصيل البنك"
+      "bankDetails": "تفاصيل البنك",
+      "bankPercentage":"نسبة البنك من القرض"
     },
     "schools": {
       "schools": "المدارس",
@@ -363,8 +364,10 @@
     "joinNow": "انضم الأن"
   },
   "labels": {
-    "bankAccountNumber":"Bank Account Number",
-    "website":"Website",
+    "bankPercentage":"نسبة البنك",
+    "seaahPercentage":" نسبة سعه",
+    "bankAccountNumber":"رقم الحساب البنكي",
+    "website":"الموقع الالكتروني",
     "commercialRegistrationNo":"رقم السجل التجاري",
     "educationalLevel":"المرحلة التعليمية",
     "communicationEmail":"إيميل التواصل",
@@ -443,6 +446,8 @@
     "street": "الشارع"
   },
   "placeholders": {
+    "bankPercentage":"أدخل نسبة البنك",
+    "seaahPercentage":"أدخل نسبة سعه",
     "commercialRegistrationNo":"أدخل رقم السجل التجاري",
     "educationalLevel":"اختر المرحلة التعليمية",
     "communicationEmail":"أدخل إيميل التواصل",

@@ -93,6 +93,7 @@ export class DynamicTableV2Component {
   @Input() actionButtonText: string = '';
   @Input() showAcceptAction: boolean = false;
   @Input() showRejectAction: boolean = false;
+  @Input() enableSetting: boolean = false;
 
   // Paginator variables
   @ViewChild('paginator') paginator: Paginator | undefined;
@@ -151,6 +152,7 @@ export class DynamicTableV2Component {
   @Output() copyHandler: EventEmitter<any> = new EventEmitter();
   @Output() acceptHandler: EventEmitter<any> = new EventEmitter();
   @Output() rejectHandler: EventEmitter<any> = new EventEmitter();
+  @Output() settingHandler: EventEmitter<any> = new EventEmitter();
 
   @Output() suspendHandler: EventEmitter<any> = new EventEmitter();
   @Output() activateHandler: EventEmitter<any> = new EventEmitter();
@@ -350,6 +352,9 @@ export class DynamicTableV2Component {
   }
   rejectHandlerEmit(item: any): void {
     this.rejectHandler.emit({ item: item });
+  }
+  settingHandlerEmit(item: any): void {
+    this.settingHandler.emit({ item: item });
   }
   statusHandlerEmit(item: any): void {
     this.toggleStatusHandler?.emit(item)
