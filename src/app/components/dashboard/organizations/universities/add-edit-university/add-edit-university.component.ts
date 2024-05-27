@@ -275,8 +275,8 @@ export class AddEditUniversityComponent {
     formData.append('website', this.organizationForm?.value?.website);
     formData.append('email', this.organizationForm?.value?.email);
     formData.append('communication_phone', this.organizationForm?.value?.communicationPhone);
-    formData.append('start_time', startTime.toLocaleTimeString('en-US', { hour12: false }));
-    formData.append('end_time', endTime.toLocaleTimeString('en-US', { hour12: false }));
+    // formData.append('start_time', startTime.toLocaleTimeString('en-US', { hour12: false }));
+    // formData.append('end_time', endTime.toLocaleTimeString('en-US', { hour12: false }));
     // formData.append('installment_ways', JSON.stringify(installmentWaysIds));
     if (this.organizationForm?.value?.organizationFile) {
       formData.append('image', this.organizationForm?.value?.organizationFile);
