@@ -5,12 +5,12 @@
         <div class="col-md-6">
           <div class="mb-3">
             <label for="name" class="mb-2 required">
-              {{'labels.name'|translate}}
+              {{'labels.bankName'|translate}}
             </label>
             <input type="text" class="form-control" formControlName="name"
               (input)="publicService?.clearValidationErrors(formControls?.name)"
               [class.border-red]="formControls?.name?.invalid && (formControls?.name?.dirty || formControls?.name?.touched)"
-              placeholder="{{'placeholders.name'|translate}}">
+              placeholder="{{'placeholders.bankName'|translate}}">
             <div class="mt-2">
               <ng-container
                 *ngIf="formControls?.name?.invalid && (formControls?.name?.dirty || formControls?.name?.touched)">
@@ -53,6 +53,55 @@
         </div>
         <div class="col-md-6">
           <div class="mb-3">
+            <label for="communicationEmail" class="mb-2 required">
+              {{'labels.communicationEmail'|translate}}
+            </label>
+            <input type="text" class="form-control" formControlName="communicationEmail"
+              (input)="publicService?.clearValidationErrors(formControls?.communicationEmail)" [class.border-red]=" formControls?.communicationEmail?.invalid && (formControls?.communicationEmail?.dirty ||
+              formControls?.communicationEmail?.touched)"
+              [class.is-valid]="formControls?.communicationEmail?.valid && (formControls?.communicationEmail?.dirty || formControls?.communicationEmail?.touched)"
+              placeholder="{{'placeholders.communicationEmail'|translate}}">
+            <div class="mt-2">
+              <ng-container
+                *ngIf="formControls?.communicationEmail?.invalid && (formControls?.communicationEmail?.dirty || formControls?.communicationEmail?.touched)">
+                <ng-container *ngIf="formControls?.communicationEmail?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{'validations.requiredField'|translate}}
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="formControls?.communicationEmail?.errors?.['pattern']">
+                  <span class="text-danger fs-8">
+                    {{'validations.emailNotCorrect'|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="communicationPhone" class="mb-2 required">
+              {{'labels.communicationPhone'|translate}}
+            </label>
+            <input type="text" class="form-control" formControlName="communicationPhone"
+              (input)="publicService?.clearValidationErrors(formControls?.communicationPhone)" [class.border-red]=" formControls?.communicationPhone?.invalid && (formControls?.communicationPhone?.dirty ||
+              formControls?.communicationPhone?.touched)"
+              [class.is-valid]="formControls?.communicationPhone?.valid && (formControls?.communicationPhone?.dirty || formControls?.communicationPhone?.touched)"
+              placeholder="{{'placeholders.communicationPhone'|translate}}">
+            <div class="mt-2">
+              <ng-container
+                *ngIf="formControls?.communicationPhone?.invalid && (formControls?.communicationPhone?.dirty || formControls?.communicationPhone?.touched)">
+                <ng-container *ngIf="formControls?.communicationPhone?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{'validations.requiredField'|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-md-6">
+          <div class="mb-3">
             <label for="startTime" class="mb-2 required">
               {{'labels.startTime'|translate}}
             </label>
@@ -77,7 +126,6 @@
             </div>
           </div>
         </div>
-
         <div class="col-md-6">
           <div class="mb-3">
             <label for="endTime" class="mb-2 required">
@@ -102,8 +150,7 @@
               </ng-container>
             </div>
           </div>
-        </div>
-
+        </div> -->
         <div class="col-lg-6">
           <div class="mb-3">
             <label for="installmentWays" class="mb-2 required">
@@ -132,7 +179,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="col-lg-6">
           <div class="mb-3">
             <label for="uploadFile" class="mb-2" [class.required]="!isEdit">

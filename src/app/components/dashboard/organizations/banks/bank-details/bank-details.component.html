@@ -65,6 +65,22 @@
               </div>
               <div>
                 <label class="mb-1 text-muted-color">
+                  {{'labels.communicationEmail'|translate}}
+                </label>
+                <p>
+                  {{bankData?.communication_email||'---'}}
+                </p>
+              </div>
+              <div>
+                <label class="mb-1 text-muted-color">
+                  {{'labels.communicationPhone'|translate}}
+                </label>
+                <p>
+                  {{bankData?.communication_phone||'---'}}
+                </p>
+              </div>
+              <!-- <div>
+                <label class="mb-1 text-muted-color">
                   {{'labels.startTime'|translate}}
                 </label>
                 <p>
@@ -78,7 +94,7 @@
                 <p>
                   {{bankData?.end_time||'---'}}
                 </p>
-              </div>
+              </div> -->
               <div>
                 <label class="mb-1 text-muted-color">
                   {{'dashboard.tableHeader.usersCount'|translate}}
@@ -161,6 +177,30 @@
               </div>
               <div class="col-lg-4 col-md-6">
                 <div class="mb-3">
+                  <label for="communicationEmail" class="mb-2">
+                    {{'labels.communicationEmail'|translate}}
+                  </label>
+                  <input type="text" class="form-control" formControlName="communicationEmail"
+                    (input)="publicService?.clearValidationErrors(formControls?.communicationEmail)" [class.border-red]=" formControls?.communicationEmail?.invalid && (formControls?.communicationEmail?.dirty ||
+                    formControls?.communicationEmail?.touched)"
+                    [class.is-valid]="formControls?.communicationEmail?.valid && (formControls?.communicationEmail?.dirty || formControls?.communicationEmail?.touched)"
+                    placeholder="{{'placeholders.communicationEmail'|translate}}">
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <div class="mb-3">
+                  <label for="location" class="mb-2">
+                    {{'labels.location'|translate}}
+                  </label>
+                  <input type="text" class="form-control" formControlName="location"
+                    (input)="publicService?.clearValidationErrors(formControls?.location)" [class.border-red]=" formControls?.location?.invalid && (formControls?.location?.dirty ||
+                          formControls?.location?.touched)"
+                    [class.is-valid]="formControls?.location?.valid && (formControls?.location?.dirty || formControls?.location?.touched)"
+                    placeholder="{{'placeholders.location'|translate}}">
+                </div>
+              </div>
+              <!-- <div class="col-lg-4 col-md-6">
+                <div class="mb-3">
                   <label for="startTime" class="mb-2">
                     {{'labels.startTime'|translate}}
                   </label>
@@ -208,7 +248,7 @@
                     </ng-container>
                   </div>
                 </div>
-              </div>
+              </div> -->
               <div class="col-lg-4 col-md-6">
                 <div class="mb-3">
                   <label for="installmentWays" class="mb-2">
@@ -216,16 +256,16 @@
                   </label>
                   <div class="form-control d-flex gap-2 align-items-center flex-wrap ways">
                     <ng-container
-                    *ngIf="bankData?.installment_ways&&bankData?.installment_ways?.length>0; else elseNoInstallmentWays">
-                    <span class="chid text-nowrap" *ngFor="let item of bankData?.installment_ways">
-                      {{item.name}}
-                    </span>
-                  </ng-container>
-                  <ng-template #elseNoInstallmentWays>
-                    <p class="text-center noItemAdded">
-                      {{'general.noItemAdded'|translate}}
-                    </p>
-                  </ng-template>
+                      *ngIf="bankData?.installment_ways&&bankData?.installment_ways?.length>0; else elseNoInstallmentWays">
+                      <span class="chid text-nowrap" *ngFor="let item of bankData?.installment_ways">
+                        {{item.name}}
+                      </span>
+                    </ng-container>
+                    <ng-template #elseNoInstallmentWays>
+                      <p class="text-center noItemAdded">
+                        {{'general.noItemAdded'|translate}}
+                      </p>
+                    </ng-template>
                   </div>
                 </div>
               </div>

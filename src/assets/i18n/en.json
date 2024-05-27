@@ -19,6 +19,9 @@
     "dashboard": "Dashboard"
   },
   "general": {
+    "primaryStage":"Primary Stage",
+    "middleSchool":"Middle School",
+    "highSchool":"High School",
     "changeStatus":"Change Status",
     "no_result_found":"No Result Founded",
     "noSearchResult":"No Search Result",
@@ -359,6 +362,11 @@
     "joinNow": "Join now"
   },
   "labels": {
+    "bankAccountNumber":"Bank Account Number",
+    "website":"Website",
+    "commercialRegistrationNo":"Commercial Registration No",
+    "educationalLevel":"Educational Level",
+    "bankName":"Bank Name",
     "period": "Period",
     "status":"Status",
     "bank":"Bank",
@@ -431,9 +439,18 @@
     "school": "School",
     "kidImage": "Kid Image",
     "region": "Region",
-    "street": "Street"
+    "street": "Street",
+    "communicationEmail":"Communication Email",
+    "communicationPhone":"Communication Phone"
   },
   "placeholders": {
+    "bankAccountNumber":"Enter bank account number",
+    "website":"Enter website",
+    "commercialRegistrationNo":"Enter commercial registration no",
+    "educationalLevel":"Select educational level",
+    "communicationEmail":"Enter communication email",
+    "communicationPhone":"Enter communication phone",
+    "bankName":"Enter bank name",
     "select": "Select",
     "price": "Enter price",
     "title": "Enter title",
@@ -464,7 +481,7 @@
     "companyName": "Enter company name",
     "search": "Search",
     "country": "Select country",
-    "city": "Select city",
+    "city": "Enter city",
     "vatNumber": "Enter your vat-number",
     "address": "Enter address",
     "newPassword": "Enter new password",

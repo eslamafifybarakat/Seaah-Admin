@@ -70,7 +70,9 @@ export class PublicService {
       }
     })
   }
-
+  IsRecordNumberAvailable(data: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl + '/' + roots.dashboard.availability.IsRecordNumberAvailable, data);
+  }
   IsNationalIdentityAvailable(data: any): Observable<any> {
     return this.http.post<any>(this.baseUrl + '/' + roots.dashboard.availability.IsNationalIdentityAvailable, data);
   }

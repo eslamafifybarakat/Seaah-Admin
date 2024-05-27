@@ -19,7 +19,7 @@ import { PublicService } from '../../../../../services/generic/public.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BanksService } from '../../../services/banks.service';
 import { tap, catchError, finalize } from 'rxjs/operators';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -68,8 +68,26 @@ export class AddEditSchoolComponent {
 
   organizationFile: any = null;
   organizationFileSrc: any;
+  educationalLevels: any = [
+    {
+      id: 1,
+      title: this.publicService.translateTextFromJson('general.primaryStage')
+    },
+    {
+      id: 2,
+      title: this.publicService.translateTextFromJson('general.middleSchool')
+    },
+    {
+      id: 3,
+      title: this.publicService.translateTextFromJson('general.highSchool')
+    },
+  ]
 
-  organizationForm = this.fb?.group(
+  // Check Record Number Variables
+  isLoadingCheckRecordNum: Boolean = false;
+  recordNumNotAvailable: Boolean = false;
+
+  organizationForm: any = this.fb?.group(
     {
       name: ['', {
         validators: [
@@ -80,13 +98,41 @@ export class AddEditSchoolComponent {
         validators: [
           Validators.required], updateOn: "blur"
       }],
-      startTime: [null, {
+      region: ['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }],
+      city: ['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }],
+      educationalLevel: [null, {
         validators: [
           Validators.required]
       }],
+      commercialRegistrationNo: ['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }],
+      website: ['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }],
+      email: ['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }],
+      communicationPhone: ['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }],
+      startTime: [null, {
+        validators: [
+        ]
+      }],
       endTime: [null, {
         validators: [
-          Validators.required]
+        ]
       }],
       organizationFile: [null, {
         validators: [
@@ -106,6 +152,7 @@ export class AddEditSchoolComponent {
     public publicService: PublicService,
     private config: DynamicDialogConfig,
     private banksService: BanksService,
+    private cdr: ChangeDetectorRef,
     private ref: DynamicDialogRef,
     private fb: FormBuilder
   ) {
@@ -144,11 +191,24 @@ export class AddEditSchoolComponent {
     this.organizationForm.patchValue({
       name: this.schoolData?.item?.schoolName,
       location: this.schoolData?.item?.addressName,
+      region: this.schoolData?.item?.region,
+      city: this.schoolData?.item?.city,
+      commercialRegistrationNo: this.schoolData?.item?.commercial_registration_no,
+      website: this.schoolData?.item?.website,
+      email: this.schoolData?.item?.email,
+      communicationPhone: this.schoolData?.item?.communication_phone,
       startTime: this.convertTime(this.schoolData?.item?.start_time),
       endTime: this.convertTime(this.schoolData?.item?.end_time),
     });
     this.organizationFileSrc = this.schoolData?.item?.image_path;
-    // this.getInstallmentWays();
+    this.educationalLevels.forEach((element: any) => {
+      if (element.id == this.schoolData?.item.educational_level.id) {
+        this.organizationForm.patchValue({
+          educationalLevel: this.schoolData?.item?.educational_level,
+        });
+      }
+    });
+    // this.checkRecordNumAvailable();
   }
   convertTime(date: any): any {
     const timeString = date;
@@ -158,6 +218,43 @@ export class AddEditSchoolComponent {
     const time: any = new Date(dateTimeString);
     return time;
   }
+
+  onKeyUpEvent(): void {
+    this.isLoadingCheckRecordNum = false;
+  }
+  // Start Check If Record Number Unique
+  checkRecordNumAvailable(): void {
+    if (!this.formControls?.commercialRegistrationNo?.valid) {
+      return; // Exit early if Record Number is not valid
+    }
+    const number: number | string = this.organizationForm?.value?.commercialRegistrationNo;
+    const data: any = { number };
+    this.isLoadingCheckRecordNum = true;
+    let checkRecordNumSubscription: Subscription = this.publicService?.IsRecordNumberAvailable(data).pipe(
+      tap(res => this.handleRecordNumResponse(res)),
+      catchError(err => this.handleRecordNumError(err))
+    ).subscribe();
+    this.subscriptions.push(checkRecordNumSubscription);
+  }
+  private handleRecordNumResponse(res: any): void {
+    if (res?.success && res?.result != null) {
+      this.recordNumNotAvailable = !res.result;
+    } else {
+      this.recordNumNotAvailable = false;
+      this.handleRecordNumError(res?.message);
+    }
+    this.isLoadingCheckRecordNum = false;
+    this.cdr.detectChanges();
+  }
+  private handleRecordNumError(err: any): any {
+    this.recordNumNotAvailable = true;
+    this.isLoadingCheckRecordNum = false;
+    this.handleError(err);
+  }
+  clearCheckAvailable(type: string): void {
+    this.recordNumNotAvailable = false;
+  }
+  // End Check If Record Number Unique
 
   // Upload File
   uploadFile(event: any): void {
@@ -198,8 +295,15 @@ export class AddEditSchoolComponent {
     formData.append('name[ar]', this.organizationForm?.value?.name);
     formData.append('location[en]', this.organizationForm?.value?.location);
     formData.append('location[ar]', this.organizationForm?.value?.location);
-    formData.append('start_time', startTime.toLocaleTimeString('en-US', { hour12: false }));
-    formData.append('end_time', endTime.toLocaleTimeString('en-US', { hour12: false }));
+    formData.append('educational_level', this.organizationForm.value.educationalLevel['id']);
+    formData.append('region', this.organizationForm?.value?.region);
+    formData.append('city', this.organizationForm?.value?.city);
+    formData.append('commercial_registration_no', this.organizationForm?.value?.commercialRegistrationNo);
+    formData.append('website', this.organizationForm?.value?.website);
+    formData.append('email', this.organizationForm?.value?.email);
+    formData.append('communication_phone', this.organizationForm?.value?.communicationPhone);
+    // formData.append('start_time', startTime.toLocaleTimeString('en-US', { hour12: false }));
+    // formData.append('end_time', endTime.toLocaleTimeString('en-US', { hour12: false }));
     // formData.append('installment_ways', JSON.stringify(installmentWaysIds));
     if (this.organizationForm?.value?.organizationFile) {
       formData.append('image', this.organizationForm?.value?.organizationFile);

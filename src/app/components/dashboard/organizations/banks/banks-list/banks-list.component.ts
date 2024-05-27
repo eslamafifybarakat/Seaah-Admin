@@ -127,8 +127,10 @@ export class BanksListComponent {
       { field: 'image_path', header: '', title: '', type: 'img' },
       { field: 'bankName', header: 'dashboard.tableHeader.name', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), type: 'text', sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false },
       { field: 'addressName', header: 'dashboard.tableHeader.location', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.location'), type: 'text', sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false },
-      { field: 'start_time', header: 'dashboard.tableHeader.startTime', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.startTime'), type: 'time' },
-      { field: 'end_time', header: 'dashboard.tableHeader.endTime', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endTime'), type: 'time' },
+      { field: 'communication_email', header: 'labels.communicationEmail', title: this.publicService?.translateTextFromJson('labels.communicationEmail'), type: 'text', sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false },
+      { field: 'communication_phone', header: 'labels.communicationPhone', title: this.publicService?.translateTextFromJson('labels.communicationPhone'), type: 'text', sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false },
+      // { field: 'start_time', header: 'dashboard.tableHeader.startTime', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.startTime'), type: 'time' },
+      // { field: 'end_time', header: 'dashboard.tableHeader.endTime', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endTime'), type: 'time' },
       { field: 'installment_ways', header: 'dashboard.tableHeader.installmentWays', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.installmentWays'), type: 'filterArray', dataType: 'array' },
       { field: 'usersCount', header: 'dashboard.tableHeader.usersCount', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.usersCount'), type: 'text', sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false },
     ];
@@ -192,6 +194,8 @@ export class BanksListComponent {
       this.banksList = response?.data?.items;
       this.banksList?.forEach((element: any) => {
         element['active'] = false;
+        element['communication_email'] = 'email33@gmail.com';
+        element['communication_phone'] = '01233933888';
 
         let nameBbj: any = JSON.parse(element?.name || '{}');
         element['bankName'] = nameBbj[this.currentLanguage];
@@ -203,7 +207,7 @@ export class BanksListComponent {
           // item['name'] = nameObj[this.currentLanguage];
           item['name'] = item['name'];
         });
-        element['usersCount'] = element?.users?.length>0 ? element?.users?.length :'0';
+        element['usersCount'] = element?.users?.length > 0 ? element?.users?.length : '0';
       });
     } else {
       this.handleError(response.message);

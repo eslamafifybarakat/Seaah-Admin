@@ -24,6 +24,7 @@ export const roots = {
   dashboard: {
     uploadFile: '/uploadFile',
     availability: {
+      IsRecordNumberAvailable: 'Client/IsRecordNumberAvailable',
       IsNationalIdentityAvailable: "Client/IsIdentityAvailable",
       IsEmailAvailable: "Client/IsEmailAvailable",
       IsPhoneAvailable: "Client/IsPhoneNumberAvailable"
@@ -70,12 +71,12 @@ export const roots = {
       addEditVehicle: '/addEditVehicle'
     },
     myExpenses: {
-      getAll:'installment_requests',
+      getAll: 'installment_requests',
       addEdit: 'installment_requests'
     },
-    rqeuests:{
-      getAll:'bank/requests',
-      changeRequestStatus:'bank'
+    rqeuests: {
+      getAll: 'bank/requests',
+      changeRequestStatus: 'bank'
     }
   }
 }

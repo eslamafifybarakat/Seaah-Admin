@@ -66,14 +66,23 @@ export class BankDetailsComponent {
         validators: [
           Validators.required], updateOn: "blur"
       }],
+      communicationEmail: ['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }],
+      communicationPhone: ['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }],
       startTime: [null, {
         validators: [
-          Validators.required]
+        ]
       }],
       endTime: [null, {
         validators: [
-          Validators.required]
+        ]
       }],
+
       installmentWays: [null, {
         validators: [
           Validators.required]
@@ -144,13 +153,15 @@ export class BankDetailsComponent {
       this.bankData['bankName'] = nameBbj[this.currentLanguage];
       let addressBbj: any = JSON.parse(this.bankData?.location || '{}');
       this.bankData['addressName'] = addressBbj[this.currentLanguage];
+      this.bankData['communication_email'] = 'email33@gmail.com';
+      this.bankData['communication_phone'] = '01233933888';
       // installment ways
       this.bankData?.installment_ways?.forEach((element: any) => {
         // let nameObj: any = JSON.parse(element?.name || '{}');
         // element['name'] = nameObj[this.currentLanguage];
         element['name'] = element['name'];
       });
-      this.bankData['usersCount'] = this.bankData?.users?.length>0 ? this.bankData?.users?.length :'0';
+      this.bankData['usersCount'] = this.bankData?.users?.length > 0 ? this.bankData?.users?.length : '0';
       this.patchValue();
     } else {
       this.handleError(response?.message);
@@ -167,6 +178,8 @@ export class BankDetailsComponent {
     this.bankForm.patchValue({
       name: this.bankData['bankName'],
       location: this.bankData['addressName'],
+      communicationEmail: this.bankData['communication_email'],
+      communicationPhone: this.bankData['communication_phone'],
       startTime: this.convertTime(this.bankData?.start_time),
       endTime: this.convertTime(this.bankData?.end_time),
       installmentWays: installmentWaysData,
@@ -207,26 +220,26 @@ export class BankDetailsComponent {
   }
   // End Delete Bank User Functions
 
-    // Start Add User Modal
-    addUser(event: any): void {
-      const ref: any = this.dialogService?.open(AddEditUsersComponent, {
-        data: {
-          type: 'add',
-          organizationData: this.bankData
-        },
-        header: this.publicService?.translateTextFromJson('dashboard.users.addUser'),
-        dismissableMask: false,
-        width: '50%',
-        styleClass: 'custom-modal',
-      });
-      ref?.onClose.subscribe((res: any) => {
-        if (res?.listChanged) {
-          this.getBankById(this.bankId);
-        }
-      });
-    }
-    // End Add User Modal
-  
+  // Start Add User Modal
+  addUser(event: any): void {
+    const ref: any = this.dialogService?.open(AddEditUsersComponent, {
+      data: {
+        type: 'add',
+        organizationData: this.bankData
+      },
+      header: this.publicService?.translateTextFromJson('dashboard.users.addUser'),
+      dismissableMask: false,
+      width: '50%',
+      styleClass: 'custom-modal',
+    });
+    ref?.onClose.subscribe((res: any) => {
+      if (res?.listChanged) {
+        this.getBankById(this.bankId);
+      }
+    });
+  }
+  // End Add User Modal
+
 
   /* --- Handle api requests messages --- */
   private handleSuccess(msg: string | null): any {

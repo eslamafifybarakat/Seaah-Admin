@@ -19,6 +19,9 @@
     "dashboard": "لوحة التحكم"
   },
   "general": {
+    "primaryStage":"المرحلة الابتدائية",
+    "middleSchool":"المرحلة الاعدادية",
+    "highSchool":"المرحلة الثانوية",
     "changeStatus":"تغيير الحالة",
     "no_result_found":"لا يوجد بيانات",
     "noSearchResult":"لا يوجد نتائج للبحث",
@@ -360,6 +363,12 @@
     "joinNow": "انضم الأن"
   },
   "labels": {
+    "bankAccountNumber":"Bank Account Number",
+    "website":"Website",
+    "commercialRegistrationNo":"رقم السجل التجاري",
+    "educationalLevel":"المرحلة التعليمية",
+    "communicationEmail":"إيميل التواصل",
+    "communicationPhone":"رقم التواصل",
     "period": "المدة",
     "status":"الحالة",
     "bank":"البنك",
@@ -434,6 +443,10 @@
     "street": "الشارع"
   },
   "placeholders": {
+    "commercialRegistrationNo":"أدخل رقم السجل التجاري",
+    "educationalLevel":"اختر المرحلة التعليمية",
+    "communicationEmail":"أدخل إيميل التواصل",
+    "communicationPhone":"أدخل رقم التواصل",
     "select": "اختر",
     "price": "أدخل السعر",
     "title": "أدخل العنوان",
@@ -464,7 +477,7 @@
     "companyName": "أدخل اسم الشركة",
     "search": "ابحث",
     "country": "اختر البلد",
-    "city": "اختر المدينة",
+    "city": "أدخل المدينة",
     "vatNumber": "أدخل رقم الضريبة القيمة المضافة",
     "address": "أدخل العنوان",
     "newPassword": "أدخل كلمة المرور الجديدة",

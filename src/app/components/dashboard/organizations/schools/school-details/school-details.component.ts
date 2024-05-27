@@ -79,6 +79,34 @@ export class SchoolDetailsComponent {
         validators: [
           Validators.required]
       }],
+      region: ['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }],
+      city: ['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }],
+      educationalLevel: [null, {
+        validators: [
+          Validators.required]
+      }],
+      commercialRegistrationNo: ['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }],
+      website: ['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }],
+      email: ['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }],
+      communicationPhone: ['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }],
       organizationFile: [null, {
         validators: [
           Validators.required]
@@ -146,7 +174,18 @@ export class SchoolDetailsComponent {
       this.organizationData['schoolName'] = nameBbj[this.currentLanguage];
       let addressBbj: any = JSON.parse(this.organizationData?.location || '{}');
       this.organizationData['addressName'] = addressBbj[this.currentLanguage];
-      this.organizationData['usersCount'] = this.organizationData?.users?.length>0 ? this.organizationData?.users?.length :'0';
+      this.organizationData['usersCount'] = this.organizationData?.users?.length > 0 ? this.organizationData?.users?.length : '0';
+      this.organizationData['educational_level'] = {
+        id: 1,
+        title: this.publicService.translateTextFromJson('general.primaryStage')
+      };
+      this.organizationData['educational_level_name'] = this.organizationData['educational_level']['title'];
+      this.organizationData['region'] = 'region';
+      this.organizationData['city'] = 'city';
+      this.organizationData['commercial_registration_no'] = '0229898989';
+      this.organizationData['website'] = 'website';
+      this.organizationData['email'] = 'email88@gmail.com';
+      this.organizationData['communication_phone'] = '109838388';
       this.patchValue();
     } else {
       this.handleError(response?.message);
@@ -166,6 +205,13 @@ export class SchoolDetailsComponent {
       startTime: this.convertTime(this.organizationData?.start_time),
       endTime: this.convertTime(this.organizationData?.end_time),
       installmentWays: installmentWaysData,
+      educationalLevel: this.organizationData?.educational_level_name,
+      region: this.organizationData?.region,
+      city: this.organizationData?.city,
+      commercialRegistrationNo: this.organizationData?.commercial_registration_no,
+      website: this.organizationData?.website,
+      email: this.organizationData?.email,
+      communicationPhone: this.organizationData?.communication_phone,
     });
   }
   convertTime(date: any): any {

@@ -1,3 +1,4 @@
+import { patterns } from 'src/app/shared/configs/patterns';
 // Modules
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -84,13 +85,21 @@ export class AddEditBankComponent {
         validators: [
           Validators.required], updateOn: "blur"
       }],
+      communicationEmail: ['', {
+        validators: [
+          Validators.required, Validators.pattern(patterns.email)], updateOn: "blur"
+      }],
+      communicationPhone: ['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }],
       startTime: [null, {
         validators: [
-          Validators.required]
+        ]
       }],
       endTime: [null, {
         validators: [
-          Validators.required]
+        ]
       }],
       installmentWays: [null, {
         validators: [
@@ -152,6 +161,8 @@ export class AddEditBankComponent {
     this.bankForm.patchValue({
       name: this.bankData?.item?.bankName,
       location: this.bankData?.item?.addressName,
+      communicationEmail: this.bankData?.item?.communication_email,
+      communicationPhone: this.bankData?.item?.communication_phone,
       startTime: this.convertTime(this.bankData?.item?.start_time),
       endTime: this.convertTime(this.bankData?.item?.end_time),
     });
@@ -248,8 +259,10 @@ export class AddEditBankComponent {
     formData.append('name[ar]', this.bankForm?.value?.name);
     formData.append('location[en]', this.bankForm?.value?.location);
     formData.append('location[ar]', this.bankForm?.value?.location);
-    formData.append('start_time', startTime.toLocaleTimeString('en-US', { hour12: false }));
-    formData.append('end_time', endTime.toLocaleTimeString('en-US', { hour12: false }));
+    formData.append('communication_email', this.bankForm?.value?.communicationEmail);
+    formData.append('communication_phone', this.bankForm?.value?.communicationPhone);
+    // formData.append('start_time', startTime.toLocaleTimeString('en-US', { hour12: false }));
+    // formData.append('end_time', endTime.toLocaleTimeString('en-US', { hour12: false }));
     formData.append('installment_ways', JSON.stringify(installmentWaysIds));
     if (this.bankForm?.value?.bankFile) {
       formData.append('image', this.bankForm?.value?.bankFile);
