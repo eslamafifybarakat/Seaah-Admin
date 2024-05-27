@@ -88,7 +88,7 @@ export class BankPrecentageModalComponent {
   private setMessage(message: string, type?: string | null): void {
     // this.alertsService.openToast(type, type, message);
     this.alertsService.openToast('success', 'success', 'success');
-    close();
+    this.cancel();
   }
 
   ngOnDestroy(): void {
