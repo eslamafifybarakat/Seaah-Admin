@@ -53,6 +53,158 @@
         </div>
         <div class="col-md-6">
           <div class="mb-3">
+            <label for="region" class="mb-2 required">
+              {{'labels.region'|translate}}
+            </label>
+            <input type="text" class="form-control" formControlName="region"
+              (input)="publicService?.clearValidationErrors(formControls?.region)" [class.border-red]=" formControls?.region?.invalid && (formControls?.region?.dirty ||
+              formControls?.region?.touched)"
+              [class.is-valid]="formControls?.region?.valid && (formControls?.region?.dirty || formControls?.region?.touched)"
+              placeholder="{{'placeholders.region'|translate}}">
+            <div class="mt-2">
+              <ng-container
+                *ngIf="formControls?.region?.invalid && (formControls?.region?.dirty || formControls?.region?.touched)">
+                <ng-container *ngIf="formControls?.region?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{'validations.requiredField'|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="city" class="mb-2 required">
+              {{'labels.city'|translate}}
+            </label>
+            <input type="text" class="form-control" formControlName="city"
+              (input)="publicService?.clearValidationErrors(formControls?.city)" [class.border-red]=" formControls?.city?.invalid && (formControls?.city?.dirty ||
+              formControls?.city?.touched)"
+              [class.is-valid]="formControls?.city?.valid && (formControls?.city?.dirty || formControls?.city?.touched)"
+              placeholder="{{'placeholders.city'|translate}}">
+            <div class="mt-2">
+              <ng-container
+                *ngIf="formControls?.city?.invalid && (formControls?.city?.dirty || formControls?.city?.touched)">
+                <ng-container *ngIf="formControls?.city?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{'validations.requiredField'|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="commercialRegistrationNo" class="mb-2 required">
+              {{'labels.commercialRegistrationNo'|translate}}
+            </label>
+            <span class="p-input-icon-right w-100">
+              <input type="number" class="form-control" formControlName="commercialRegistrationNo"
+                (input)="publicService?.clearValidationErrors(formControls?.commercialRegistrationNo);clearCheckAvailable('commercialRegistrationNo')"
+                [class.border-red]="formControls?.commercialRegistrationNo?.invalid && (formControls?.commercialRegistrationNo?.dirty || formControls?.commercialRegistrationNo?.touched)"
+                [class.is-valid]="!isLoadingCheckRecordNum &&!recordNumNotAvailable && formControls?.commercialRegistrationNo?.valid && (formControls?.commercialRegistrationNo?.dirty || formControls?.commercialRegistrationNo?.touched)"
+                [class.disabled]="isLoadingCheckRecordNum"
+                placeholder="{{'placeholders.commercialRegistrationNo'|translate}}">
+              <!-- (blur)="checkRecordNumAvailable()"
+              (keyup)="onKeyUpEvent()" -->
+              <ng-container *ngIf="isLoadingCheckRecordNum">
+                <i class="pi pi-spin pi-spinner"></i>
+              </ng-container>
+            </span>
+            <div class="mt-2">
+              <ng-container
+                *ngIf="formControls?.commercialRegistrationNo?.invalid && (formControls?.commercialRegistrationNo?.dirty || formControls?.commercialRegistrationNo?.touched)">
+                <ng-container *ngIf="formControls?.commercialRegistrationNo?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{'validations.requiredField'|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+              <ng-container *ngIf="recordNumNotAvailable">
+                <span class="text-danger fs-8 d-block">
+                  {{'labels.commercialRegistrationNo'|translate}}<span class="text-main-color fw-bold px-1">
+                    {{organizationForm.value.commercialRegistrationNo}}</span>
+                  {{'auth.isUsedBefore'|translate}}
+                </span>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="website" class="mb-2 required">
+              {{'labels.website'|translate}}
+            </label>
+            <input type="url" class="form-control" formControlName="website"
+              (input)="publicService?.clearValidationErrors(formControls?.website)" [class.border-red]=" formControls?.website?.invalid && (formControls?.website?.dirty ||
+              formControls?.website?.touched)"
+              [class.is-valid]="formControls?.website?.valid && (formControls?.website?.dirty || formControls?.website?.touched)"
+              placeholder="{{'placeholders.website'|translate}}">
+            <div class="mt-2">
+              <ng-container
+                *ngIf="formControls?.website?.invalid && (formControls?.website?.dirty || formControls?.website?.touched)">
+                <ng-container *ngIf="formControls?.website?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{'validations.requiredField'|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="email" class="mb-2 required">
+              {{'labels.email'|translate}}
+            </label>
+            <input type="text" class="form-control" formControlName="email"
+              (input)="publicService?.clearValidationErrors(formControls?.email)" [class.border-red]=" formControls?.email?.invalid && (formControls?.email?.dirty ||
+              formControls?.email?.touched)"
+              [class.is-valid]="formControls?.email?.valid && (formControls?.email?.dirty || formControls?.email?.touched)"
+              placeholder="{{'placeholders.email'|translate}}">
+            <div class="mt-2">
+              <ng-container
+                *ngIf="formControls?.email?.invalid && (formControls?.email?.dirty || formControls?.email?.touched)">
+                <ng-container *ngIf="formControls?.email?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{'validations.requiredField'|translate}}
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="formControls?.email?.errors?.['pattern']">
+                  <span class="text-danger fs-8">
+                    {{'validations.emailNotCorrect'|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="communicationPhone" class="mb-2 required">
+              {{'labels.communicationPhone'|translate}}
+            </label>
+            <input type="text" class="form-control" formControlName="communicationPhone"
+              (input)="publicService?.clearValidationErrors(formControls?.communicationPhone)" [class.border-red]=" formControls?.communicationPhone?.invalid && (formControls?.communicationPhone?.dirty ||
+              formControls?.communicationPhone?.touched)"
+              [class.is-valid]="formControls?.communicationPhone?.valid && (formControls?.communicationPhone?.dirty || formControls?.communicationPhone?.touched)"
+              placeholder="{{'placeholders.communicationPhone'|translate}}">
+            <div class="mt-2">
+              <ng-container
+                *ngIf="formControls?.communicationPhone?.invalid && (formControls?.communicationPhone?.dirty || formControls?.communicationPhone?.touched)">
+                <ng-container *ngIf="formControls?.communicationPhone?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{'validations.requiredField'|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-md-6">
+          <div class="mb-3">
             <label for="startTime" class="mb-2 required">
               {{'labels.startTime'|translate}}
             </label>
@@ -102,7 +254,7 @@
               </ng-container>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div class="col-lg-6">
           <div class="mb-3">

@@ -65,6 +65,54 @@
               </div>
               <div>
                 <label class="mb-1 text-muted-color">
+                  {{'labels.region'|translate}}
+                </label>
+                <p>
+                  {{organizationData?.region||'---'}}
+                </p>
+              </div>
+              <div>
+                <label class="mb-1 text-muted-color">
+                  {{'labels.city'|translate}}
+                </label>
+                <p>
+                  {{organizationData?.city||'---'}}
+                </p>
+              </div>
+              <div>
+                <label class="mb-1 text-muted-color">
+                  {{'labels.commercialRegistrationNo'|translate}}
+                </label>
+                <p>
+                  {{organizationData?.commercial_registration_no||'---'}}
+                </p>
+              </div>
+              <div>
+                <label class="mb-1 text-muted-color">
+                  {{'labels.website'|translate}}
+                </label>
+                <p>
+                  {{organizationData?.website||'---'}}
+                </p>
+              </div>
+              <div>
+                <label class="mb-1 text-muted-color">
+                  {{'labels.email'|translate}}
+                </label>
+                <p>
+                  {{organizationData?.email||'---'}}
+                </p>
+              </div>
+              <div>
+                <label class="mb-1 text-muted-color">
+                  {{'labels.communicationPhone'|translate}}
+                </label>
+                <p>
+                  {{organizationData?.communication_phone||'---'}}
+                </p>
+              </div>
+              <!-- <div>
+                <label class="mb-1 text-muted-color">
                   {{'labels.startTime'|translate}}
                 </label>
                 <p>
@@ -78,7 +126,7 @@
                 <p>
                   {{organizationData?.end_time||'---'}}
                 </p>
-              </div>
+              </div> -->
               <div>
                 <label class="mb-1 text-muted-color">
                   {{'dashboard.tableHeader.usersCount'|translate}}
@@ -144,6 +192,69 @@
               </div>
               <div class="col-lg-3 col-md-6">
                 <div class="mb-3">
+                  <label for="region" class="mb-2">
+                    {{'labels.region'|translate}}
+                  </label>
+                  <input type="text" class="form-control" formControlName="region"
+                    placeholder="{{'placeholders.region'|translate}}">
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6">
+                <div class="mb-3">
+                  <label for="city" class="mb-2">
+                    {{'labels.city'|translate}}
+                  </label>
+                  <input type="text" class="form-control" formControlName="city"
+                    placeholder="{{'placeholders.city'|translate}}">
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6">
+                <div class="mb-3">
+                  <label for="commercialRegistrationNo" class="mb-2">
+                    {{'labels.commercialRegistrationNo'|translate}}
+                  </label>
+                  <input type="text" class="form-control" formControlName="commercialRegistrationNo"
+                    placeholder="{{'placeholders.commercialRegistrationNo'|translate}}">
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6">
+                <div class="mb-3">
+                  <label for="educationalLevel" class="mb-2">
+                    {{'labels.educationalLevel'|translate}}
+                  </label>
+                  <input type="text" class="form-control" formControlName="educationalLevel"
+                    placeholder="{{'placeholders.educationalLevel'|translate}}">
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6">
+                <div class="mb-3">
+                  <label for="website" class="mb-2">
+                    {{'labels.website'|translate}}
+                  </label>
+                  <input type="text" class="form-control" formControlName="website"
+                    placeholder="{{'placeholders.website'|translate}}">
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6">
+                <div class="mb-3">
+                  <label for="email" class="mb-2">
+                    {{'labels.email'|translate}}
+                  </label>
+                  <input type="text" class="form-control" formControlName="email"
+                    placeholder="{{'placeholders.email'|translate}}">
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6">
+                <div class="mb-3">
+                  <label for="communicationPhone" class="mb-2">
+                    {{'labels.communicationPhone'|translate}}
+                  </label>
+                  <input type="text" class="form-control" formControlName="communicationPhone"
+                    placeholder="{{'placeholders.communicationPhone'|translate}}">
+                </div>
+              </div>
+              <!-- <div class="col-lg-3 col-md-6">
+                <div class="mb-3">
                   <label for="startTime" class="mb-2">
                     {{'labels.startTime'|translate}}
                   </label>
@@ -191,7 +302,7 @@
                     </ng-container>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </ng-container>
         </div>

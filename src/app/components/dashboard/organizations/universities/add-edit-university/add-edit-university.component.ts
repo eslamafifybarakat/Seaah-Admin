@@ -70,6 +70,10 @@ export class AddEditUniversityComponent {
   organizationFile: any = null;
   organizationFileSrc: any;
 
+  // Check Record Number Variables
+  isLoadingCheckRecordNum: Boolean = false;
+  recordNumNotAvailable: Boolean = false;
+
   organizationForm = this.fb?.group(
     {
       name: ['', {
@@ -81,13 +85,37 @@ export class AddEditUniversityComponent {
         validators: [
           Validators.required], updateOn: "blur"
       }],
+      region: ['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }],
+      city: ['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }],
+      commercialRegistrationNo: ['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }],
+      website: ['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }],
+      email: ['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }],
+      communicationPhone: ['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }],
       startTime: [null, {
         validators: [
-          Validators.required]
+        ]
       }],
       endTime: [null, {
         validators: [
-          Validators.required]
+        ]
       }],
       organizationFile: [null, {
         validators: [
@@ -145,6 +173,12 @@ export class AddEditUniversityComponent {
     this.organizationForm.patchValue({
       name: this.organizationData?.item?.universityName,
       location: this.organizationData?.item?.addressName,
+      region: this.organizationData?.item?.region,
+      city: this.organizationData?.item?.city,
+      commercialRegistrationNo: this.organizationData?.item?.commercial_registration_no,
+      website: this.organizationData?.item?.website,
+      email: this.organizationData?.item?.email,
+      communicationPhone: this.organizationData?.item?.communication_phone,
       startTime: this.convertTime(this.organizationData?.item?.start_time),
       endTime: this.convertTime(this.organizationData?.item?.end_time),
     });
@@ -177,6 +211,42 @@ export class AddEditUniversityComponent {
   }
   // End Time Functions
 
+  onKeyUpEvent(): void {
+    this.isLoadingCheckRecordNum = false;
+  }
+  // Start Check If Record Number Unique
+  checkRecordNumAvailable(): void {
+    if (!this.formControls?.commercialRegistrationNo?.valid) {
+      return; // Exit early if Record Number is not valid
+    }
+    const number: number | string = this.organizationForm?.value?.commercialRegistrationNo;
+    const data: any = { number };
+    this.isLoadingCheckRecordNum = true;
+    let checkRecordNumSubscription: Subscription = this.publicService?.IsRecordNumberAvailable(data).pipe(
+      tap(res => this.handleRecordNumResponse(res)),
+      catchError(err => this.handleRecordNumError(err))
+    ).subscribe();
+    this.subscriptions.push(checkRecordNumSubscription);
+  }
+  private handleRecordNumResponse(res: any): void {
+    if (res?.success && res?.result != null) {
+      this.recordNumNotAvailable = !res.result;
+    } else {
+      this.recordNumNotAvailable = false;
+      this.handleRecordNumError(res?.message);
+    }
+    this.isLoadingCheckRecordNum = false;
+  }
+  private handleRecordNumError(err: any): any {
+    this.recordNumNotAvailable = true;
+    this.isLoadingCheckRecordNum = false;
+    this.handleError(err);
+  }
+  clearCheckAvailable(type: string): void {
+    this.recordNumNotAvailable = false;
+  }
+  // End Check If Record Number Unique
+
   // Start Add/Edit University
   submit(): void {
     if (this.organizationForm?.valid) {
@@ -199,6 +269,12 @@ export class AddEditUniversityComponent {
     formData.append('name[ar]', this.organizationForm?.value?.name);
     formData.append('location[en]', this.organizationForm?.value?.location);
     formData.append('location[ar]', this.organizationForm?.value?.location);
+    formData.append('region', this.organizationForm?.value?.region);
+    formData.append('city', this.organizationForm?.value?.city);
+    formData.append('commercial_registration_no', this.organizationForm?.value?.commercialRegistrationNo);
+    formData.append('website', this.organizationForm?.value?.website);
+    formData.append('email', this.organizationForm?.value?.email);
+    formData.append('communication_phone', this.organizationForm?.value?.communicationPhone);
     formData.append('start_time', startTime.toLocaleTimeString('en-US', { hour12: false }));
     formData.append('end_time', endTime.toLocaleTimeString('en-US', { hour12: false }));
     // formData.append('installment_ways', JSON.stringify(installmentWaysIds));
