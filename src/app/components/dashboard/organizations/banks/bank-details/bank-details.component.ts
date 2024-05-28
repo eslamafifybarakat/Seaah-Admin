@@ -153,8 +153,7 @@ export class BankDetailsComponent {
       this.bankData['bankName'] = nameBbj[this.currentLanguage];
       let addressBbj: any = JSON.parse(this.bankData?.location || '{}');
       this.bankData['addressName'] = addressBbj[this.currentLanguage];
-      this.bankData['communication_email'] = 'email33@gmail.com';
-      this.bankData['communication_phone'] = '01233933888';
+
       // installment ways
       this.bankData?.installment_ways?.forEach((element: any) => {
         // let nameObj: any = JSON.parse(element?.name || '{}');
@@ -178,8 +177,6 @@ export class BankDetailsComponent {
     this.bankForm.patchValue({
       name: this.bankData['bankName'],
       location: this.bankData['addressName'],
-      communicationEmail: this.bankData['communication_email'],
-      communicationPhone: this.bankData['communication_phone'],
       startTime: this.convertTime(this.bankData?.start_time),
       endTime: this.convertTime(this.bankData?.end_time),
       installmentWays: installmentWaysData,

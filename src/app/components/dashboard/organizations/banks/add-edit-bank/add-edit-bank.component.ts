@@ -161,8 +161,8 @@ export class AddEditBankComponent {
     this.bankForm.patchValue({
       name: this.bankData?.item?.bankName,
       location: this.bankData?.item?.addressName,
-      communicationEmail: this.bankData?.item?.communication_email,
-      communicationPhone: this.bankData?.item?.communication_phone,
+      communicationEmail: this.bankData?.item?.contact_email,
+      communicationPhone: this.bankData?.item?.contact_number,
       startTime: this.convertTime(this.bankData?.item?.start_time),
       endTime: this.convertTime(this.bankData?.item?.end_time),
     });
@@ -259,8 +259,8 @@ export class AddEditBankComponent {
     formData.append('name[ar]', this.bankForm?.value?.name);
     formData.append('location[en]', this.bankForm?.value?.location);
     formData.append('location[ar]', this.bankForm?.value?.location);
-    formData.append('communication_email', this.bankForm?.value?.communicationEmail);
-    formData.append('communication_phone', this.bankForm?.value?.communicationPhone);
+    formData.append('contact_email', this.bankForm?.value?.communicationEmail);
+    formData.append('contact_number', this.bankForm?.value?.communicationPhone);
     // formData.append('start_time', startTime.toLocaleTimeString('en-US', { hour12: false }));
     // formData.append('end_time', endTime.toLocaleTimeString('en-US', { hour12: false }));
     formData.append('installment_ways', JSON.stringify(installmentWaysIds));

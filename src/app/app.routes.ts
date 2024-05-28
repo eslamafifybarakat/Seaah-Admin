@@ -10,7 +10,7 @@ import { AuthGuard } from './services/authentication/guards/auth.guard';
 
 
 export const appRoutes: Routes = [
-  { path: '', redirectTo: '/en/Auth', pathMatch: 'full' },
+  { path: '', redirectTo: '/en/Auth/Login', pathMatch: 'full' },
   // Authentication
   {
     path: 'Auth',
