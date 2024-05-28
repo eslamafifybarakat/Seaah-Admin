@@ -70,15 +70,15 @@ export class AddEditSchoolComponent {
   organizationFileSrc: any;
   educationalLevels: any = [
     {
-      id: 1,
+      id: 'primary',
       title: this.publicService.translateTextFromJson('general.primaryStage')
     },
     {
-      id: 2,
+      id: 'secondary',
       title: this.publicService.translateTextFromJson('general.middleSchool')
     },
     {
-      id: 3,
+      id: 'hightSchool',
       title: this.publicService.translateTextFromJson('general.highSchool')
     },
   ]
@@ -193,21 +193,21 @@ export class AddEditSchoolComponent {
       location: this.schoolData?.item?.addressName,
       region: this.schoolData?.item?.region,
       city: this.schoolData?.item?.city,
-      commercialRegistrationNo: this.schoolData?.item?.commercial_registration_no,
-      website: this.schoolData?.item?.website,
-      email: this.schoolData?.item?.email,
-      communicationPhone: this.schoolData?.item?.communication_phone,
+      commercialRegistrationNo: this.schoolData?.item?.commercial_register,
+      website: this.schoolData?.item?.website_url,
+      email: this.schoolData?.item?.contact_email,
+      communicationPhone: this.schoolData?.item?.contact_number,
       startTime: this.convertTime(this.schoolData?.item?.start_time),
       endTime: this.convertTime(this.schoolData?.item?.end_time),
     });
     this.organizationFileSrc = this.schoolData?.item?.image_path;
-    this.educationalLevels.forEach((element: any) => {
-      if (element.id == this.schoolData?.item.educational_level.id) {
+    this.educationalLevels ? this.educationalLevels.forEach((element: any) => {
+      if (element.id == this.schoolData?.item.educational_level) {
         this.organizationForm.patchValue({
-          educationalLevel: this.schoolData?.item?.educational_level,
+          educationalLevel: element,
         });
       }
-    });
+    }) : '';
     // this.checkRecordNumAvailable();
   }
   convertTime(date: any): any {
@@ -283,7 +283,7 @@ export class AddEditSchoolComponent {
     }
   }
   private extractFormData(): any {
-    let formData = new FormData();
+    let formData: any = new FormData();
     // let installmentWays: any = this.organizationForm.value.installmentWays;
     // let installmentWaysIds: any = [];
     // installmentWays.forEach(element => {
@@ -291,17 +291,20 @@ export class AddEditSchoolComponent {
     // });
     let startTime: any = this.organizationForm?.value?.startTime;
     let endTime: any = this.organizationForm?.value?.endTime;
+    let location: any = this.organizationForm?.value?.location;
+    let region: any = this.organizationForm?.value?.region;
+    let city: any = this.organizationForm?.value?.city;
     formData.append('name[en]', this.organizationForm?.value?.name);
     formData.append('name[ar]', this.organizationForm?.value?.name);
-    formData.append('location[en]', this.organizationForm?.value?.location);
-    formData.append('location[ar]', this.organizationForm?.value?.location);
+    formData.append('location[en]', `${location}, ${region}, ${city}`);
+    formData.append('location[ar]', `${location}, ${region}, ${city}`);
     formData.append('educational_level', this.organizationForm.value.educationalLevel['id']);
-    formData.append('region', this.organizationForm?.value?.region);
-    formData.append('city', this.organizationForm?.value?.city);
-    formData.append('commercial_registration_no', this.organizationForm?.value?.commercialRegistrationNo);
-    formData.append('website', this.organizationForm?.value?.website);
-    formData.append('email', this.organizationForm?.value?.email);
-    formData.append('communication_phone', this.organizationForm?.value?.communicationPhone);
+    // formData.append('region', this.organizationForm?.value?.region);
+    // formData.append('city', this.organizationForm?.value?.city);
+    formData.append('commercial_register', this.organizationForm?.value?.commercialRegistrationNo);
+    formData.append('website_url', this.organizationForm?.value?.website);
+    formData.append('contact_email', this.organizationForm?.value?.email);
+    formData.append('contact_number', this.organizationForm?.value?.communicationPhone);
     // formData.append('start_time', startTime.toLocaleTimeString('en-US', { hour12: false }));
     // formData.append('end_time', endTime.toLocaleTimeString('en-US', { hour12: false }));
     // formData.append('installment_ways', JSON.stringify(installmentWaysIds));

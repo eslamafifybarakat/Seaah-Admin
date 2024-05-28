@@ -175,17 +175,17 @@ export class SchoolDetailsComponent {
       let addressBbj: any = JSON.parse(this.organizationData?.location || '{}');
       this.organizationData['addressName'] = addressBbj[this.currentLanguage];
       this.organizationData['usersCount'] = this.organizationData?.users?.length > 0 ? this.organizationData?.users?.length : '0';
-      this.organizationData['educational_level'] = {
-        id: 1,
-        title: this.publicService.translateTextFromJson('general.primaryStage')
-      };
-      this.organizationData['educational_level_name'] = this.organizationData['educational_level']['title'];
-      this.organizationData['region'] = 'region';
-      this.organizationData['city'] = 'city';
-      this.organizationData['commercial_registration_no'] = '0229898989';
-      this.organizationData['website'] = 'website';
-      this.organizationData['email'] = 'email88@gmail.com';
-      this.organizationData['communication_phone'] = '109838388';
+      // this.organizationData['educational_level'] = {
+      //   id: 1,
+      //   title: this.publicService.translateTextFromJson('general.primaryStage')
+      // };
+      // this.organizationData['educational_level_name'] = this.organizationData['educational_level']['title'];
+      // this.organizationData['region'] = 'region';
+      // this.organizationData['city'] = 'city';
+      // this.organizationData['commercial_registration_no'] = '0229898989';
+      // this.organizationData['website'] = 'website';
+      // this.organizationData['email'] = 'email88@gmail.com';
+      // this.organizationData['communication_phone'] = '109838388';
       this.patchValue();
     } else {
       this.handleError(response?.message);
@@ -201,17 +201,17 @@ export class SchoolDetailsComponent {
     let installmentWaysData: any = this.organizationData?.installment_ways;
     this.organizationForm.patchValue({
       name: this.organizationData['schoolName'],
-      location: this.organizationData['addressName'],
+      location: this.organizationData['addressName'].split(',')[0],
       startTime: this.convertTime(this.organizationData?.start_time),
       endTime: this.convertTime(this.organizationData?.end_time),
       installmentWays: installmentWaysData,
-      educationalLevel: this.organizationData?.educational_level_name,
-      region: this.organizationData?.region,
-      city: this.organizationData?.city,
-      commercialRegistrationNo: this.organizationData?.commercial_registration_no,
-      website: this.organizationData?.website,
-      email: this.organizationData?.email,
-      communicationPhone: this.organizationData?.communication_phone,
+      educationalLevel: this.organizationData?.educational_level,
+      region: this.organizationData['addressName'].split(',')[1],
+      city: this.organizationData['addressName'].split(',')[2],
+      commercialRegistrationNo: this.organizationData?.commercial_register,
+      website: this.organizationData?.website_url,
+      email: this.organizationData?.contact_email,
+      communicationPhone: this.organizationData?.contact_number,
     });
   }
   convertTime(date: any): any {

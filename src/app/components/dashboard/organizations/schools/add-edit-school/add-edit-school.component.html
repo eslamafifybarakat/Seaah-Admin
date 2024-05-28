@@ -185,7 +185,7 @@
             <label for="email" class="mb-2 required">
               {{'labels.email'|translate}}
             </label>
-            <input type="text" class="form-control" formControlName="email"
+            <input type="email" class="form-control" formControlName="email"
               (input)="publicService?.clearValidationErrors(formControls?.email)" [class.border-red]=" formControls?.email?.invalid && (formControls?.email?.dirty ||
               formControls?.email?.touched)"
               [class.is-valid]="formControls?.email?.valid && (formControls?.email?.dirty || formControls?.email?.touched)"

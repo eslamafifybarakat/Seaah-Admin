@@ -60,7 +60,7 @@
                   {{'labels.location'|translate}}
                 </label>
                 <p>
-                  {{organizationData?.addressName||'---'}}
+                  {{organizationData?.addressName.split(',')[0]||'---'}}
                 </p>
               </div>
               <div>
@@ -68,7 +68,7 @@
                   {{'labels.educationalLevel'|translate}}
                 </label>
                 <p>
-                  {{organizationData?.educational_level_name||'---'}}
+                  {{organizationData?.educational_level||'---'}}
                 </p>
               </div>
               <div>
@@ -76,7 +76,7 @@
                   {{'labels.region'|translate}}
                 </label>
                 <p>
-                  {{organizationData?.region||'---'}}
+                  {{organizationData?.addressName.split(',')[1]||'---'}}
                 </p>
               </div>
               <div>
@@ -84,7 +84,7 @@
                   {{'labels.city'|translate}}
                 </label>
                 <p>
-                  {{organizationData?.city||'---'}}
+                  {{organizationData?.addressName.split(',')[2]||'---'}}
                 </p>
               </div>
               <div>
@@ -92,7 +92,7 @@
                   {{'labels.commercialRegistrationNo'|translate}}
                 </label>
                 <p>
-                  {{organizationData?.commercial_registration_no||'---'}}
+                  {{organizationData?.commercial_register||'---'}}
                 </p>
               </div>
               <div>
@@ -100,7 +100,7 @@
                   {{'labels.website'|translate}}
                 </label>
                 <p>
-                  {{organizationData?.website||'---'}}
+                  {{organizationData?.website_url||'---'}}
                 </p>
               </div>
               <div>
@@ -108,7 +108,7 @@
                   {{'labels.email'|translate}}
                 </label>
                 <p>
-                  {{organizationData?.email||'---'}}
+                  {{organizationData?.contact_email||'---'}}
                 </p>
               </div>
               <div>
@@ -116,7 +116,7 @@
                   {{'labels.communicationPhone'|translate}}
                 </label>
                 <p>
-                  {{organizationData?.communication_phone||'---'}}
+                  {{organizationData?.contact_number||'---'}}
                 </p>
               </div>
               <!-- <div>
