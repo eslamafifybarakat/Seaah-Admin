@@ -131,10 +131,10 @@ export class UniversitiesListComponent {
       { field: 'addressName', header: 'dashboard.tableHeader.location', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.location'), type: 'text', sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false },
       { field: 'region', header: 'labels.region', title: this.publicService?.translateTextFromJson('labels.region'), type: 'text', sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false },
       { field: 'city', header: 'labels.city', title: this.publicService?.translateTextFromJson('labels.city'), type: 'text', sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false },
-      { field: 'commercial_registration_no', header: 'labels.commercialRegistrationNo', title: this.publicService?.translateTextFromJson('labels.commercialRegistrationNo'), type: 'text', sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false },
-      { field: 'website', header: 'labels.website', title: this.publicService?.translateTextFromJson('labels.website'), type: 'text', sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false },
-      { field: 'email', header: 'labels.email', title: this.publicService?.translateTextFromJson('labels.email'), type: 'text', sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false },
-      { field: 'communication_phone', header: 'labels.communicationPhone', title: this.publicService?.translateTextFromJson('labels.communicationPhone'), type: 'text', sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false },
+      { field: 'commercial_register', header: 'labels.commercialRegistrationNo', title: this.publicService?.translateTextFromJson('labels.commercialRegistrationNo'), type: 'text', sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false },
+      { field: 'website_url', header: 'labels.website', title: this.publicService?.translateTextFromJson('labels.website'), type: 'text', sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false },
+      { field: 'contact_email', header: 'labels.email', title: this.publicService?.translateTextFromJson('labels.email'), type: 'text', sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false },
+      { field: 'contact_number', header: 'labels.communicationPhone', title: this.publicService?.translateTextFromJson('labels.communicationPhone'), type: 'text', sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false },
       // { field: 'start_time', header: 'dashboard.tableHeader.startTime', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.startTime'), type: 'time' },
       // { field: 'end_time', header: 'dashboard.tableHeader.endTime', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.endTime'), type: 'time' },
       { field: 'usersCount', header: 'dashboard.tableHeader.usersCount', title: this.publicService?.translateTextFromJson('dashboard.tableHeader.usersCount'), type: 'text', sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false },
@@ -203,13 +203,9 @@ export class UniversitiesListComponent {
         let nameBbj: any = JSON.parse(element?.name || '{}');
         element['universityName'] = nameBbj[this.currentLanguage];
         let addressBbj: any = JSON.parse(element?.location || '{}');
-        element['addressName'] = addressBbj[this.currentLanguage];
-        element['region'] = 'region';
-        element['city'] = 'city';
-        element['commercial_registration_no'] = '0229898989';
-        element['website'] = 'website';
-        element['email'] = 'email88@gmail.com';
-        element['communication_phone'] = '109838388';
+        element['addressName'] = addressBbj[this.currentLanguage].split(',')[0];
+        element['region'] = addressBbj[this.currentLanguage].split(',')[1];
+        element['city'] = addressBbj[this.currentLanguage].split(',')[2];
         // installment ways
         element?.installment_ways?.forEach((item: any) => {
           let nameObj: any = JSON.parse(item?.name || '{}');

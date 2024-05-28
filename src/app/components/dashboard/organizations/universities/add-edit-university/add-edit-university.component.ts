@@ -175,10 +175,10 @@ export class AddEditUniversityComponent {
       location: this.organizationData?.item?.addressName,
       region: this.organizationData?.item?.region,
       city: this.organizationData?.item?.city,
-      commercialRegistrationNo: this.organizationData?.item?.commercial_registration_no,
-      website: this.organizationData?.item?.website,
-      email: this.organizationData?.item?.email,
-      communicationPhone: this.organizationData?.item?.communication_phone,
+      commercialRegistrationNo: this.organizationData?.item?.commercial_register,
+      website: this.organizationData?.item?.website_url,
+      email: this.organizationData?.item?.contact_email,
+      communicationPhone: this.organizationData?.item?.contact_number,
       startTime: this.convertTime(this.organizationData?.item?.start_time),
       endTime: this.convertTime(this.organizationData?.item?.end_time),
     });
@@ -265,16 +265,18 @@ export class AddEditUniversityComponent {
     // });
     let startTime: any = this.organizationForm?.value?.startTime;
     let endTime: any = this.organizationForm?.value?.endTime;
+    let location = this.organizationForm?.value?.location;
+    let region = this.organizationForm?.value?.region;
+    let city = this.organizationForm?.value?.city;
     formData.append('name[en]', this.organizationForm?.value?.name);
     formData.append('name[ar]', this.organizationForm?.value?.name);
-    formData.append('location[en]', this.organizationForm?.value?.location);
-    formData.append('location[ar]', this.organizationForm?.value?.location);
-    formData.append('region', this.organizationForm?.value?.region);
-    formData.append('city', this.organizationForm?.value?.city);
-    formData.append('commercial_registration_no', this.organizationForm?.value?.commercialRegistrationNo);
-    formData.append('website', this.organizationForm?.value?.website);
-    formData.append('email', this.organizationForm?.value?.email);
-    formData.append('communication_phone', this.organizationForm?.value?.communicationPhone);
+    formData.append('location[en]', `${location}, ${region}, ${city}`);
+    formData.append('location[ar]', `${location}, ${region}, ${city}`);
+    formData.append('commercial_register', this.organizationForm?.value?.commercialRegistrationNo);
+    formData.append('website_url', this.organizationForm?.value?.website);
+    formData.append('contact_email', this.organizationForm?.value?.email);
+    formData.append('contact_number', this.organizationForm?.value?.communicationPhone);
+    // formData.append('st
     // formData.append('start_time', startTime.toLocaleTimeString('en-US', { hour12: false }));
     // formData.append('end_time', endTime.toLocaleTimeString('en-US', { hour12: false }));
     // formData.append('installment_ways', JSON.stringify(installmentWaysIds));

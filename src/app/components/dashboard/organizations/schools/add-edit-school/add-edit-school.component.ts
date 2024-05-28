@@ -291,9 +291,9 @@ export class AddEditSchoolComponent {
     // });
     let startTime: any = this.organizationForm?.value?.startTime;
     let endTime: any = this.organizationForm?.value?.endTime;
-    let location: any = this.organizationForm?.value?.location;
-    let region: any = this.organizationForm?.value?.region;
-    let city: any = this.organizationForm?.value?.city;
+    let location = this.organizationForm?.value?.location;
+    let region = this.organizationForm?.value?.region;
+    let city = this.organizationForm?.value?.city;
     formData.append('name[en]', this.organizationForm?.value?.name);
     formData.append('name[ar]', this.organizationForm?.value?.name);
     formData.append('location[en]', `${location}, ${region}, ${city}`);

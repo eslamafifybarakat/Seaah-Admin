@@ -172,12 +172,6 @@ export class UniversityDetailsComponent {
       let addressBbj: any = JSON.parse(this.organizationData?.location || '{}');
       this.organizationData['addressName'] = addressBbj[this.currentLanguage];
       this.organizationData['usersCount'] = this.organizationData?.users?.length > 0 ? this.organizationData?.users?.length : '0';
-      this.organizationData['region'] = 'region';
-      this.organizationData['city'] = 'city';
-      this.organizationData['commercial_registration_no'] = '0229898989';
-      this.organizationData['website'] = 'website';
-      this.organizationData['email'] = 'email88@gmail.com';
-      this.organizationData['communication_phone'] = '109838388';
       this.patchValue();
     } else {
       this.handleError(response?.message);
@@ -197,12 +191,12 @@ export class UniversityDetailsComponent {
       startTime: this.convertTime(this.organizationData?.start_time),
       endTime: this.convertTime(this.organizationData?.end_time),
       installmentWays: installmentWaysData,
-      region: this.organizationData?.region,
-      city: this.organizationData?.city,
-      commercialRegistrationNo: this.organizationData?.commercial_registration_no,
-      website: this.organizationData?.website,
-      email: this.organizationData?.email,
-      communicationPhone: this.organizationData?.communication_phone,
+      region: this.organizationData['addressName'].split(',')[1],
+      city: this.organizationData['addressName'].split(',')[2],
+      commercialRegistrationNo: this.organizationData?.commercial_register,
+      website: this.organizationData?.website_url,
+      email: this.organizationData?.contact_email,
+      communicationPhone: this.organizationData?.contact_number,
     });
   }
   convertTime(date: any): any {
