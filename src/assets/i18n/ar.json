@@ -364,6 +364,7 @@
     "joinNow": "انضم الأن"
   },
   "labels": {
+    "bankName":"اسم البنك",
     "bankPercentage":"نسبة البنك",
     "seaahPercentage":" نسبة سعه",
     "bankAccountNumber":"رقم الحساب البنكي",
@@ -446,6 +447,7 @@
     "street": "الشارع"
   },
   "placeholders": {
+    "bankName":"أدخل اسم البنك",
     "bankPercentage":"أدخل نسبة البنك",
     "seaahPercentage":"أدخل نسبة سعه",
     "commercialRegistrationNo":"أدخل رقم السجل التجاري",
@@ -512,9 +514,11 @@
     "dateFormat": "شهر / يوم / سنه",
     "school": "أختر المدرسة",
     "region": "أدخل المنطقة",
-    "street": "الشارع"
+    "street": "الشارع",
+    "website":"أدخل الموقع الالكتروني"
   },
   "validations": {
+    "notValidLink": "هذا الرابط غير صالح",
     "username": "اسم المستخدم مطلوب",
     "password": "كلمة المرور مطلوبة",
     "email": "البريد الإلكتروني مطلوب",

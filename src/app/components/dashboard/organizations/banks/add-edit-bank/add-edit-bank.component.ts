@@ -17,6 +17,7 @@ import { MetaDetails, MetadataService } from 'src/app/services/generic/metadata.
 import { InstallmentWaysService } from '../../../services/installment-ways.service';
 import { AlertsService } from '../../../../../services/generic/alerts.service';
 import { PublicService } from '../../../../../services/generic/public.service';
+import { MaxDigitsDirective } from '../../../directives/max-digits.directive';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BanksService } from '../../../services/banks.service';
 import { tap, catchError, finalize } from 'rxjs/operators';
@@ -36,7 +37,10 @@ import { Subscription } from 'rxjs';
     FormsModule,
 
     // Components
-    FileUploadComponent
+    FileUploadComponent,
+
+    // Directives
+    MaxDigitsDirective
   ],
   selector: 'app-add-edit-bank',
   templateUrl: './add-edit-bank.component.html',
@@ -91,7 +95,7 @@ export class AddEditBankComponent {
       }],
       communicationPhone: ['', {
         validators: [
-          Validators.required], updateOn: "blur"
+          Validators.required, Validators.pattern(patterns.phone), Validators.minLength(9)], updateOn: "blur"
       }],
       startTime: [null, {
         validators: [

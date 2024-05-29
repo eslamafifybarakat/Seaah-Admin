@@ -150,6 +150,11 @@
                     {{'validations.requiredField'|translate}}
                   </span>
                 </ng-container>
+                <ng-container *ngIf="formControls?.website?.errors?.['pattern']">
+                  <span class="text-danger fs-8">
+                    {{'validations.notValidLink'|translate}}
+                  </span>
+                </ng-container>
               </ng-container>
             </div>
           </div>
@@ -190,13 +195,23 @@
               (input)="publicService?.clearValidationErrors(formControls?.communicationPhone)" [class.border-red]=" formControls?.communicationPhone?.invalid && (formControls?.communicationPhone?.dirty ||
               formControls?.communicationPhone?.touched)"
               [class.is-valid]="formControls?.communicationPhone?.valid && (formControls?.communicationPhone?.dirty || formControls?.communicationPhone?.touched)"
-              placeholder="{{'placeholders.communicationPhone'|translate}}">
+              MaxDigits [maxNumber]="9" placeholder="{{'placeholders.communicationPhone'|translate}}">
             <div class="mt-2">
               <ng-container
                 *ngIf="formControls?.communicationPhone?.invalid && (formControls?.communicationPhone?.dirty || formControls?.communicationPhone?.touched)">
                 <ng-container *ngIf="formControls?.communicationPhone?.errors?.['required']">
                   <span class="text-danger fs-8">
                     {{'validations.requiredField'|translate}}
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="formControls?.communicationPhone?.errors?.['minlength']">
+                  <span class="text-danger fs-8">
+                    {{'validations.phoneLength'|translate}}
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="formControls?.communicationPhone?.errors?.['pattern']">
+                  <span class="text-danger fs-8 d-block">
+                    {{'validations.phoneNotCorrect'|translate}}
                   </span>
                 </ng-container>
               </ng-container>

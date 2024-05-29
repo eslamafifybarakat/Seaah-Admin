@@ -1,3 +1,4 @@
+import { patterns } from './../../../../../shared/configs/patterns';
 // Modules
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -21,6 +22,7 @@ import { BanksService } from '../../../services/banks.service';
 import { tap, catchError, finalize } from 'rxjs/operators';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { MaxDigitsDirective } from '../../../directives/max-digits.directive';
 
 @Component({
   selector: 'app-add-edit-school',
@@ -36,7 +38,10 @@ import { Subscription } from 'rxjs';
     FormsModule,
 
     // Components
-    FileUploadComponent
+    FileUploadComponent,
+
+    // Directives
+    MaxDigitsDirective
   ],
   templateUrl: './add-edit-school.component.html',
   styleUrls: ['./add-edit-school.component.scss'],
@@ -116,7 +121,7 @@ export class AddEditSchoolComponent {
       }],
       website: ['', {
         validators: [
-          Validators.required], updateOn: "blur"
+          Validators.required, Validators.pattern(patterns.url)], updateOn: "blur"
       }],
       email: ['', {
         validators: [
@@ -124,7 +129,7 @@ export class AddEditSchoolComponent {
       }],
       communicationPhone: ['', {
         validators: [
-          Validators.required], updateOn: "blur"
+          Validators.required, Validators.pattern(patterns.phone), Validators.minLength(9)], updateOn: "blur"
       }],
       startTime: [null, {
         validators: [

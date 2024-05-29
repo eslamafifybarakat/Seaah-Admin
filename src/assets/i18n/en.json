@@ -519,6 +519,7 @@
     "street": "Enter street"
   },
   "validations": {
+    "notValidLink": "This link is not vaild",
     "username": "Username is required",
     "password": "Password is required",
     "email": "Email is required",

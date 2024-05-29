@@ -1,3 +1,4 @@
+import { patterns } from './../../../../../shared/configs/patterns';
 // Modules
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -22,6 +23,7 @@ import { tap, catchError, finalize } from 'rxjs/operators';
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { UniversitiesService } from '../../../services/universities.service';
+import { MaxDigitsDirective } from '../../../directives/max-digits.directive';
 
 @Component({
   selector: 'app-add-edit-university',
@@ -37,7 +39,10 @@ import { UniversitiesService } from '../../../services/universities.service';
     FormsModule,
 
     // Components
-    FileUploadComponent
+    FileUploadComponent,
+
+    // Directives
+    MaxDigitsDirective
   ],
   templateUrl: './add-edit-university.component.html',
   styleUrls: ['./add-edit-university.component.scss'],
@@ -99,7 +104,7 @@ export class AddEditUniversityComponent {
       }],
       website: ['', {
         validators: [
-          Validators.required], updateOn: "blur"
+          Validators.required, Validators.pattern(patterns.url)], updateOn: "blur"
       }],
       email: ['', {
         validators: [
@@ -107,7 +112,7 @@ export class AddEditUniversityComponent {
       }],
       communicationPhone: ['', {
         validators: [
-          Validators.required], updateOn: "blur"
+          Validators.required, Validators.pattern(patterns.phone), Validators.minLength(9)], updateOn: "blur"
       }],
       startTime: [null, {
         validators: [
