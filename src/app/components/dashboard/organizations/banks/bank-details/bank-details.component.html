@@ -189,6 +189,18 @@
               </div>
               <div class="col-lg-4 col-md-6">
                 <div class="mb-3">
+                  <label for="communicationPhone" class="mb-2">
+                    {{'labels.communicationPhone'|translate}}
+                  </label>
+                  <input type="text" class="form-control" formControlName="communicationPhone"
+                    (input)="publicService?.clearValidationErrors(formControls?.communicationPhone)" [class.border-red]=" formControls?.communicationPhone?.invalid && (formControls?.communicationPhone?.dirty ||
+                    formControls?.communicationPhone?.touched)"
+                    [class.is-valid]="formControls?.communicationPhone?.valid && (formControls?.communicationPhone?.dirty || formControls?.communicationPhone?.touched)"
+                    placeholder="{{'placeholders.communicationPhone'|translate}}">
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <div class="mb-3">
                   <label for="location" class="mb-2">
                     {{'labels.location'|translate}}
                   </label>

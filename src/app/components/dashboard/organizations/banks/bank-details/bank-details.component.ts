@@ -177,6 +177,8 @@ export class BankDetailsComponent {
     this.bankForm.patchValue({
       name: this.bankData['bankName'],
       location: this.bankData['addressName'],
+      communicationEmail: this.bankData.contact_email,
+      communicationPhone: this.bankData.contact_number,
       startTime: this.convertTime(this.bankData?.start_time),
       endTime: this.convertTime(this.bankData?.end_time),
       installmentWays: installmentWaysData,

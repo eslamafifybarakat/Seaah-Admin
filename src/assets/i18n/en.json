@@ -223,7 +223,8 @@
       "addBank": "Add Bank",
       "editBank": "Edit Bank",
       "bankDetails": "Bank Details",
-      "bankPercentage":"The bank's percentage of the loan"
+      "bankPercentage":"The bank's percentage of the loan",
+      "seaahPercentage":"Seaah ratio of the school"
     },
     "schools": {
       "schools": "Schools",

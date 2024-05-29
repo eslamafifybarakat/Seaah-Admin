@@ -22,18 +22,50 @@
     <div class="d-flex gap-lg-4 gap-3 flex-wrap mt-3">
       <div>
         <p class="text-muted-color mb-0 fs-5-2">
-          {{'labels.startTime'|translate}}
+          {{'labels.region'|translate}}
         </p>
         <p class="mb-0 fs-5-2">
-          {{item?.start_time||'--'}}
+          {{item?.region||'--'}}
         </p>
       </div>
       <div>
         <p class="text-muted-color mb-0 fs-5-2">
-          {{'labels.endTime'|translate}}
+          {{'labels.city'|translate}}
         </p>
         <p class="mb-0 fs-5-2">
-          {{item?.end_time||'--'}}
+          {{item?.city||'--'}}
+        </p>
+      </div>
+      <div>
+        <p class="text-muted-color mb-0 fs-5-2">
+          {{'labels.commercialRegistrationNo'|translate}}
+        </p>
+        <p class="mb-0 fs-5-2">
+          {{item?.commercial_register||'--'}}
+        </p>
+      </div>
+      <div>
+        <p class="text-muted-color mb-0 fs-5-2">
+          {{'labels.website'|translate}}
+        </p>
+        <p class="mb-0 fs-5-2">
+          {{item?.website_url||'--'}}
+        </p>
+      </div>
+      <div>
+        <p class="text-muted-color mb-0 fs-5-2">
+          {{'labels.email'|translate}}
+        </p>
+        <p class="mb-0 fs-5-2">
+          {{item?.contact_email||'--'}}
+        </p>
+      </div>
+      <div>
+        <p class="text-muted-color mb-0 fs-5-2">
+          {{'labels.communicationPhone'|translate}}
+        </p>
+        <p class="mb-0 fs-5-2">
+          {{item?.contact_number||'--'}}
         </p>
       </div>
       <div>

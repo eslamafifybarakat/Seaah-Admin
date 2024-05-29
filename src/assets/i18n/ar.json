@@ -211,7 +211,8 @@
       "addBank": "إضافة بنك",
       "editBank": "تعديل بنك",
       "bankDetails": "تفاصيل البنك",
-      "bankPercentage":"نسبة البنك من القرض"
+      "bankPercentage":"نسبة البنك من القرض",
+      "seaahPercentage":"نسبة سعة من المدرسة"
     },
     "schools": {
       "schools": "المدارس",
