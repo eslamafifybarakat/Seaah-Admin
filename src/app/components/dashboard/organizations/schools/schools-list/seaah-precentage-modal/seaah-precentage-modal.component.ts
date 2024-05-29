@@ -4,7 +4,7 @@ import { AlertsService } from 'src/app/services/generic/alerts.service';
 import { PublicService } from 'src/app/services/generic/public.service';
 import { Subscription, catchError, finalize, tap } from 'rxjs';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
@@ -18,7 +18,7 @@ import { Component } from '@angular/core';
 })
 export class SeaahPrecentageModalComponent {
   private subscriptions: Subscription[] = [];
-
+  id: number;
   bankForm = this.fb?.group(
     {
       seaahPercentage: [null, {
@@ -33,9 +33,20 @@ export class SeaahPrecentageModalComponent {
     private schoolsService: SchoolsService,
     private alertsService: AlertsService,
     public publicService: PublicService,
+    private config: DynamicDialogConfig,
     private ref: DynamicDialogRef,
     private fb: FormBuilder
   ) { }
+
+  ngOnInit(): void {
+    let data = this.config.data?.item;
+    if (data) {
+      this.bankForm?.patchValue({
+        seaahPercentage: data?.percentage_seah_from_school
+      })
+    }
+    this.id = data.id;
+  }
 
   // Start Add Bank Precentage
   submit(): void {
@@ -48,12 +59,12 @@ export class SeaahPrecentageModalComponent {
   }
   private extractFormData(): any {
     let formData = new FormData();
-    formData.append('seaahPercentage', this.bankForm?.value?.seaahPercentage);
+    formData.append('percentage_seah_from_school', this.bankForm?.value?.seaahPercentage);
     return formData;
   }
   private addSeaahPrecentage(formData: any): void {
     this.publicService?.showGlobalLoader?.next(true);
-    let subscribeAddBankPrecentage: Subscription = this.schoolsService?.addSeaahPrecentage(formData).pipe(
+    let subscribeAddBankPrecentage: Subscription = this.schoolsService?.addSeaahPrecentage(formData, this.id).pipe(
       tap(res => this.handleAddSeaahPrecentageSuccess(res)),
       catchError(err => this.handleError(err)),
       finalize(() => this.finalizeAddSeaahPrecentage())

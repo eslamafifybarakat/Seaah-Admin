@@ -36,8 +36,8 @@
             <div class="organization-image">
               <img class="w-100 h-100" [src]="this.organizationData?.image_path" alt="organization">
             </div>
-            <div class="d-flex align-items-center gap-3">
-              <a (click)="openSeaahPrecentage()">
+            <div class="d-flex align-items-baseline gap-3">
+              <a (click)="openSeaahPrecentage(this.organizationData)">
                 <i class="pi pi-cog fs-5"></i>
               </a>
               <div class="data-style d-md-flex d-none align-items-center gap-2 p-2">

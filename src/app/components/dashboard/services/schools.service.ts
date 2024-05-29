@@ -52,6 +52,6 @@ export class SchoolsService {
     return this.http.delete<any>(`${this.baseUrl}/${roots?.dashboard.organizations.allOrganizations}/` + id);
   }
   addSeaahPrecentage(data: any, id?: number): Observable<any> {
-    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.organizations.addSeaahPrecentage}`, data);
+    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.organizations.allOrganizations}/${id}`, data)
   }
 }

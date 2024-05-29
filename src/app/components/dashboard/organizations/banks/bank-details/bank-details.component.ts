@@ -23,6 +23,7 @@ import { Component } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { OrgnizationUsersComponent } from '../../../users/orgnization-users/orgnization-users.component';
 import { AddEditUsersComponent } from '../../../users/add-edit-users/add-edit-users.component';
+import { BankPrecentageModalComponent } from '../banks-list/bank-precentage-modal/bank-precentage-modal.component';
 
 @Component({
   standalone: true,
@@ -239,6 +240,21 @@ export class BankDetailsComponent {
   }
   // End Add User Modal
 
+  // Start Add Bank Precentage Modal
+  openBankPrecentage(item: any): void {
+    const ref: any = this.dialogService?.open(BankPrecentageModalComponent, {
+      header: this.publicService?.translateTextFromJson('dashboard.banks.bankPercentage'),
+      data: item,
+      dismissableMask: false,
+      width: '40%',
+      styleClass: 'custom-modal',
+    });
+    ref?.onClose.subscribe((res: any) => {
+      if (res?.listChanged) {
+      }
+    });
+  }
+  // End Add Bank Precentage Modal
 
   /* --- Handle api requests messages --- */
   private handleSuccess(msg: string | null): any {

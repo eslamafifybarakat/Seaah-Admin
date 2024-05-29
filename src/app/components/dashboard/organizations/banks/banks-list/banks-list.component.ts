@@ -301,9 +301,10 @@ export class BanksListComponent {
   //End Delete Bank Functions
 
   // Start Add Bank Precentage Modal
-  openBankPrecentage(event: any): void {
+  openBankPrecentage(item: any): void {
     const ref: any = this.dialogService?.open(BankPrecentageModalComponent, {
       header: this.publicService?.translateTextFromJson('dashboard.banks.bankPercentage'),
+      data: item,
       dismissableMask: false,
       width: '40%',
       styleClass: 'custom-modal',

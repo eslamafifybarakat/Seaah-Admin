@@ -324,9 +324,10 @@ export class SchoolsListComponent {
   //End Delete School Functions
 
   // Start Add Seaah Precentage Modal
-  openSeaahPrecentage(event: any): void {
+  openSeaahPrecentage(item: any): void {
     const ref: any = this.dialogService?.open(SeaahPrecentageModalComponent, {
       header: this.publicService?.translateTextFromJson('dashboard.banks.seaahPercentage'),
+      data: item,
       dismissableMask: false,
       width: '40%',
       styleClass: 'custom-modal',

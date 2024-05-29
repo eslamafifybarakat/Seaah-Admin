@@ -46,7 +46,7 @@ export class BanksService {
     return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.organizations.allOrganizations}`, data);
   }
   addBankPrecentage(data: any, id?: number): Observable<any> {
-    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.organizations.addBankPrecentage}`, data);
+    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.organizations.allOrganizations}/${id}`, data)
   }
   getBankById(id: any): Observable<any> {
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.organizations.allOrganizations}/${id}`);

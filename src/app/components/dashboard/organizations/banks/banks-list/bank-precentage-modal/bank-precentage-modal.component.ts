@@ -3,7 +3,7 @@ import { AlertsService } from 'src/app/services/generic/alerts.service';
 import { PublicService } from 'src/app/services/generic/public.service';
 import { BanksService } from './../../../../services/banks.service';
 import { Subscription, catchError, finalize, tap } from 'rxjs';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
@@ -18,7 +18,7 @@ import { Component } from '@angular/core';
 })
 export class BankPrecentageModalComponent {
   private subscriptions: Subscription[] = [];
-
+  id: number;
   bankForm = this.fb?.group(
     {
       bankPercentage: [null, {
@@ -32,10 +32,21 @@ export class BankPrecentageModalComponent {
   constructor(
     private alertsService: AlertsService,
     public publicService: PublicService,
+    private config: DynamicDialogConfig,
     private banksService: BanksService,
     private ref: DynamicDialogRef,
     private fb: FormBuilder
   ) { }
+
+  ngOnInit(): void {
+    let data = this.config.data?.item;
+    if (data) {
+      this.bankForm?.patchValue({
+        bankPercentage: data.percentage_bank_from_seah
+      })
+    }
+    this.id = data.id;
+  }
 
   // Start Add Bank Precentage
   submit(): void {
@@ -53,7 +64,7 @@ export class BankPrecentageModalComponent {
   }
   private addBankPrecentage(formData: any): void {
     this.publicService?.showGlobalLoader?.next(true);
-    let subscribeAddBankPrecentage: Subscription = this.banksService?.addBankPrecentage(formData).pipe(
+    let subscribeAddBankPrecentage: Subscription = this.banksService?.addBankPrecentage(formData, this.id).pipe(
       tap(res => this.handleAddBankPrecentageSuccess(res)),
       catchError(err => this.handleError(err)),
       finalize(() => this.finalizeAddBankPrecentage())
