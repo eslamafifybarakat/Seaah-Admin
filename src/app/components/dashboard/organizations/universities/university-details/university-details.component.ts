@@ -258,7 +258,7 @@ export class UniversityDetailsComponent {
   openSeaahPrecentage(item: any): void {
     const ref: any = this.dialogService?.open(SeaahPrecentageModalComponent, {
       header: this.publicService?.translateTextFromJson('dashboard.banks.seaahPercentageFromUniversity'),
-      data: item,
+      data: { item: item },
       dismissableMask: false,
       width: '40%',
       styleClass: 'custom-modal',
