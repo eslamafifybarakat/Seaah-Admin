@@ -244,7 +244,7 @@ export class BankDetailsComponent {
   openBankPrecentage(item: any): void {
     const ref: any = this.dialogService?.open(BankPrecentageModalComponent, {
       header: this.publicService?.translateTextFromJson('dashboard.banks.bankPercentage'),
-      data: item,
+      data: { item: item },
       dismissableMask: false,
       width: '40%',
       styleClass: 'custom-modal',

@@ -69,6 +69,6 @@ export class SchoolCardComponent {
     }
   }
   settingHandlerEmit(item: any): void {
-    this.settingHandler.emit(item);
+    this.settingHandler.emit({ item: item });
   }
 }

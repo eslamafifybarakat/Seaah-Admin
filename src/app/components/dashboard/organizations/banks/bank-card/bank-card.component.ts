@@ -67,6 +67,6 @@ export class BankCardComponent {
     }
   }
   settingHandlerEmit(item: any): void {
-    this.settingHandler.emit(item);
+    this.settingHandler.emit({ item: item });
   }
 }
