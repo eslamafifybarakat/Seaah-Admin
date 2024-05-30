@@ -59,7 +59,7 @@ export class BankPrecentageModalComponent {
   }
   private extractFormData(): any {
     let formData = new FormData();
-    formData.append('bankPercentage', this.bankForm?.value?.bankPercentage);
+    formData.append('percentage_bank_from_seah', this.bankForm?.value?.bankPercentage);
     return formData;
   }
   private addBankPrecentage(formData: any): void {
