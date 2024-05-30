@@ -29,6 +29,7 @@ import { SchoolsService } from '../../../services/schools.service';
 import { UniversityCardComponent } from '../university-card/university-card.component';
 import { AddEditUniversityComponent } from '../add-edit-university/add-edit-university.component';
 import { UniversitiesService } from '../../../services/universities.service';
+import { SeaahPrecentageModalComponent } from '../../schools/schools-list/seaah-precentage-modal/seaah-precentage-modal.component';
 
 @Component({
   selector: 'app-universities-list',
@@ -345,6 +346,22 @@ export class UniversitiesListComponent {
 
   }
   // End Search Functions
+
+  // Start Add Seaah Precentage Modal
+  openSeaahPrecentage(item: any): void {
+    const ref: any = this.dialogService?.open(SeaahPrecentageModalComponent, {
+      header: this.publicService?.translateTextFromJson('dashboard.banks.seaahPercentageFromUniversity'),
+      data: item,
+      dismissableMask: false,
+      width: '40%',
+      styleClass: 'custom-modal',
+    });
+    ref?.onClose.subscribe((res: any) => {
+      if (res?.listChanged) {
+      }
+    });
+  }
+  // End Add Seaah Precentage Modal
 
   // Filter Users Modal Function
   filterItemModal(): void {

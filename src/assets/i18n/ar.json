@@ -212,7 +212,8 @@
       "editBank": "تعديل بنك",
       "bankDetails": "تفاصيل البنك",
       "bankPercentage":"نسبة البنك من القرض",
-      "seaahPercentage":"نسبة سعة من المدرسة"
+      "seaahPercentage":"نسبة سعة من المدرسة",
+      "seaahPercentageFromUniversity":"نسبة سعة من الجامعة"
     },
     "schools": {
       "schools": "المدارس",

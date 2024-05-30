@@ -21,8 +21,9 @@ export class UniversityCardComponent {
 
   @Output() itemAddUserHandler: EventEmitter<any> = new EventEmitter();
   @Output() itemDetailsHandler: EventEmitter<any> = new EventEmitter();
-  @Output() editItemHandler: EventEmitter<any> = new EventEmitter();
   @Output() deleteItemHandler: EventEmitter<any> = new EventEmitter();
+  @Output() editItemHandler: EventEmitter<any> = new EventEmitter();
+  @Output() settingHandler: EventEmitter<any> = new EventEmitter();
   @Output() enableConfirmedByShowInput: boolean = false;
   @Output() enableConfirmDeleteDialog: boolean = true;
 
@@ -66,5 +67,8 @@ export class UniversityCardComponent {
     } else {
       this.deleteItemHandler?.emit({ item: item, confirmed: true });
     }
+  }
+  settingHandlerEmit(item: any): void {
+    this.settingHandler.emit(item);
   }
 }
