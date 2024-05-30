@@ -53,7 +53,7 @@ export class SchoolDetailsComponent {
   currentLanguage: string;
   dataStyleType: string = 'list';
 
-  bankId: number;
+  schoolId: number;
   isLoadingSchoolData: boolean = false;
   organizationData: any;
 
@@ -139,9 +139,9 @@ export class SchoolDetailsComponent {
   loadPageData(): void {
     this.updateMetaTagsForSEO();
     this.activatedRoute.params.subscribe((params) => {
-      this.bankId = params['id'];
-      if (this.bankId) {
-        this.getSchoolById(this.bankId);
+      this.schoolId = params['id'];
+      if (this.schoolId) {
+        this.getSchoolById(this.schoolId);
       }
     });
   }
@@ -239,7 +239,7 @@ export class SchoolDetailsComponent {
     });
     ref.onClose.subscribe((res: any) => {
       if (res?.listChanged) {
-        this.getSchoolById(this.bankId);
+        this.getSchoolById(this.schoolId);
       }
     });
   }
@@ -264,7 +264,7 @@ export class SchoolDetailsComponent {
     });
     ref?.onClose.subscribe((res: any) => {
       if (res?.listChanged) {
-        this.getSchoolById(this.bankId);
+        this.getSchoolById(this.schoolId);
       }
     });
   }
@@ -281,6 +281,7 @@ export class SchoolDetailsComponent {
     });
     ref?.onClose.subscribe((res: any) => {
       if (res?.listChanged) {
+        this.getSchoolById(this.schoolId)
       }
     });
   }

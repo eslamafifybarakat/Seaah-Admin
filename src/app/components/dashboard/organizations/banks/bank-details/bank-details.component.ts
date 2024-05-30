@@ -251,6 +251,7 @@ export class BankDetailsComponent {
     });
     ref?.onClose.subscribe((res: any) => {
       if (res?.listChanged) {
+        this.getBankById(this.bankId);
       }
     });
   }

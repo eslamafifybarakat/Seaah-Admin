@@ -60,6 +60,8 @@ export class BankPrecentageModalComponent {
   private extractFormData(): any {
     let formData = new FormData();
     formData.append('percentage_bank_from_seah', this.bankForm?.value?.bankPercentage);
+    formData.append('_method', 'PUT');
+    formData.append('type', 'bank');
     return formData;
   }
   private addBankPrecentage(formData: any): void {
@@ -91,15 +93,13 @@ export class BankPrecentageModalComponent {
 
   /* --- Handle api requests messages --- */
   private handleSuccess(msg: string | null): any {
-    this.setMessage(msg || this.publicService.translateTextFromJson('general.successRequest'), 'succss');
+    this.setMessage(msg || this.publicService.translateTextFromJson('general.successRequest'), 'success');
   }
   private handleError(err: string | null): any {
     this.setMessage(err || this.publicService.translateTextFromJson('general.errorOccur'), 'error');
   }
   private setMessage(message: string, type?: string | null): void {
-    // this.alertsService.openToast(type, type, message);
-    this.alertsService.openToast('success', 'success', 'success');
-    this.cancel();
+    this.alertsService.openToast(type, type, message);
   }
 
   ngOnDestroy(): void {

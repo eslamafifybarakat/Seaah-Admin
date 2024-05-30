@@ -334,6 +334,7 @@ export class SchoolsListComponent {
     });
     ref?.onClose.subscribe((res: any) => {
       if (res?.listChanged) {
+        this.getAllScools();
       }
     });
   }

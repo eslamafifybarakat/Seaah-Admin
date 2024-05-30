@@ -311,6 +311,7 @@ export class BanksListComponent {
     });
     ref?.onClose.subscribe((res: any) => {
       if (res?.listChanged) {
+        this.getAllBanks();
       }
     });
   }

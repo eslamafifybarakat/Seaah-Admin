@@ -54,7 +54,7 @@ export class UniversityDetailsComponent {
   currentLanguage: string;
   dataStyleType: string = 'list';
 
-  bankId: number;
+  universityId: number;
   isLoadingUniversityData: boolean = false;
   organizationData: any;
 
@@ -136,9 +136,9 @@ export class UniversityDetailsComponent {
   loadPageData(): void {
     this.updateMetaTagsForSEO();
     this.activatedRoute.params.subscribe((params) => {
-      this.bankId = params['id'];
-      if (this.bankId) {
-        this.getUniversityById(this.bankId);
+      this.universityId = params['id'];
+      if (this.universityId) {
+        this.getUniversityById(this.universityId);
       }
     });
   }
@@ -224,7 +224,7 @@ export class UniversityDetailsComponent {
     });
     ref.onClose.subscribe((res: any) => {
       if (res?.listChanged) {
-        this.getUniversityById(this.bankId);
+        this.getUniversityById(this.universityId);
       }
     });
   }
@@ -249,7 +249,7 @@ export class UniversityDetailsComponent {
     });
     ref?.onClose.subscribe((res: any) => {
       if (res?.listChanged) {
-        this.getUniversityById(this.bankId);
+        this.getUniversityById(this.universityId);
       }
     });
   }
@@ -265,6 +265,7 @@ export class UniversityDetailsComponent {
     });
     ref?.onClose.subscribe((res: any) => {
       if (res?.listChanged) {
+        this.getUniversityById(this.universityId);
       }
     });
   }

@@ -358,6 +358,7 @@ export class UniversitiesListComponent {
     });
     ref?.onClose.subscribe((res: any) => {
       if (res?.listChanged) {
+        this.getAllScools();
       }
     });
   }

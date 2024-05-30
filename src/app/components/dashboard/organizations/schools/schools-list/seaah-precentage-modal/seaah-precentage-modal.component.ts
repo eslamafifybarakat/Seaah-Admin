@@ -19,6 +19,7 @@ import { Component } from '@angular/core';
 export class SeaahPrecentageModalComponent {
   private subscriptions: Subscription[] = [];
   id: number;
+  type: string;
   bankForm = this.fb?.group(
     {
       seaahPercentage: [null, {
@@ -46,6 +47,7 @@ export class SeaahPrecentageModalComponent {
       })
     }
     this.id = data.id;
+    this.type = data.type;
   }
 
   // Start Add Bank Precentage
@@ -60,6 +62,8 @@ export class SeaahPrecentageModalComponent {
   private extractFormData(): any {
     let formData = new FormData();
     formData.append('percentage_seah_from_school', this.bankForm?.value?.seaahPercentage);
+    formData.append('_method', 'PUT');
+    formData.append('type', this.type);
     return formData;
   }
   private addSeaahPrecentage(formData: any): void {
@@ -91,15 +95,13 @@ export class SeaahPrecentageModalComponent {
 
   /* --- Handle api requests messages --- */
   private handleSuccess(msg: string | null): any {
-    this.setMessage(msg || this.publicService.translateTextFromJson('general.successRequest'), 'succss');
+    this.setMessage(msg || this.publicService.translateTextFromJson('general.successRequest'), 'success');
   }
   private handleError(err: string | null): any {
     this.setMessage(err || this.publicService.translateTextFromJson('general.errorOccur'), 'error');
   }
   private setMessage(message: string, type?: string | null): void {
-    // this.alertsService.openToast(type, type, message);
-    this.alertsService.openToast('success', 'success', 'success');
-    this.cancel();
+    this.alertsService.openToast(type, type, message);
   }
 
   ngOnDestroy(): void {
