@@ -273,6 +273,11 @@
         "school":"School"
       }
     },
+    "faqs":{
+      "faqs":"FQAs",
+      "addNew":"Add FAQs",
+      "editNew":"Edit FAQs"
+    },
     "tuitionExpenses": {
       "tuitionExpenses": "Tuition Expenses",
       "addExpense": "Add Tuition Expense",
