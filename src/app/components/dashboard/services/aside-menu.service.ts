@@ -94,28 +94,33 @@ export class AsideMenuService {
         permission: true,
         // permission: this.checkPermissionService.hasPermission('Pages.Products.List'),
       },
-    //   {
-    //     id: 'Settings',
-    //     text: 'dashboard.sideMenu.settings',
-    //     icon: `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-settings" width="25" height="25" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-    //     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-    //     <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
-    //     <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-    //   </svg>
-    // `,
-    //     // routerLink: '/Dashboard/Organizations',
-    //     state: false, //Opened Or Closed
-    //     permission: true,
-    //     // permission: this.checkPermissionService.hasPermission('Pages.Sales.List'),
-    //     children: [
-    //       {
-    //         text: 'userInfo.my_profile',
-    //         routerLink: '/Profile',
-    //         icon: '',
-    //         state: false
-    //       },
-    //     ]
-    //   },
+      {
+        id: 'HomePage',
+        text: 'dashboard.sideMenu.homePage',
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="25" height="25" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M3 9l9-6l9 6v10a2 2 0 0 1-2 2h-4v-6h-6v6h-4a2 2 0 0 1-2-2z" />
+        <path d="M9 22v-6h6v6" />
+      </svg>`,
+        // routerLink: '/Dashboard/Home',
+        state: false, //Opened Or Closed
+        permission: true,
+        // permission: this.checkPermissionService.hasPermission('Pages.Sales.List'),
+        children: [
+          {
+            text: 'dashboard.sideMenu.FAQs',
+            routerLink: '/Dashboard/Home/FAQs',
+            icon: '',
+            state: false
+          },
+          {
+            text: 'dashboard.sideMenu.blogs',
+            routerLink: '/Dashboard/Home/Blogs',
+            icon: '',
+            state: false
+          },
+        ]
+      },
     ];
 
     return menuListItems;

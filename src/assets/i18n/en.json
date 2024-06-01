@@ -135,6 +135,9 @@
     "total": "Total",
     "isTotal": "There is a total",
     "sideMenu": {
+      "blogs":"Blogs",
+      "homePage":"Home Page",
+      "FAQs":"FAQs",
       "expenses":"Expenses",
       "myExpenses":"My Expenses",
       "Tuition": "Tuitions",
@@ -281,6 +284,11 @@
         "location":"Location",
         "school":"School"
       }
+    },
+    "faqs":{
+      "faqs":"FQAs",
+      "addNew":"Add FAQs",
+      "editNew":"Edit FAQs"
     },
     "tuitionExpenses": {
       "tuitionExpenses": "Tuition Expenses",

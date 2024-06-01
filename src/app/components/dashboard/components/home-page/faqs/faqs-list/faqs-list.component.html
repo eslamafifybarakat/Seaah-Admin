@@ -1,0 +1,109 @@
+<div id="faqs">
+  <div class="container mx-auto">
+    <ng-container *ngIf="isLoadingFAQsList; else elseView">
+      Loading
+    </ng-container>
+    <ng-template #elseView>
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 px-4">
+        <div>
+          <h4 class="mb-0 text-capitalize">
+            {{'dashboard.faqs.faqs'|translate}}
+          </h4>
+          <p class="mt-2 text-muted-color d-flex gap-1">
+            {{'dashboard.total'|translate}}
+            <span>
+              {{faqsCount}}
+            </span>
+          </p>
+        </div>
+        <button (click)="addEditItem()" class="btn btn-solid-main d-flex justify-content-center align-items-center">
+          <span class="d-flex align-items-center flex-wrap gap-1">
+            <i class="fas fa-plus"></i>
+            <span>
+              {{'dashboard.faqs.addNew'|translate}}
+            </span>
+          </span>
+        </button>
+      </div>
+      <!-- Start Common Questions Section -->
+      <div id="common-questions">
+        <div class="items">
+          <ng-container *ngIf="FAQsList?.length>0; else elseNoFAQsDataAdded">
+            <ng-container *ngFor="let item of FAQsList">
+              <div class="mb-3">
+                <div class="faq-item global-card p-3">
+                  <div class="title d-flex gap-2 border-bottom pb-2">
+                    <div class="icon-design d-flex gap-2">
+                      <div class="img-cotainer">
+                        <img src="assets/images/faqs/questionIcon.svg" class="h-100 w-100" loading="lazy" alt="contact">
+                      </div>
+                      <div class="vr"></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-11">
+                        <p class="title-box h-100">
+                          هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى،
+                          حيث
+                          يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها
+                          التطبيق.
+                        </p>
+                      </div>
+                      <div class="col-1">
+                        <div class="d-flex flex-column align-items-center h-100">
+                          <a (click)="addEditItem(item,'edit')">
+                            <span class="edit">
+                              <i class="fas fa-pen fs-5 text-main-color"></i>
+                            </span>
+                          </a>
+                          <a (click)="deleteItem(item)">
+                            <span class="delete">
+                              <i class="fas fa-trash fs-5 text-danger"></i>
+                            </span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="description">
+                    <p class="description-text">
+                      هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث
+                      يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها
+                      التطبيق.
+                      إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربى زيادة عدد الفقرات كما تريد، النص لن
+                      يبدو مقسما ولا يحوي أخطاء لغوية، مولد النص العربى مفيد لمصممي المواقع على وجه الخصوص.هذا النص هو
+                      مثال
+                      لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد
+                      مثل
+                      هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق. إذا كنت تحتاج
+                      إلى
+                      عدد أكبر من الفقرات يتيح لك مولد النص العربى زيادة عدد الفقرات كما تريد، النص لن يبدو مقسما ولا
+                      يحوي
+                      أخطاء لغوية، مولد النص العربى مفيد لمصممي المواقع على وجه الخصوص.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+          <ng-template #elseNoFAQsDataAdded>
+            <div class="d-flex flex-column justify-content-center align-items-center">
+              <div>
+                <img src="assets/images/not-found/no-data.svg" alt="no-data">
+              </div>
+              <p class="fw-500 mt-3">{{'general.no_records_found'|translate}}</p>
+              <button (click)="addEditItem()"
+                class="btn btn-solid-main d-flex justify-content-center align-items-center">
+                <span class="d-flex align-items-center flex-wrap gap-1">
+                  <i class="fas fa-plus"></i>
+                  <span>
+                    {{'dashboard.faqs.addNew'|translate}}
+                  </span>
+                </span>
+              </button>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <!-- End Common Questions Section -->
+    </ng-template>
+  </div>

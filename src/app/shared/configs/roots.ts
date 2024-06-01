@@ -52,6 +52,9 @@ export const roots = {
       levels: "kids/levels",
       toggleActivation: "kids/update-approval",
     },
+    faqs: {
+      getAll: 'faqs',
+    },
     tuitionExpenses: {
       tuitionExpenses: 'tuition_expenses'
     },

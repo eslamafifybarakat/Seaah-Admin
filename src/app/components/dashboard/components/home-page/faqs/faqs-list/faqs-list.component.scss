@@ -1,0 +1,101 @@
+#faqs {
+  .border-bottom {
+    border-bottom: 1px solid #1212;
+  }
+  .edit,
+  .delete {
+    height: 40px;
+  }
+
+  // Start Common Questions  Section
+  #common-questions {
+    min-height: 85vh;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+
+    .title {
+      color: var(--text-main-color);
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 53.57px;
+    }
+
+    .items {
+      .faq-item {
+        .img-cotainer {
+          width: 50px;
+          height: 50px;
+          margin-top: 0.5rem;
+
+          img {
+            &:dir(ltr) {
+              transform: scaleX(-1);
+            }
+          }
+        }
+
+        .vr {
+          border-left: 3px solid var(--text-main-color);
+          height: 75%;
+          margin-top: 0.25rem;
+        }
+
+        .title-box {
+          background: #DAEAF4;
+          border-radius: 10px;
+          padding: 0.85rem 1rem;
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 34.43px;
+          color: var(--text-main-color);
+        }
+
+        .description-text {
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 34.43px;
+          color: #213039;
+        }
+      }
+    }
+  }
+
+  // End Common Questions  Section
+
+  .btn {
+    height: 2.9rem;
+    padding: 1rem;
+    border-radius: 10px;
+  }
+
+  .btn-solid-main {
+    background-color: var(--bg-main-color);
+    border: 1px solid var(--bg-main-color);
+    color: var(--text-white-color);
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #faqs {
+
+    // Start Hero Section
+    #hero-secion {
+      height: auto;
+      min-height: auto;
+      padding: 1rem;
+
+      .title {
+        font-size: 1rem;
+        margin-bottom: 0 !important;
+      }
+
+      .description {
+        font-size: 0.8rem;
+        margin-top: 0.25rem !important;
+        margin-bottom: 0.25rem !important;
+      }
+    }
+
+    // End Hero Section
+  }
+}

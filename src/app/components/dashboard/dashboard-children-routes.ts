@@ -3,9 +3,9 @@ import { PermissionGuard } from '../../services/authentication/guards/permission
 // Components
 import { StatisticsComponent } from "./../dashboard/statistics/statistics.component";
 // TS Files
-
-import { errorsChildrenRoutes } from '../errors/errors-children-routes';
+import { HomePageChildrenRoutes } from './components/home-page/home-page-child-route';
 import { OrganizationshildrenRoutes } from './organizations/organizations-child-route';
+import { errorsChildrenRoutes } from '../errors/errors-children-routes';
 
 export const dashBoardChildrenRoutes: any[] = [
   { path: '', redirectTo: 'Statistics', pathMatch: 'full' },
@@ -28,6 +28,20 @@ export const dashBoardChildrenRoutes: any[] = [
         (c) => c.OrganizationsComponent
       ),
     children: OrganizationshildrenRoutes
+  },
+   // Home Page
+   {
+    path: 'Home',
+    // canActivate: [PermissionGuard],
+    data: {
+      permission: 'Pages.Home',
+      title: 'Home'
+    },
+    loadComponent: () =>
+      import('./../dashboard/components/home-page/home-page.component').then(
+        (c) => c.HomePageComponent
+      ),
+    children: HomePageChildrenRoutes
   },
 
   // Errors
