@@ -135,6 +135,9 @@
     "total": "Total",
     "isTotal": "There is a total",
     "sideMenu": {
+      "blogs":"Blogs",
+      "homePage":"Home Page",
+      "FAQs":"FAQs",
       "expenses":"Expenses",
       "myExpenses":"My Expenses",
       "Tuition": "Tuitions",
