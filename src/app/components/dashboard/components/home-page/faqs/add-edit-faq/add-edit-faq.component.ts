@@ -1,10 +1,16 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-add-edit-faq',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+     // Modules
+     ReactiveFormsModule,
+     CommonModule,
+     FormsModule,
+  ],
   templateUrl: './add-edit-faq.component.html',
   styleUrls: ['./add-edit-faq.component.scss']
 })
