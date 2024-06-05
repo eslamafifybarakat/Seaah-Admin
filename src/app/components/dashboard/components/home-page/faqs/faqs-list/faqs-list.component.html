@@ -1,32 +1,32 @@
 <div id="faqs">
   <div class="container mx-auto">
-    <ng-container *ngIf="isLoadingFAQsList; else elseView">
-      Loading
-    </ng-container>
-    <ng-template #elseView>
-      <div class="d-flex flex-wrap justify-content-between align-items-center gap-3  mt-4">
-        <div>
-          <h4 class="mb-0 text-capitalize">
-            {{'dashboard.faqs.faqs'|translate}}
-          </h4>
-          <p class="mt-2 text-muted-color d-flex gap-1">
-            {{'dashboard.total'|translate}}
-            <span>
-              {{faqsCount}}
-            </span>
-          </p>
-        </div>
-        <button (click)="addEditItem()" class="btn btn-solid-main d-flex justify-content-center align-items-center">
-          <span class="d-flex align-items-center flex-wrap gap-1">
-            <i class="fas fa-plus"></i>
-            <span>
-              {{'dashboard.faqs.addNew'|translate}}
-            </span>
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3  mt-4">
+      <div>
+        <h4 class="mb-0 text-capitalize">
+          {{'dashboard.faqs.faqs'|translate}}
+        </h4>
+        <p class="mt-2 text-muted-color d-flex gap-1">
+          {{'dashboard.total'|translate}}
+          <span>
+            {{faqsCount}}
           </span>
-        </button>
+        </p>
       </div>
-      <!-- Start Common Questions Section -->
-      <div id="common-questions">
+      <button (click)="addEditItem()" class="btn btn-solid-main d-flex justify-content-center align-items-center">
+        <span class="d-flex align-items-center flex-wrap gap-1">
+          <i class="fas fa-plus"></i>
+          <span>
+            {{'dashboard.faqs.addNew'|translate}}
+          </span>
+        </span>
+      </button>
+    </div>
+    <!-- Start Common Questions Section -->
+    <div id="common-questions">
+      <ng-container *ngIf="isLoadingFAQsList; else elseView">
+        <skeleton [type]="'faqs'"></skeleton>
+      </ng-container>
+      <ng-template #elseView>
         <div class="items">
           <ng-container *ngIf="FAQsList?.length>0; else elseNoFAQsDataAdded">
             <ng-container *ngFor="let item of FAQsList">
@@ -103,7 +103,7 @@
             </div>
           </ng-template>
         </div>
-      </div>
-      <!-- End Common Questions Section -->
-    </ng-template>
+      </ng-template>
+    </div>
+    <!-- End Common Questions Section -->
   </div>

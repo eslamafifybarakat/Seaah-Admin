@@ -1,3 +1,4 @@
+import { SkeletonComponent } from './../../../../../../shared/skeleton/skeleton/skeleton.component';
 // Services
 import { LocalizationLanguageService } from 'src/app/services/generic/localization-language.service';
 import { MetaDetails, MetadataService } from 'src/app/services/generic/metadata.service';
@@ -21,6 +22,7 @@ import { ConfirmDeleteComponent } from 'src/app/shared/components/confirm-delete
     // Modules
     TranslateModule,
     CommonModule,
+    SkeletonComponent,
   ],
   templateUrl: './faqs-list.component.html',
   styleUrls: ['./faqs-list.component.scss']
