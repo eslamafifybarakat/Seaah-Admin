@@ -29,7 +29,8 @@
         <div class="row pt-2 gy-4">
           <ng-container *ngFor="let item of blogsList">
             <div class="col-lg-4 col-md-6">
-              <app-blog-card [item]="item"></app-blog-card>
+              <app-blog-card [item]="item" (editHandler)="addEditItem($event,'edit')"
+                (deleteHandler)="deleteItem($event)"></app-blog-card>
             </div>
           </ng-container>
         </div>

@@ -1,6 +1,6 @@
 import { PublicService } from 'src/app/services/generic/public.service';
 import { TranslateModule } from '@ngx-translate/core';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -12,6 +12,9 @@ import { CommonModule } from '@angular/common';
 })
 export class BlogCardComponent {
   @Input() item: any;
+  @Output() deleteHandler = new EventEmitter();
+  @Output() editHandler = new EventEmitter();
+
   currentLanguage: string = '';
 
   constructor(
@@ -20,5 +23,12 @@ export class BlogCardComponent {
 
   ngOnInit(): void {
 
+  }
+
+  deleteBlog(item: any): void {
+    this.deleteHandler.emit(item);
+  }
+  editBlog(item: any): void {
+    this.editHandler.emit(item);
   }
 }
