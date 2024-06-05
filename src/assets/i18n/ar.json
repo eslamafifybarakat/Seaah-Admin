@@ -266,6 +266,11 @@
       "addNew":"إضافة سؤال أو إستفسار",
       "editNew":"تعديل سؤال أو إستفسار"
     },
+    "blogs":{
+      "blogs":"المدونات",
+      "addBlog":"إضافة مدونة",
+      "editBlog":"تعديل المدونة"
+    },
     "tuitionExpenses": {
       "tuitionExpenses": "مصاريف التعليم",
       "addExpense": "إضافة مصاؤيف التعليم",

@@ -1,1 +1,39 @@
-<p>blogs-list works!</p>
+<div id="blogs" class="pb-4">
+  <div class="container mx-auto">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3  mt-4">
+      <div>
+        <h4 class="mb-0 text-capitalize">
+          {{'dashboard.blogs.blogs'|translate}}
+        </h4>
+        <p class="mt-2 text-muted-color d-flex gap-1 mb-0">
+          {{'dashboard.total'|translate}}
+          <span>
+            {{blogsCount}}
+          </span>
+        </p>
+      </div>
+      <button (click)="addEditItem()" class="btn btn-solid-main d-flex justify-content-center align-items-center">
+        <span class="d-flex align-items-center flex-wrap gap-1">
+          <i class="fas fa-plus"></i>
+          <span>
+            {{'dashboard.blogs.addBlog'|translate}}
+          </span>
+        </span>
+      </button>
+    </div>
+    <div class="mt-4">
+      <ng-container *ngIf="isLoadingBlogsList; else noLoading">
+        <skeleton [type]="'blogs'"></skeleton>
+      </ng-container>
+      <ng-template #noLoading>
+        <div class="row pt-2 gy-4">
+          <ng-container *ngFor="let item of blogsList">
+            <div class="col-lg-4 col-md-6">
+              <app-blog-card [item]="item"></app-blog-card>
+            </div>
+          </ng-container>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

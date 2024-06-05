@@ -56,6 +56,9 @@ export const roots = {
     faqs: {
       getAll: 'faqs',
     },
+    blogs: {
+      getAll: 'blogs',
+    },
     tuitionExpenses: {
       tuitionExpenses: 'tuition_expenses'
     },

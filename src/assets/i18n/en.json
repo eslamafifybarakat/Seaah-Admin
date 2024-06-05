@@ -290,6 +290,11 @@
       "addNew":"Add FAQs",
       "editNew":"Edit FAQs"
     },
+    "blogs":{
+      "blogs":"Blogs",
+      "addBlog":"Add Blog",
+      "editBlog":"Edit Blog"
+    },
     "tuitionExpenses": {
       "tuitionExpenses": "Tuition Expenses",
       "addExpense": "Add Tuition Expense",
