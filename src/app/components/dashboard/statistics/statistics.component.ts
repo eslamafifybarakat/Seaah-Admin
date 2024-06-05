@@ -1,3 +1,4 @@
+import { SkeletonComponent } from './../../../shared/skeleton/skeleton/skeleton.component';
 import { AlertsService } from './../../../services/generic/alerts.service';
 import { PublicService } from './../../../services/generic/public.service';
 import { StatisticsService } from './../services/statistics';
@@ -10,7 +11,7 @@ import { Subscription, catchError, finalize, tap } from 'rxjs';
 
 @Component({
   standalone: true,
-  imports: [TranslateModule, CommonModule, TableModule],
+  imports: [TranslateModule, CommonModule, TableModule, SkeletonComponent],
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
   styleUrls: ['./statistics.component.scss']
