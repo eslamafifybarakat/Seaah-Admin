@@ -29,6 +29,7 @@ export const roots = {
       IsEmailAvailable: "Client/IsEmailAvailable",
       IsPhoneAvailable: "Client/IsPhoneNumberAvailable"
     },
+    statistics: "reports/statistics",
     clients: {
       getClients: 'Client/AllClients',
       addClient: 'Client/AddClient',
