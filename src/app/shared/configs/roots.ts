@@ -55,6 +55,8 @@ export const roots = {
     },
     faqs: {
       getAll: 'faqs',
+      addEditFaq: 'addEditFaq',
+      deleteFaq: 'deleteFaq',
     },
     blogs: {
       getAll: 'blogs',

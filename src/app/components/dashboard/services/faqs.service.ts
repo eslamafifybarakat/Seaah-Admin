@@ -29,16 +29,16 @@ export class FAQsService {
     }
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.faqs.getAll}`, { params: params });
   }
-  addEditBank(data: any, id?: number): Observable<any> {
+  addEditFaq(data: any, id?: number): Observable<any> {
     if (id) {
-      return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.organizations.allOrganizations}/${id}`, data)
+      return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.faqs.addEditFaq}/${id}`, data)
     }
-    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.organizations.allOrganizations}`, data);
+    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.faqs.addEditFaq}`, data);
   }
-  getBankById(id: any): Observable<any> {
-    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.organizations.allOrganizations}/${id}`);
+  getFaqById(id: any): Observable<any> {
+    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.faqs.getAll}/${id}`);
   }
   deleteFaqById(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.baseUrl}/${roots?.dashboard.organizations.allOrganizations}/` + id);
+    return this.http.delete<any>(`${this.baseUrl}/${roots?.dashboard.faqs.deleteFaq}/` + id);
   }
 }

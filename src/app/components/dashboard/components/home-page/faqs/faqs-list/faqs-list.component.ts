@@ -86,7 +86,13 @@ export class FaqsListComponent {
         return []; // Return an empty array or appropriate fallback value
       }),
       finalize(() => {
-        this.FAQsList = [1, 2, 3, 4, 5];
+        [1, 2, 3, 4, 5].forEach(element => {
+          this.FAQsList.push({
+            id: 1,
+            title: 'هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدهاالتطبيق.',
+            description: ' هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق. إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربى زيادة عدد الفقرات كما تريد، النص لن يبدو مقسما ولا يحوي أخطاء لغوية، مولد النص العربى مفيد لمصممي المواقع على وجه الخصوص.هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثلهذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق. إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربى زيادة عدد الفقرات كما تريد، النص لن يبدو مقسما ولا يحوي'
+          })
+        });
         this.isLoadingFAQsList = false;
         this.updateMetaTagsForSEO(); // Remove After Function Working Successfully
       })
@@ -109,7 +115,7 @@ export class FaqsListComponent {
       },
       header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.faqs.editNew') : this.publicService?.translateTextFromJson('dashboard.faqs.addNew'),
       dismissableMask: false,
-      width: '60%',
+      width: '40%',
       styleClass: 'custom-modal',
     });
     ref.onClose.subscribe((res: any) => {
@@ -131,15 +137,13 @@ export class FaqsListComponent {
     });
     ref?.onClose?.subscribe((res: any) => {
       if (res?.confirmed) {
-        console.log(item);
-        this.deleteItem(item);
+        this.deleteNow(item);
       }
     });
   }
   deleteNow(item: any): void {
-    console.log(item);
     this.publicService.showGlobalLoader.next(true);
-    let deleteFaqSubscription: Subscription = this.fAQsService?.deleteFaqById(item?.item?.id)?.pipe(
+    let deleteFaqSubscription: Subscription = this.fAQsService?.deleteFaqById(item?.id)?.pipe(
       tap((res: any) => this.processDeleteResponse(res)),
       catchError(err => this.handleError(err)),
       finalize(() => {
