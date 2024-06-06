@@ -1,0 +1,89 @@
+<div id="modal-form">
+  <form [formGroup]="blogForm" (ngSubmit)="submit()" aria-label="add-client-form">
+    <div class="form-content">
+      <div class="row m-0">
+        <div class="mb-3">
+          <label for="title" class="mb-2 required">
+            {{'labels.title'|translate}}
+          </label>
+          <input type="text" class="form-control" formControlName="title"
+            (input)="publicService?.clearValidationErrors(formControls?.title)"
+            [class.border-red]="formControls?.title?.invalid && (formControls?.title?.dirty || formControls?.title?.touched)"
+            placeholder="{{'placeholders.title'|translate}}">
+          <div class="mt-2">
+            <ng-container
+              *ngIf="formControls?.title?.invalid && (formControls?.title?.dirty || formControls?.title?.touched)">
+              <ng-container *ngIf="formControls?.title?.errors?.['required']">
+                <span class="text-danger fs-8">
+                  {{'validations.requiredField'|translate}}
+                </span>
+              </ng-container>
+
+              <ng-container *ngIf="formControls?.title?.errors?.['minlength']">
+                <span class="text-danger fs-8 d-block">
+                  {{'validations.nameLength'|translate}}
+                </span>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="description" class="mb-2 required">
+            {{'labels.description'|translate}}
+          </label>
+          <textarea class="form-control textarea" formControlName="description"
+            (input)="publicService?.clearValidationErrors(formControls?.description)"
+            [class.border-red]="formControls?.description?.invalid && (formControls?.description?.dirty || formControls?.description?.touched)"
+            placeholder="{{'placeholders.description'|translate}}"></textarea>
+          <div class="mt-2">
+            <ng-container
+              *ngIf="formControls?.description?.invalid && (formControls?.description?.dirty || formControls?.description?.touched)">
+              <ng-container *ngIf="formControls?.description?.errors?.['required']">
+                <span class="text-danger fs-8">
+                  {{'validations.requiredField'|translate}}
+                </span>
+              </ng-container>
+
+              <ng-container *ngIf="formControls?.description?.errors?.['minlength']">
+                <span class="text-danger fs-8 d-block">
+                  {{'validations.userLength'|translate}}
+                </span>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="uploadFile" class="mb-2" [class.required]="!isEdit">
+            {{'labels.uploadFile'|translate}}
+          </label>
+          <app-file-upload (uploadHandler)="uploadFile($event)" [isEdit]="isEdit"
+            [imageSrc]="blogFileSrc"></app-file-upload>
+          <div class="mt-2">
+            <ng-container
+              *ngIf="formControls?.blogFile?.invalid && (formControls?.blogFile?.dirty || formControls?.blogFile?.touched)">
+              <ng-container *ngIf="formControls?.blogFile?.errors?.['required']">
+                <span class="text-danger fs-8">
+                  {{'validations.requiredField'|translate}}
+                </span>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end gap-3 flex-wrap mt-4">
+      <button type="submit" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2">
+        <span>
+          {{'general.save'|translate}}
+        </span>
+        <i class="pi pi-save"></i>
+      </button>
+      <button type="button" class="btn btn-outline-main d-flex align-items-center gap-2" (click)="cancel()">
+        <span>
+          {{'general.cancel'|translate}}
+        </span>
+        <i class="pi pi-times"></i>
+      </button>
+    </div>
+  </form>
+</div>

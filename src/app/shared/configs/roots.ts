@@ -60,6 +60,8 @@ export const roots = {
     },
     blogs: {
       getAll: 'blogs',
+      addEditBlog: 'addEditBlog',
+      deleteBlog: 'deleteBlog',
     },
     tuitionExpenses: {
       tuitionExpenses: 'tuition_expenses'

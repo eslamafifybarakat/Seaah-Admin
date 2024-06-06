@@ -13,6 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BlogsService } from 'src/app/components/dashboard/services/blogs.service';
 import { blogsAr, blogsEn } from './blogs';
 import { BlogCardComponent } from '../blog-card/blog-card.component';
+import { AddEditBlogComponent } from '../add-edit-blog/add-edit-blog.component';
 
 @Component({
   selector: 'app-blogs-list',
@@ -62,7 +63,7 @@ export class BlogsListComponent {
     this.metadataService.updateMetaTagsForSEO(metaData);
   }
 
-  /* --- Start FAQs List Functions --- */
+  /* --- Start Blogs List Functions --- */
   getBlogsList(preventLoading?: boolean): void {
     if (!preventLoading) {
       this.isLoadingBlogsList = true;
@@ -93,28 +94,28 @@ export class BlogsListComponent {
   private handleBlogsList(): void {
     this.updateMetaTagsForSEO();
   }
-  /* --- Start FAQs List Functions --- */
+  /* --- Start Blogs List Functions --- */
 
-  // Add Edit FAQ
+  // Add Edit Blog
   addEditItem(item?: any, type?: any): void {
-    // const ref = this.dialogService?.open(AddEditFaqComponent, {
-    //   data: {
-    //     item,
-    //     type: type == 'edit' ? 'edit' : 'add',
-    //     typeValue: 'faq'
-    //   },
-    //   header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.faqs.editNew') : this.publicService?.translateTextFromJson('dashboard.faqs.addNew'),
-    //   dismissableMask: false,
-    //   width: '60%',
-    //   styleClass: 'custom-modal',
-    // });
-    // ref.onClose.subscribe((res: any) => {
-    //   if (res?.listChanged) {
-    //     this.getBlogsList();
-    //   }
-    // });
+    const ref = this.dialogService?.open(AddEditBlogComponent, {
+      data: {
+        item,
+        type: type == 'edit' ? 'edit' : 'add',
+        typeValue: 'faq'
+      },
+      header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.blogs.editBlog') : this.publicService?.translateTextFromJson('dashboard.blogs.addBlog'),
+      dismissableMask: false,
+      width: '45%',
+      styleClass: 'custom-modal',
+    });
+    ref.onClose.subscribe((res: any) => {
+      if (res?.listChanged) {
+        this.getBlogsList();
+      }
+    });
   }
-  //Start Delete FAQ Functions
+  //Start Delete Blog Functions
   deleteItem(item: any): void {
     const ref: any = this.dialogService.open(ConfirmDeleteComponent, {
       data: {
@@ -128,14 +129,14 @@ export class BlogsListComponent {
     ref?.onClose?.subscribe((res: any) => {
       if (res?.confirmed) {
         console.log(item);
-        this.deleteItem(item);
+        this.deleteNow(item);
       }
     });
   }
   deleteNow(item: any): void {
     console.log(item);
     this.publicService.showGlobalLoader.next(true);
-    let deleteFaqSubscription: Subscription = this.blogsService?.deleteBlogById(item?.item?.id)?.pipe(
+    let deleteFaqSubscription: Subscription = this.blogsService?.deleteBlogById(item?.id)?.pipe(
       tap((res: any) => this.processDeleteResponse(res)),
       catchError(err => this.handleError(err)),
       finalize(() => {
@@ -153,7 +154,7 @@ export class BlogsListComponent {
       this.handleSuccess(res.message);
     }
   }
-  //End Delete FAQ Functions
+  //End Delete Blog Functions
 
   /* --- Handle api requests messages --- */
   private handleSuccess(msg: string | null): any {
