@@ -22,6 +22,7 @@ export class BlogCardComponent {
   ) { }
 
   ngOnInit(): void {
+    this.currentLanguage = this.publicService.getCurrentLanguage();
 
   }
 

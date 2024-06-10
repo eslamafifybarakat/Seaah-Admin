@@ -59,9 +59,9 @@ export const roots = {
       deleteFaq: 'deleteFaq',
     },
     blogs: {
-      getAll: 'blogs',
-      addEditBlog: 'addEditBlog',
-      deleteBlog: 'deleteBlog',
+      getAll: 'home/blog',
+      addEditBlog: 'home/blog',
+      deleteBlog: 'home/blog',
     },
     tuitionExpenses: {
       tuitionExpenses: 'tuition_expenses'

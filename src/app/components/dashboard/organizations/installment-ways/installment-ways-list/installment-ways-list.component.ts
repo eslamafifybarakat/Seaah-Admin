@@ -106,7 +106,7 @@ export class InstallmentWaysListComponent {
   constructor(
     private localizationLanguageService: LocalizationLanguageService,
     private confirmationService: ConfirmationService,
-    private installmentWaysService:InstallmentWaysService,
+    private installmentWaysService: InstallmentWaysService,
     private metadataService: MetadataService,
     private publicService: PublicService,
     private dialogService: DialogService,
@@ -172,7 +172,7 @@ export class InstallmentWaysListComponent {
     this.dataStyleType = type;
   }
 
-  
+
   // Start Installment Ways List Functions
   getAllInstallmentWays(isFiltering?: boolean): void {
     isFiltering ? this.publicService.showSearchLoader.next(true) : this.isLoadingInstallmentWaysList = true;
@@ -188,13 +188,13 @@ export class InstallmentWaysListComponent {
     if (response.status == 200) {
       this.installmentWaysCount = response?.data?.total;
       this.installmentWaysList = response?.data?.data;
-      this.installmentWaysList?.forEach((element:any) => {
+      this.installmentWaysList?.forEach((element: any) => {
         // let nameBbj:any=JSON.parse(element?.name || '{}');
-        let nameBbj:any=element?.name;
-        element['installmentWaysName']=nameBbj[this.currentLanguage];
+        let nameBbj: any = element?.name;
+        element['installmentWaysName'] = nameBbj[this.currentLanguage];
         // let descriptionBbj:any=JSON.parse(element?.description || '{}');
-        let descriptionBbj:any=element?.description;
-        element['installmentWaysDetails']=descriptionBbj[this.currentLanguage];
+        let descriptionBbj: any = element?.description;
+        element['installmentWaysDetails'] = descriptionBbj[this.currentLanguage];
       });
       this.pagesCount = Math.ceil(this.installmentWaysCount / this.perPage);
     } else {
@@ -430,7 +430,7 @@ export class InstallmentWaysListComponent {
 
   /* --- Handle api requests messages --- */
   private handleSuccess(msg: string | null): any {
-    this.setMessage(msg || this.publicService.translateTextFromJson('general.successRequest'), 'succss');
+    this.setMessage(msg || this.publicService.translateTextFromJson('general.successRequest'), 'success');
   }
   private handleError(err: string | null): any {
     this.setMessage(err || this.publicService.translateTextFromJson('general.errorOccur'), 'error');

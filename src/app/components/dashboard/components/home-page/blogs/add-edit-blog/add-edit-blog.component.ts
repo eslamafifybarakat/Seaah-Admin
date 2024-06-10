@@ -1,3 +1,4 @@
+import { BlogsService } from 'src/app/components/dashboard/services/blogs.service';
 import { patterns } from 'src/app/shared/configs/patterns';
 // Modules
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -102,12 +103,11 @@ export class AddEditBlogComponent {
 
   constructor(
     private localizationLanguageService: LocalizationLanguageService,
-    private installmentWaysService: InstallmentWaysService,
     private metadataService: MetadataService,
     private alertsService: AlertsService,
     public publicService: PublicService,
     private config: DynamicDialogConfig,
-    private banksService: BanksService,
+    private blogsService: BlogsService,
     private ref: DynamicDialogRef,
     private fb: FormBuilder
   ) {
@@ -181,7 +181,6 @@ export class AddEditBlogComponent {
     if (this.blogForm?.value?.blogFile) {
       formData.append('image', this.blogForm?.value?.blogFile);
     }
-    formData.append('type', 'bank');
     if (this.isEdit) {
       formData.append('_method', 'PUT');
     }
@@ -189,7 +188,7 @@ export class AddEditBlogComponent {
   }
   private addEditBank(formData: any): void {
     this.publicService?.showGlobalLoader?.next(true);
-    let subscribeAddEditBank: Subscription = this.banksService?.addEditBank(formData, this.bankId ? this.bankId : null).pipe(
+    let subscribeAddEditBank: Subscription = this.blogsService?.addEditBlog(formData, this.bankId ? this.bankId : null).pipe(
       tap(res => this.handleAddEditBankSuccess(res)),
       catchError(err => this.handleError(err)),
       finalize(() => this.finalizeAddEditBank())
@@ -216,7 +215,7 @@ export class AddEditBlogComponent {
 
   /* --- Handle api requests messages --- */
   private handleSuccess(msg: string | null): any {
-    this.setMessage(msg || this.publicService.translateTextFromJson('general.successRequest'), 'succss');
+    this.setMessage(msg || this.publicService.translateTextFromJson('general.successRequest'), 'success');
   }
   private handleError(err: string | null): any {
     this.setMessage(err || this.publicService.translateTextFromJson('general.errorOccur'), 'error');

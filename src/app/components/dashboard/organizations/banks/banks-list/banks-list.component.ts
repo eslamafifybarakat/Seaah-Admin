@@ -478,7 +478,7 @@ export class BanksListComponent {
 
   /* --- Handle api requests messages --- */
   private handleSuccess(msg: string | null): any {
-    this.setMessage(msg || this.publicService.translateTextFromJson('general.successRequest'), 'succss');
+    this.setMessage(msg || this.publicService.translateTextFromJson('general.successRequest'), 'success');
   }
   private handleError(err: string | null): any {
     this.setMessage(err || this.publicService.translateTextFromJson('general.errorOccur'), 'error');

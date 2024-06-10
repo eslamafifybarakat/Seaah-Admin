@@ -70,8 +70,12 @@ export class BlogsListComponent {
     }
     let blogsDataSubscription: Subscription = this.blogsService.getBlogsList().pipe(
       tap((res: any) => {
-        if (res?.code === 200) {
-          this.blogsList = res.data;
+        if (res?.status === 200) {
+          this.blogsList = res.data.data;
+          this.blogsList.forEach((item: any) => {
+            item['title'] = item.title[this.currentLanguage];
+            item['description'] = item.description[this.currentLanguage];
+          });
           this.handleBlogsList();
         } else {
           this.handleError(res?.message);
@@ -82,10 +86,7 @@ export class BlogsListComponent {
         return []; // Return an empty array or appropriate fallback value
       }),
       finalize(() => {
-        this.blogsList = this.currentLanguage == 'ar' ? blogsAr : blogsEn;
-
         this.isLoadingBlogsList = false;
-        this.updateMetaTagsForSEO(); // Remove After Function Working Successfully
       })
     ).subscribe();
 
@@ -158,7 +159,7 @@ export class BlogsListComponent {
 
   /* --- Handle api requests messages --- */
   private handleSuccess(msg: string | null): any {
-    this.setMessage(msg || this.publicService.translateTextFromJson('general.successRequest'), 'succss');
+    this.setMessage(msg || this.publicService.translateTextFromJson('general.successRequest'), 'success');
   }
   private handleError(err: string | null): any {
     this.setMessage(err || this.publicService.translateTextFromJson('general.errorOccur'), 'error');

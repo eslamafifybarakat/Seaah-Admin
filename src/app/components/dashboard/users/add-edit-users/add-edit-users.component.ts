@@ -108,7 +108,7 @@ export class AddEditUsersComponent {
       phone: this.userForm?.value?.phone?.toString(),
       iqama_No: this.userForm?.value?.nationalIdentify?.toString(),
       email: this.userForm?.value?.email,
-      type: this.modalData?.organizationData?.type=='university'?'school':this.modalData?.organizationData?.type,
+      type: this.modalData?.organizationData?.type == 'university' ? 'school' : this.modalData?.organizationData?.type,
       source_register: 'web',
       type_coming_otp: 'email',
       password: '123456',
@@ -137,7 +137,7 @@ export class AddEditUsersComponent {
 
   /* --- Handle api requests messages --- */
   private handleSuccess(msg: string | null): any {
-    this.setMessage(msg || this.publicService.translateTextFromJson('general.successRequest'), 'succss');
+    this.setMessage(msg || this.publicService.translateTextFromJson('general.successRequest'), 'success');
   }
   private handleError(err: string | null): any {
     this.setMessage(err || this.publicService.translateTextFromJson('general.errorOccur'), 'error');
