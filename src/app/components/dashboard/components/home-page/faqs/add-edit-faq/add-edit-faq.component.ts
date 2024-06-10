@@ -10,6 +10,8 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { catchError, finalize, Subscription, tap } from 'rxjs';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { TranslateModule } from '@ngx-translate/core';
+import { AngularEditorConfig, AngularEditorModule } from '@kolkov/angular-editor';
+import { editorConfig } from '../../../editorConfig';
 
 @Component({
   selector: 'app-add-edit-faq',
@@ -17,6 +19,7 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [
     // Modules
     ReactiveFormsModule,
+    AngularEditorModule,
     TranslateModule,
     CommonModule,
     FormsModule,
@@ -40,6 +43,8 @@ export class AddEditFaqComponent {
 
   bankFile: any = null;
   bankFileSrc: any;
+  descriptionValue: any;
+  editorConfig: AngularEditorConfig = editorConfig;
 
   faqForm = this.fb?.group(
     {
@@ -125,7 +130,11 @@ export class AddEditFaqComponent {
     this.faqForm?.get('endTime')?.reset();
   }
   // End Time Functions
-
+  updateValidation(type: string, event: any) {
+    if (type == 'description') {
+      this.descriptionValue = event.target.innerText;
+    }
+  }
   // Start Add/Edit Faq
   submit(): void {
     if (this.faqForm?.valid) {

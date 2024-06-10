@@ -1,0 +1,189 @@
+// Start Editor
+#description > div > div > div > ul,
+#description > div > div > div > ol {
+  list-style: initial !important;
+}
+
+#description > div > div > div > ol {
+  list-style: auto !important;
+}
+
+.angular-editor {
+  position: relative !important;
+  overflow: auto;
+  border: 1px solid var(--border-editor-color) !important;
+  border-radius: var(--border-input-radius) !important;
+
+  img {
+    width: 100% !important;
+  }
+
+  .angular-editor-wrapper {
+    background-color: var(--bg-white-color) !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 1rem !important;
+    box-shadow: none !important;
+    outline: none !important;
+    padding: 0.4rem;
+    margin-top: 0.7rem;
+
+    .angular-editor-placeholder {
+      padding: 1rem 0.8rem 1rem 0.9rem !important;
+    }
+  }
+
+  .angular-editor-wrapper .angular-editor-textarea {
+    min-height: 24rem !important;
+    max-height: 32rem !important;
+    box-shadow: none !important;
+    outline: none !important;
+    border: 0 !important;
+    // padding: 0.4rem 1rem !important;
+    padding: 0 0.9rem !important;
+    margin-top: 0px;
+    &::-webkit-scrollbar-thumb {
+      background: var(--bg-main-color);
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      border-radius: 10px;
+      max-height: 80% !important;
+      background-color: #cccccc4f;
+    }
+  }
+
+  /* angular-editor color picker position fix */
+  .angular-editor-toolbar {
+    border: none !important;
+    background-color: var(--bg-white-color) !important;
+    border-bottom: 1px solid var(--border-editor-color) !important;
+    border-radius: 0 !important;
+    margin: 0.5rem !important;
+    font-size: 1rem !important;
+
+    .angular-editor-toolbar [title="Clear formatting"],
+    .my-custom-editor .angular-editor-button#subscript-content,
+    .angular-editor-button#superscript-content,
+    #toggleEditorMode-content,
+    #link-content {
+      display: none !important;
+    }
+
+    .ae-font .ae-picker-label:before,
+    .angular-editor-toolbar-set .angular-editor-button,
+    .ae-font .ae-picker-label,
+    .ae-font .ae-picker-label:hover,
+    .ae-font .ae-picker-label:before {
+      border: 0 !important;
+      background-color: transparent !important;
+      background: transparent !important;
+    }
+
+    input[type="color"]:not(.color-picker) {
+      /* added :not(.color-picker) so that this will be ignored when the package is updated */
+      display: initial !important;
+      position: absolute !important;
+      visibility: hidden !important;
+      border: none !important;
+      /* Remove border */
+      margin: 10;
+      margin-top: 30px;
+      padding: 0;
+      height: 0;
+    }
+  }
+
+  .angular-editor-toolbar .angular-editor-toolbar-set .angular-editor-button,
+  .ae-font .ae-picker-label,
+  .ae-font .ae-picker-label svg .ae-stroke {
+    border-radius: 3px;
+    margin-right: 2px;
+    color: #000 !important;
+  }
+}
+.is-invalid {
+  .angular-editor {
+    border-color: var(--border-red-color) !important;
+  }
+}
+.angular-editor-toolbar {
+  border: none !important;
+  background-color: var(--bg-white-color) !important;
+  border-bottom: 1px solid var(--border-editor-color) !important;
+  border-radius: 0 !important;
+  padding: 1rem !important;
+
+  .select-heading {
+    display: none !important;
+  }
+
+  .ae-font .ae-picker-label:before,
+  .angular-editor-toolbar-set .angular-editor-button,
+  .ae-font .ae-picker-label,
+  .ae-font .ae-picker-label:hover,
+  .ae-font .ae-picker-label:before {
+    border: 0 !important;
+    background-color: transparent !important;
+    background: transparent !important;
+  }
+}
+
+.angular-editor-wrapper {
+  background-color: var(--bg-white-color) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 1rem !important;
+  box-shadow: none !important;
+  outline: none !important;
+  padding: 0.4rem;
+  margin-top: 0.7rem;
+
+  .angular-editor-placeholder {
+    padding: 1rem 0.8rem 1rem 0.9rem !important;
+  }
+}
+
+.angular-editor-wrapper .angular-editor-textarea {
+  min-height: 24rem !important;
+  max-height: 32rem !important;
+  box-shadow: none !important;
+  outline: none !important;
+  border: 0 !important;
+  padding: 0.4rem 1rem !important;
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--bg-main-color);
+    border-radius: 10px;
+    margin-top: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    max-height: 80% !important;
+    background-color: #cccccc4f;
+  }
+}
+
+/* angular-editor color picker position fix */
+.angular-editor-toolbar {
+  input[type="color"]:not(.color-picker) {
+    /* added :not(.color-picker) so that this will be ignored when the package is updated */
+    display: none !important;
+    position: absolute !important;
+    visibility: hidden !important;
+    border: none !important;
+    /* Remove border */
+    margin: 10;
+    margin-top: 30px;
+    padding: 0;
+    height: 0;
+    & ~ .angular-editor-button:nth-last-of-type(1) {
+      display: none !important;
+    }
+  }
+}
+
+// End Editor
