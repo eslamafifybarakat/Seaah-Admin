@@ -1,142 +1,155 @@
 <div id="modal-form" class="py-4">
   <div class="container">
-    <h5 class="fw-bold pt-3 pb-4 border-bottom">{{'dashboard.faqs.addNew'|translate}}</h5>
+    <h5 class="fw-bold pt-3 pb-4 border-bottom">
+      <ng-container *ngIf="isEdit; else noEdit">
+        {{'dashboard.faqs.editNew'|translate}}
+      </ng-container>
+      <ng-template #noEdit>
+        {{'dashboard.faqs.addNew'|translate}}
+      </ng-template>
+
+    </h5>
     <form [formGroup]="faqForm" (ngSubmit)="submit()" aria-label="add-client-form">
       <div class="form-content pt-4">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="mb-3">
-              <label for="title" class="mb-2 required">
-                {{'labels.title'|translate}} <span class="px-1">{{'labels.inEnglish'|translate}}</span>
-              </label>
-              <input type="text" class="form-control" formControlName="title"
-                (input)="publicService?.clearValidationErrors(formControls?.title)"
-                [class.border-red]="formControls?.title?.invalid && (formControls?.title?.dirty || formControls?.title?.touched)"
-                placeholder="{{'placeholders.title'|translate}}">
-              <div class="mt-2">
-                <ng-container
-                  *ngIf="formControls?.title?.invalid && (formControls?.title?.dirty || formControls?.title?.touched)">
-                  <ng-container *ngIf="formControls?.title?.errors?.['required']">
-                    <span class="text-danger fs-8">
-                      {{'validations.requiredField'|translate}}
-                    </span>
-                  </ng-container>
+        <ng-container *ngIf="isLoading; else noLoading">
+          <skeleton [type]="'addEditFaq'"></skeleton>
+        </ng-container>
+        <ng-template #noLoading>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="mb-3">
+                <label for="title" class="mb-2 required">
+                  {{'labels.title'|translate}} <span class="px-1">{{'labels.inEnglish'|translate}}</span>
+                </label>
+                <input type="text" class="form-control" formControlName="title"
+                  (input)="publicService?.clearValidationErrors(formControls?.title)"
+                  [class.border-red]="formControls?.title?.invalid && (formControls?.title?.dirty || formControls?.title?.touched)"
+                  placeholder="{{'placeholders.title'|translate}}">
+                <div class="mt-2">
+                  <ng-container
+                    *ngIf="formControls?.title?.invalid && (formControls?.title?.dirty || formControls?.title?.touched)">
+                    <ng-container *ngIf="formControls?.title?.errors?.['required']">
+                      <span class="text-danger fs-8">
+                        {{'validations.requiredField'|translate}}
+                      </span>
+                    </ng-container>
 
-                  <ng-container *ngIf="formControls?.title?.errors?.['minlength']">
-                    <span class="text-danger fs-8 d-block">
-                      {{'validations.nameLength'|translate}}
-                    </span>
+                    <ng-container *ngIf="formControls?.title?.errors?.['minlength']">
+                      <span class="text-danger fs-8 d-block">
+                        {{'validations.nameLength'|translate}}
+                      </span>
+                    </ng-container>
+                    <ng-container *ngIf="formControls?.title?.errors?.arabicLetter">
+                      <span class="text-danger fs-8 d-block">
+                        {{'validations.enTitle'|translate}}
+                      </span>
+                    </ng-container>
                   </ng-container>
-                  <ng-container *ngIf="formControls?.title?.errors?.arabicLetter">
-                    <span class="text-danger fs-8 d-block">
-                      {{'validations.enTitle'|translate}}
-                    </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="mb-3">
+                <label for="arTitle" class="mb-2 required">
+                  {{'labels.title'|translate}} <span class="px-1">{{'labels.inArabic'|translate}}</span>
+                </label>
+                <input type="text" class="form-control" formControlName="arTitle"
+                  (input)="publicService?.clearValidationErrors(formControls?.arTitle)"
+                  [class.border-red]="formControls?.arTitle?.invalid && (formControls?.arTitle?.dirty || formControls?.arTitle?.touched)"
+                  placeholder="{{'placeholders.title'|translate}}">
+                <div class="mt-2">
+                  <ng-container
+                    *ngIf="formControls?.arTitle?.invalid && (formControls?.arTitle?.dirty || formControls?.arTitle?.touched)">
+                    <ng-container *ngIf="formControls?.arTitle?.errors?.['required']">
+                      <span class="text-danger fs-8">
+                        {{'validations.requiredField'|translate}}
+                      </span>
+                    </ng-container>
+
+                    <ng-container *ngIf="formControls?.arTitle?.errors?.['minlength']">
+                      <span class="text-danger fs-8 d-block">
+                        {{'validations.nameLength'|translate}}
+                      </span>
+                    </ng-container>
+                    <ng-container *ngIf="formControls?.arTitle?.errors?.englishPattern">
+                      <span class="text-danger fs-8 d-block">
+                        {{'validations.arTitle'|translate}}
+                      </span>
+                    </ng-container>
                   </ng-container>
-                </ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="mb-3">
+                <label for="description" class="mb-2 required">
+                  {{'labels.description'|translate}} <span class="px-1">{{'labels.inEnglish'|translate}}</span>
+                </label>
+                <angular-editor id="description" formControlName="description" [config]="editorConfig"
+                  [placeholder]="'placeholders.description'|translate"
+                  (input)="publicService.clearValidationErrors(formControls?.description);updateValidation('description',$event)"
+                  [class.is-invalid]="formControls?.description?.invalid && (formControls?.description?.dirty || formControls?.description?.touched)"
+                  class="my-custom-editor">
+                </angular-editor>
+                <div class="mt-2">
+                  <ng-container
+                    *ngIf="formControls?.description?.invalid && (formControls?.description?.dirty || formControls?.description?.touched)">
+                    <ng-container *ngIf="formControls?.description?.errors?.['required']">
+                      <span class="text-danger fs-8">
+                        {{'validations.requiredField'|translate}}
+                      </span>
+                    </ng-container>
+
+                    <ng-container *ngIf="formControls?.description?.errors?.['minlength']">
+                      <span class="text-danger fs-8 d-block">
+                        {{'validations.userLength'|translate}}
+                      </span>
+                    </ng-container>
+                    <ng-container *ngIf="formControls?.description?.errors?.arabicLetter">
+                      <span class="text-danger fs-8 d-block">
+                        {{'validations.enDescription'|translate}}
+                      </span>
+                    </ng-container>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="mb-3">
+                <label for="arDescription" class="mb-2 required">
+                  {{'labels.description'|translate}} <span class="px-1">{{'labels.inArabic'|translate}}</span>
+                </label>
+                <angular-editor id="description" formControlName="arDescription" [config]="editorConfig"
+                  [placeholder]="'placeholders.description'|translate"
+                  (input)="publicService.clearValidationErrors(formControls?.arDescription);updateValidation('arDescription',$event)"
+                  [class.is-invalid]="formControls?.arDescription?.invalid && (formControls?.arDescription?.dirty || formControls?.arDescription?.touched)"
+                  class="my-custom-editor">
+                </angular-editor>
+                <div class="mt-2">
+                  <ng-container
+                    *ngIf="formControls?.arDescription?.invalid && (formControls?.arDescription?.dirty || formControls?.arDescription?.touched)">
+                    <ng-container *ngIf="formControls?.arDescription?.errors?.['required']">
+                      <span class="text-danger fs-8">
+                        {{'validations.requiredField'|translate}}
+                      </span>
+                    </ng-container>
+
+                    <ng-container *ngIf="formControls?.arDescription?.errors?.['minlength']">
+                      <span class="text-danger fs-8 d-block">
+                        {{'validations.userLength'|translate}}
+                      </span>
+                    </ng-container>
+                    <ng-container *ngIf="formControls?.arDescription?.errors?.englishPattern">
+                      <span class="text-danger fs-8 d-block">
+                        {{'validations.arDescription'|translate}}
+                      </span>
+                    </ng-container>
+                  </ng-container>
+                </div>
               </div>
             </div>
           </div>
-          <div class="col-lg-6">
-            <div class="mb-3">
-              <label for="arTitle" class="mb-2 required">
-                {{'labels.title'|translate}} <span class="px-1">{{'labels.inArabic'|translate}}</span>
-              </label>
-              <input type="text" class="form-control" formControlName="arTitle"
-                (input)="publicService?.clearValidationErrors(formControls?.arTitle)"
-                [class.border-red]="formControls?.arTitle?.invalid && (formControls?.arTitle?.dirty || formControls?.arTitle?.touched)"
-                placeholder="{{'placeholders.title'|translate}}">
-              <div class="mt-2">
-                <ng-container
-                  *ngIf="formControls?.arTitle?.invalid && (formControls?.arTitle?.dirty || formControls?.arTitle?.touched)">
-                  <ng-container *ngIf="formControls?.arTitle?.errors?.['required']">
-                    <span class="text-danger fs-8">
-                      {{'validations.requiredField'|translate}}
-                    </span>
-                  </ng-container>
-
-                  <ng-container *ngIf="formControls?.arTitle?.errors?.['minlength']">
-                    <span class="text-danger fs-8 d-block">
-                      {{'validations.nameLength'|translate}}
-                    </span>
-                  </ng-container>
-                  <ng-container *ngIf="formControls?.arTitle?.errors?.englishPattern">
-                    <span class="text-danger fs-8 d-block">
-                      {{'validations.arTitle'|translate}}
-                    </span>
-                  </ng-container>
-                </ng-container>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="mb-3">
-              <label for="description" class="mb-2 required">
-                {{'labels.description'|translate}} <span class="px-1">{{'labels.inEnglish'|translate}}</span>
-              </label>
-              <angular-editor id="description" formControlName="description" [config]="editorConfig"
-                [placeholder]="'placeholders.description'|translate"
-                (input)="publicService.clearValidationErrors(formControls?.description);updateValidation('description',$event)"
-                [class.is-invalid]="formControls?.description?.invalid && (formControls?.description?.dirty || formControls?.description?.touched)"
-                class="my-custom-editor">
-              </angular-editor>
-              <div class="mt-2">
-                <ng-container
-                  *ngIf="formControls?.description?.invalid && (formControls?.description?.dirty || formControls?.description?.touched)">
-                  <ng-container *ngIf="formControls?.description?.errors?.['required']">
-                    <span class="text-danger fs-8">
-                      {{'validations.requiredField'|translate}}
-                    </span>
-                  </ng-container>
-
-                  <ng-container *ngIf="formControls?.description?.errors?.['minlength']">
-                    <span class="text-danger fs-8 d-block">
-                      {{'validations.userLength'|translate}}
-                    </span>
-                  </ng-container>
-                  <ng-container *ngIf="formControls?.description?.errors?.arabicLetter">
-                    <span class="text-danger fs-8 d-block">
-                      {{'validations.enDescription'|translate}}
-                    </span>
-                  </ng-container>
-                </ng-container>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="mb-3">
-              <label for="arDescription" class="mb-2 required">
-                {{'labels.description'|translate}} <span class="px-1">{{'labels.inArabic'|translate}}</span>
-              </label>
-              <angular-editor id="description" formControlName="arDescription" [config]="editorConfig"
-                [placeholder]="'placeholders.description'|translate"
-                (input)="publicService.clearValidationErrors(formControls?.arDescription);updateValidation('arDescription',$event)"
-                [class.is-invalid]="formControls?.arDescription?.invalid && (formControls?.arDescription?.dirty || formControls?.arDescription?.touched)"
-                class="my-custom-editor">
-              </angular-editor>
-              <div class="mt-2">
-                <ng-container
-                  *ngIf="formControls?.arDescription?.invalid && (formControls?.arDescription?.dirty || formControls?.arDescription?.touched)">
-                  <ng-container *ngIf="formControls?.arDescription?.errors?.['required']">
-                    <span class="text-danger fs-8">
-                      {{'validations.requiredField'|translate}}
-                    </span>
-                  </ng-container>
-
-                  <ng-container *ngIf="formControls?.arDescription?.errors?.['minlength']">
-                    <span class="text-danger fs-8 d-block">
-                      {{'validations.userLength'|translate}}
-                    </span>
-                  </ng-container>
-                  <ng-container *ngIf="formControls?.arDescription?.errors?.englishPattern">
-                    <span class="text-danger fs-8 d-block">
-                      {{'validations.arDescription'|translate}}
-                    </span>
-                  </ng-container>
-                </ng-container>
-              </div>
-            </div>
-          </div>
-        </div>
+        </ng-template>
       </div>
       <div class="d-flex justify-content-end gap-3 flex-wrap mt-4">
         <button type="submit" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2">

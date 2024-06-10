@@ -16,6 +16,7 @@ import { BlogCardComponent } from '../blog-card/blog-card.component';
 import { AddEditBlogComponent } from '../add-edit-blog/add-edit-blog.component';
 import { Paginator, PaginatorModule } from 'primeng/paginator';
 import { DropdownModule } from 'primeng/dropdown';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-blogs-list',
@@ -55,7 +56,8 @@ export class BlogsListComponent {
     private dialogService: DialogService,
     private alertsService: AlertsService,
     private blogsService: BlogsService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {
     localizationLanguageService.updatePathAccordingLang();
   }
@@ -114,22 +116,27 @@ export class BlogsListComponent {
 
   // Add Edit Blog
   addEditItem(item?: any, type?: any): void {
-    const ref = this.dialogService?.open(AddEditBlogComponent, {
-      data: {
-        item,
-        type: type == 'edit' ? 'edit' : 'add',
-        typeValue: 'faq'
-      },
-      header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.blogs.editBlog') : this.publicService?.translateTextFromJson('dashboard.blogs.addBlog'),
-      dismissableMask: false,
-      width: '45%',
-      styleClass: 'custom-modal',
-    });
-    ref.onClose.subscribe((res: any) => {
-      if (res?.listChanged) {
-        this.getBlogsList();
-      }
-    });
+    if (type == 'edit') {
+      this.router.navigate(['Dashboard/Home/Blogs/AddEditBlog', { id: item?.id }]);
+    } else {
+      this.router.navigate(['Dashboard/Home/Blogs/AddEditBlog']);
+    }
+    // const ref = this.dialogService?.open(AddEditBlogComponent, {
+    //   data: {
+    //     item,
+    //     type: type == 'edit' ? 'edit' : 'add',
+    //     typeValue: 'faq'
+    //   },
+    //   header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.blogs.editBlog') : this.publicService?.translateTextFromJson('dashboard.blogs.addBlog'),
+    //   dismissableMask: false,
+    //   width: '45%',
+    //   styleClass: 'custom-modal',
+    // });
+    // ref.onClose.subscribe((res: any) => {
+    //   if (res?.listChanged) {
+    //     this.getBlogsList();
+    //   }
+    // });
   }
   //Start Delete Blog Functions
   deleteItem(item: any): void {

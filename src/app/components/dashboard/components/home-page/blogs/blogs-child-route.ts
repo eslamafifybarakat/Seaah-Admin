@@ -1,6 +1,7 @@
 
 import { errorsChildrenRoutes } from 'src/app/components/errors/errors-children-routes';
 import { BlogsListComponent } from './blogs-list/blogs-list.component';
+import { AddEditBlogComponent } from './add-edit-blog/add-edit-blog.component';
 
 
 export const BlogsChildrenRoutes: any[] = [
@@ -12,6 +13,15 @@ export const BlogsChildrenRoutes: any[] = [
     data: {
       permission: 'Pages.Blogs.List',
       title: 'BlogsList'
+    },
+    pathMatch: 'full'
+  },
+  {
+    path: 'AddEditBlog',
+    component: AddEditBlogComponent,
+    data: {
+      permission: 'Pages.Blogs.AddEditBlog',
+      title: 'AddEditBlog'
     },
     pathMatch: 'full'
   },

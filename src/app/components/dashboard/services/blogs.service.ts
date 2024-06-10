@@ -36,7 +36,7 @@ export class BlogsService {
     return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.blogs.getAll}`, data);
   }
   getBlogById(id: any): Observable<any> {
-    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.organizations.allOrganizations}/${id}`);
+    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.blogs.getAll}/${id}`);
   }
   deleteBlogById(id: number): Observable<any> {
     return this.http.delete<any>(`${this.baseUrl}/${roots?.dashboard.blogs.getAll}/` + id);

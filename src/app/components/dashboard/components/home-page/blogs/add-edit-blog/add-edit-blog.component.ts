@@ -1,3 +1,4 @@
+import { SkeletonComponent } from 'src/app/shared/skeleton/skeleton/skeleton.component';
 import { BlogsService } from 'src/app/components/dashboard/services/blogs.service';
 import { patterns } from 'src/app/shared/configs/patterns';
 // Modules
@@ -24,12 +25,16 @@ import { BanksService } from '../../../../services/banks.service';
 import { tap, catchError, finalize } from 'rxjs/operators';
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AngularEditorConfig, AngularEditorModule } from '@kolkov/angular-editor';
+import { editorConfig } from '../../../editorConfig';
 
 @Component({
   standalone: true,
   imports: [
     // Modules
     ReactiveFormsModule,
+    AngularEditorModule,
     MultiSelectModule,
     TranslateModule,
     CalendarModule,
@@ -39,6 +44,7 @@ import { Subscription } from 'rxjs';
 
     // Components
     FileUploadComponent,
+    SkeletonComponent,
 
     // Directives
     MaxDigitsDirective
@@ -73,8 +79,9 @@ export class AddEditBlogComponent {
   minEndTime: any;
 
   isEdit: boolean = false;
-  bankId: number;
-  bankData: any;
+  blogId: number;
+  blogData: any;
+  isLoading: boolean = false;
 
   blogFile: any = null;
   blogFileSrc: any;
@@ -84,11 +91,25 @@ export class AddEditBlogComponent {
       title: ['', {
         validators: [
           Validators.required,
+          this.noArabicLettersValidator,
+          Validators?.minLength(3)], updateOn: "blur"
+      }],
+      arTitle: ['', {
+        validators: [
+          Validators.required,
+          this.noEnglishLettersValidator,
           Validators?.minLength(3)], updateOn: "blur"
       }],
       description: ['', {
         validators: [
           Validators.required,
+          this.noArabicLettersValidator,
+          Validators?.minLength(6)], updateOn: "blur"
+      }],
+      arDescription: ['', {
+        validators: [
+          Validators.required,
+          this.noEnglishLettersValidator,
           Validators?.minLength(6)], updateOn: "blur"
       }],
       blogFile: [null, {
@@ -101,27 +122,39 @@ export class AddEditBlogComponent {
     return this.blogForm?.controls;
   }
 
+  descriptionValue: any;
+  editorConfig: AngularEditorConfig = editorConfig;
+
   constructor(
     private localizationLanguageService: LocalizationLanguageService,
     private metadataService: MetadataService,
+    private activatedRoute: ActivatedRoute,
     private alertsService: AlertsService,
     public publicService: PublicService,
-    private config: DynamicDialogConfig,
+    // private config: DynamicDialogConfig,
     private blogsService: BlogsService,
-    private ref: DynamicDialogRef,
-    private fb: FormBuilder
+    // private ref: DynamicDialogRef,
+    private fb: FormBuilder,
+    private router: Router,
   ) {
     localizationLanguageService.updatePathAccordingLang();
   }
 
   ngOnInit(): void {
     this.currentLanguage = this.publicService.getCurrentLanguage();
-    this.bankData = this.config.data;
-    if (this.bankData.type == 'edit') {
-      this.isEdit = true;
-      this.bankId = this.bankData?.item?.id;
-      this.patchValue();
-    }
+    this.activatedRoute.params.subscribe(((res: any) => {
+      this.blogId = res?.id;
+      if (this.blogId) {
+        this.isEdit = true;
+        this.getBlogById();
+      }
+    }))
+    // this.blogData = this.config.data;
+    // if (this.blogData.type == 'edit') {
+    //   this.isEdit = true;
+    //   this.blogId = this.blogData?.item?.id;
+    //   this.patchValue();
+    // }
     // this.updateMetaTagsForSEO();
     if (this.isEdit) {
       // Remove the required validator from the blogFile control
@@ -140,12 +173,58 @@ export class AddEditBlogComponent {
     }
     this.metadataService.updateMetaTagsForSEO(metaData);
   }
+
+  // Start Get Blog Data
+  getBlogById(): void {
+    this.isLoading = true;
+    let subscribeGetBlog: Subscription = this.blogsService?.getBlogById(this.blogId ? this.blogId : null).pipe(
+      tap(res => this.handleBlogSuccess(res)),
+      catchError(err => this.handleError(err)),
+      finalize(() => this.isLoading = false)
+    ).subscribe();
+    this.subscriptions.push(subscribeGetBlog);
+  }
+  private handleBlogSuccess(response: any): void {
+    this.isLoading = false;
+    if (response?.status == 200) {
+      this.blogData = response?.data;
+      this.patchValue();
+    } else {
+      this.handleError(response?.message);
+    }
+  }
+  // End Get Blog Data
+
   patchValue(): void {
     this.blogForm.patchValue({
-      title: this.bankData?.item?.title,
-      description: this.bankData?.item?.description,
+      title: this.blogData?.title['en'],
+      description: this.blogData?.description['en'],
+      arTitle: this.blogData?.title['ar'],
+      arDescription: this.blogData?.description['ar'],
     });
-    this.blogFileSrc = this.bankData?.item?.image_path;
+    this.blogFileSrc = this.blogData?.image_path;
+  }
+  // Start arabic english pattern
+  noArabicLettersValidator(control: any) {
+    const arabicPattern = /[ء-ي]/;
+    if (arabicPattern.test(control.value)) {
+      return { arabicLetter: true };
+    }
+    return null;
+  }
+  noEnglishLettersValidator(control: any) {
+    const englishPattern = /[a-zA-z]/;
+    if (englishPattern.test(control.value)) {
+      return { englishPattern: true };
+    }
+    return null;
+  }
+  // Start arabic english pattern
+
+  updateValidation(type: string, event: any) {
+    if (type == 'description') {
+      this.descriptionValue = event.target.innerText;
+    }
   }
 
   // Upload File
@@ -175,9 +254,9 @@ export class AddEditBlogComponent {
   private extractFormData(): any {
     let formData = new FormData();
     formData.append('title[en]', this.blogForm?.value?.title);
-    formData.append('title[ar]', this.blogForm?.value?.title);
+    formData.append('title[ar]', this.blogForm?.value?.arTitle);
     formData.append('description[en]', this.blogForm?.value?.description);
-    formData.append('description[ar]', this.blogForm?.value?.description);
+    formData.append('description[ar]', this.blogForm?.value?.arDescription);
     if (this.blogForm?.value?.blogFile) {
       formData.append('image', this.blogForm?.value?.blogFile);
     }
@@ -188,7 +267,7 @@ export class AddEditBlogComponent {
   }
   private addEditBank(formData: any): void {
     this.publicService?.showGlobalLoader?.next(true);
-    let subscribeAddEditBank: Subscription = this.blogsService?.addEditBlog(formData, this.bankId ? this.bankId : null).pipe(
+    let subscribeAddEditBank: Subscription = this.blogsService?.addEditBlog(formData, this.blogId ? this.blogId : null).pipe(
       tap(res => this.handleAddEditBankSuccess(res)),
       catchError(err => this.handleError(err)),
       finalize(() => this.finalizeAddEditBank())
@@ -198,7 +277,8 @@ export class AddEditBlogComponent {
   private handleAddEditBankSuccess(response: any): void {
     this.publicService?.showGlobalLoader?.next(false);
     if (response?.status == 200) {
-      this.ref.close({ listChanged: true, item: response?.data });
+      this.router.navigate(['/Dashboard/Home/Blogs/List']);
+      // this.ref.close({ listChanged: true, item: response?.data });
       this.handleSuccess(response?.message);
     } else {
       this.handleError(response?.message);
@@ -210,7 +290,8 @@ export class AddEditBlogComponent {
   // End Add/Edit Bank
 
   cancel(): void {
-    this.ref?.close({ listChanged: false });
+    this.router.navigate(['/Dashboard/Home/Blogs/List']);
+    // this.ref?.close({ listChanged: false });
   }
 
   /* --- Handle api requests messages --- */

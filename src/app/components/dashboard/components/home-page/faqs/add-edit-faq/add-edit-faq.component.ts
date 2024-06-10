@@ -1,3 +1,4 @@
+import { SkeletonComponent } from 'src/app/shared/skeleton/skeleton/skeleton.component';
 import { patterns } from 'src/app/shared/configs/patterns';
 import { FAQsService } from 'src/app/components/dashboard/services/faqs.service';
 import { PublicService } from 'src/app/services/generic/public.service';
@@ -25,6 +26,8 @@ import { Router, ActivatedRoute } from '@angular/router';
     TranslateModule,
     CommonModule,
     FormsModule,
+
+    SkeletonComponent,
   ],
   templateUrl: './add-edit-faq.component.html',
   styleUrls: ['./add-edit-faq.component.scss']
@@ -152,14 +155,8 @@ export class AddEditFaqComponent {
       arDescription: this.faqData?.description['ar'],
     });
   }
-  convertTime(date: any): any {
-    const timeString = date;
-    const today = new Date();
-    const dateString = today.toISOString().split('T')[0];
-    const dateTimeString = `${dateString}T${timeString}`;
-    const time: any = new Date(dateTimeString);
-    return time;
-  }
+
+  // Start arabic english pattern
   noArabicLettersValidator(control: any) {
     const arabicPattern = /[ء-ي]/;
     if (arabicPattern.test(control.value)) {
@@ -174,6 +171,7 @@ export class AddEditFaqComponent {
     }
     return null;
   }
+  // Start arabic english pattern
 
   updateValidation(type: string, event: any) {
     if (type == 'description') {
