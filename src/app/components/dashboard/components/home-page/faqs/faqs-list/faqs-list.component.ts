@@ -16,6 +16,7 @@ import { AddEditFaqComponent } from '../add-edit-faq/add-edit-faq.component';
 import { ConfirmDeleteComponent } from 'src/app/shared/components/confirm-delete/confirm-delete.component';
 import { Paginator, PaginatorModule } from 'primeng/paginator';
 import { DropdownModule } from 'primeng/dropdown';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-faqs-list',
@@ -26,6 +27,7 @@ import { DropdownModule } from 'primeng/dropdown';
     PaginatorModule,
     DropdownModule,
     CommonModule,
+    RouterModule,
 
     SkeletonComponent,
   ],
@@ -63,7 +65,8 @@ export class FaqsListComponent {
     private dialogService: DialogService,
     private alertsService: AlertsService,
     private fAQsService: FAQsService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {
     localizationLanguageService.updatePathAccordingLang();
   }
@@ -130,22 +133,27 @@ export class FaqsListComponent {
 
   // Add Edit FAQ
   addEditItem(item?: any, type?: any): void {
-    const ref = this.dialogService?.open(AddEditFaqComponent, {
-      data: {
-        item,
-        type: type == 'edit' ? 'edit' : 'add',
-        typeValue: 'faq'
-      },
-      header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.faqs.editNew') : this.publicService?.translateTextFromJson('dashboard.faqs.addNew'),
-      dismissableMask: false,
-      width: '40%',
-      styleClass: 'custom-modal',
-    });
-    ref.onClose.subscribe((res: any) => {
-      if (res?.listChanged) {
-        this.getFAQsList();
-      }
-    });
+    if (type == 'edit') {
+      this.router.navigate(['/Dashboard/Home/FAQs/AddEditFaq', { id: item?.id }]);
+    } else {
+      this.router.navigate(['/Dashboard/Home/FAQs/AddEditFaq']);
+    }
+    // const ref = this.dialogService?.open(AddEditFaqComponent, {
+    //   data: {
+    //     item,
+    //     type: type == 'edit' ? 'edit' : 'add',
+    //     typeValue: 'faq'
+    //   },
+    //   header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.faqs.editNew') : this.publicService?.translateTextFromJson('dashboard.faqs.addNew'),
+    //   dismissableMask: false,
+    //   width: '40%',
+    //   styleClass: 'custom-modal',
+    // });
+    // ref.onClose.subscribe((res: any) => {
+    //   if (res?.listChanged) {
+    //     this.getFAQsList();
+    //   }
+    // });
   }
   //Start Delete FAQ Functions
   deleteItem(item: any): void {

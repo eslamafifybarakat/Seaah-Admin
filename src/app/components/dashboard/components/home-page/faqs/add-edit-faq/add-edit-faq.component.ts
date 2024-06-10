@@ -1,3 +1,4 @@
+import { patterns } from 'src/app/shared/configs/patterns';
 import { FAQsService } from 'src/app/components/dashboard/services/faqs.service';
 import { PublicService } from 'src/app/services/generic/public.service';
 import { AlertsService } from 'src/app/services/generic/alerts.service';
@@ -12,6 +13,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { AngularEditorConfig, AngularEditorModule } from '@kolkov/angular-editor';
 import { editorConfig } from '../../../editorConfig';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add-edit-faq',
@@ -31,18 +33,11 @@ export class AddEditFaqComponent {
   private subscriptions: Subscription[] = [];
   currentLanguage: string;
 
-  //  Installment Ways Variables
-  installmentWays: any[] = [];
-  isLoadingInstallmentWays: boolean = false;
-
-  minEndTime: any;
-
   isEdit: boolean = false;
   faqId: number;
   faqData: any;
+  isLoading: boolean = false;
 
-  bankFile: any = null;
-  bankFileSrc: any;
   descriptionValue: any;
   editorConfig: AngularEditorConfig = editorConfig;
 
@@ -51,11 +46,25 @@ export class AddEditFaqComponent {
       title: ['', {
         validators: [
           Validators.required,
+          this.noArabicLettersValidator,
+          Validators?.minLength(3)], updateOn: "blur"
+      }],
+      arTitle: ['', {
+        validators: [
+          Validators.required,
+          this.noEnglishLettersValidator,
           Validators?.minLength(3)], updateOn: "blur"
       }],
       description: ['', {
         validators: [
           Validators.required,
+          this.noArabicLettersValidator,
+          Validators?.minLength(6)], updateOn: "blur"
+      }],
+      arDescription: ['', {
+        validators: [
+          Validators.required,
+          this.noEnglishLettersValidator,
           Validators?.minLength(6)], updateOn: "blur"
       }],
     }
@@ -70,22 +79,31 @@ export class AddEditFaqComponent {
     private metadataService: MetadataService,
     private alertsService: AlertsService,
     public publicService: PublicService,
-    private config: DynamicDialogConfig,
+    // private config: DynamicDialogConfig,
+    private activatedRoute: ActivatedRoute,
     private faqService: FAQsService,
-    private ref: DynamicDialogRef,
-    private fb: FormBuilder
+    // private ref: DynamicDialogRef,
+    private fb: FormBuilder,
+    private router: Router,
   ) {
     localizationLanguageService.updatePathAccordingLang();
   }
 
   ngOnInit(): void {
     this.currentLanguage = this.publicService.getCurrentLanguage();
-    this.faqData = this.config.data;
-    if (this.faqData.type == 'edit') {
-      this.isEdit = true;
-      this.faqId = this.faqData?.item?.id;
-      this.patchValue();
-    }
+    this.activatedRoute.params.subscribe(((res: any) => {
+      this.faqId = res?.id;
+      if (this.faqId) {
+        this.isEdit = true;
+        this.getFaqById();
+      }
+    }))
+    // this.faqData = this.config.data;
+    // if (this.faqData.type == 'edit') {
+    //   this.isEdit = true;
+    //   this.faqId = this.faqData?.item?.id;
+    //   this.patchValue();
+    // }
     // this.updateMetaTagsForSEO();
     if (this.isEdit) {
       // Remove the required validator from the bankFile control
@@ -104,10 +122,34 @@ export class AddEditFaqComponent {
     }
     this.metadataService.updateMetaTagsForSEO(metaData);
   }
+
+  // Start Get Faq Data
+  getFaqById(): void {
+    this.isLoading = true;
+    let subscribeGetFaq: Subscription = this.faqService?.getFaqById(this.faqId ? this.faqId : null).pipe(
+      tap(res => this.handleFaqSuccess(res)),
+      catchError(err => this.handleError(err)),
+      finalize(() => this.isLoading = false)
+    ).subscribe();
+    this.subscriptions.push(subscribeGetFaq);
+  }
+  private handleFaqSuccess(response: any): void {
+    this.isLoading = false;
+    if (response?.status == 200) {
+      this.faqData = response?.data;
+      this.patchValue();
+    } else {
+      this.handleError(response?.message);
+    }
+  }
+  // End Get Faq Data
+
   patchValue(): void {
     this.faqForm.patchValue({
-      title: this.faqData?.item?.title,
-      description: this.faqData?.item?.description,
+      title: this.faqData?.title['en'],
+      description: this.faqData?.description['en'],
+      arTitle: this.faqData?.title['ar'],
+      arDescription: this.faqData?.description['ar'],
     });
   }
   convertTime(date: any): any {
@@ -118,18 +160,21 @@ export class AddEditFaqComponent {
     const time: any = new Date(dateTimeString);
     return time;
   }
-
-  // Start Time Functions
-  onSelectStartTime(event: any): void {
-    if (event) {
-      this.minEndTime = event;
+  noArabicLettersValidator(control: any) {
+    const arabicPattern = /[ء-ي]/;
+    if (arabicPattern.test(control.value)) {
+      return { arabicLetter: true };
     }
-    this.faqForm?.get('endTime')?.reset();
+    return null;
   }
-  clearStartTime(): void {
-    this.faqForm?.get('endTime')?.reset();
+  noEnglishLettersValidator(control: any) {
+    const englishPattern = /[a-zA-z]/;
+    if (englishPattern.test(control.value)) {
+      return { englishPattern: true };
+    }
+    return null;
   }
-  // End Time Functions
+
   updateValidation(type: string, event: any) {
     if (type == 'description') {
       this.descriptionValue = event.target.innerText;
@@ -147,9 +192,9 @@ export class AddEditFaqComponent {
   private extractFormData(): any {
     let formData = new FormData();
     formData.append('title[en]', this.faqForm?.value?.title);
-    formData.append('title[ar]', this.faqForm?.value?.title);
+    formData.append('title[ar]', this.faqForm?.value?.arTitle);
     formData.append('description[en]', this.faqForm?.value?.description);
-    formData.append('description[ar]', this.faqForm?.value?.description);
+    formData.append('description[ar]', this.faqForm?.value?.arDescription);
     if (this.isEdit) {
       formData.append('_method', 'PUT');
     }
@@ -167,7 +212,8 @@ export class AddEditFaqComponent {
   private handleAddEditFaqSuccess(response: any): void {
     this.publicService?.showGlobalLoader?.next(false);
     if (response?.status == 200) {
-      this.ref.close({ listChanged: true, item: response?.data });
+      this.router.navigate(['/Dashboard/Home/FAQs/List']);
+      // this.ref.close({ listChanged: true, item: response?.data });
       this.handleSuccess(response?.message);
     } else {
       this.handleError(response?.message);
@@ -179,7 +225,8 @@ export class AddEditFaqComponent {
   // End Add/Edit Faq
 
   cancel(): void {
-    this.ref?.close({ listChanged: false });
+    this.router.navigate(['/Dashboard/Home/FAQs/List']);
+    // this.ref?.close({ listChanged: false });
   }
 
   /* --- Handle api requests messages --- */

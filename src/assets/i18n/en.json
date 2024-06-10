@@ -390,6 +390,8 @@
     "joinNow": "Join now"
   },
   "labels": {
+    "inArabic":"in Arabic",
+    "inEnglish":"in English",
     "bankPercentage":"Bank's percentage",
     "seaahPercentage":"Seaah percentage",
     "bankAccountNumber":"Bank Account Number",
@@ -546,6 +548,10 @@
     "street": "Enter street"
   },
   "validations": {
+    "arTitle":"Title must be arabic",
+    "enTitle":"Title must be English",
+    "arDescription":"Description must be arabic",
+    "enDescription":"Description must be English",
     "notValidLink": "This link is not vaild",
     "username": "Username is required",
     "password": "Password is required",
