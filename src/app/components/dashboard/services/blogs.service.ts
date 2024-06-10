@@ -31,14 +31,14 @@ export class BlogsService {
   }
   addEditBlog(data: any, id?: number): Observable<any> {
     if (id) {
-      return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.blogs.addEditBlog}/${id}`, data)
+      return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.blogs.getAll}/${id}`, data)
     }
-    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.blogs.addEditBlog}`, data);
+    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.blogs.getAll}`, data);
   }
   getBlogById(id: any): Observable<any> {
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.organizations.allOrganizations}/${id}`);
   }
   deleteBlogById(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.baseUrl}/${roots?.dashboard.blogs.deleteBlog}/` + id);
+    return this.http.delete<any>(`${this.baseUrl}/${roots?.dashboard.blogs.getAll}/` + id);
   }
 }

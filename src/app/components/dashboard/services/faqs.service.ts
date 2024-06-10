@@ -31,14 +31,14 @@ export class FAQsService {
   }
   addEditFaq(data: any, id?: number): Observable<any> {
     if (id) {
-      return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.faqs.addEditFaq}/${id}`, data)
+      return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.faqs.getAll}/${id}`, data)
     }
-    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.faqs.addEditFaq}`, data);
+    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.faqs.getAll}`, data);
   }
   getFaqById(id: any): Observable<any> {
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.faqs.getAll}/${id}`);
   }
   deleteFaqById(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.baseUrl}/${roots?.dashboard.faqs.deleteFaq}/` + id);
+    return this.http.delete<any>(`${this.baseUrl}/${roots?.dashboard.faqs.getAll}/` + id);
   }
 }

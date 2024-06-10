@@ -7,13 +7,15 @@ import { PublicService } from 'src/app/services/generic/public.service';
 import { AlertsService } from 'src/app/services/generic/alerts.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
 import { FAQsService } from 'src/app/components/dashboard/services/faqs.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AddEditFaqComponent } from '../add-edit-faq/add-edit-faq.component';
 import { ConfirmDeleteComponent } from 'src/app/shared/components/confirm-delete/confirm-delete.component';
+import { Paginator, PaginatorModule } from 'primeng/paginator';
+import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
   selector: 'app-faqs-list',
@@ -21,7 +23,10 @@ import { ConfirmDeleteComponent } from 'src/app/shared/components/confirm-delete
   imports: [
     // Modules
     TranslateModule,
+    PaginatorModule,
+    DropdownModule,
     CommonModule,
+
     SkeletonComponent,
   ],
   templateUrl: './faqs-list.component.html',
@@ -32,12 +37,24 @@ export class FaqsListComponent {
   private imageBaseUrl: string = '';
   private metaDetails: MetaDetails | undefined;
   private fullPageUrl: string = '';
+  currentLanguage: string = '';
 
   /* --- Start FAQs List Variables --- */
   FAQsList: any = [];
   isLoadingFAQsList: boolean = false;
   faqsCount: number = 0;
   /* --- End FAQs List Variables --- */
+
+  // Start Pagination Variables
+  page: number = 1;
+  perPage: number = 10;
+  pagesCount: number = 0;
+  rowsOptions: number[] = [10, 15, 30];
+  @ViewChild('paginator') paginator: Paginator | undefined;
+  @ViewChild('dropdown') dropdown: any;
+  // End Pagination Variables
+
+  searchKeyword: any = null;
 
   constructor(
     private localizationLanguageService: LocalizationLanguageService,
@@ -52,6 +69,7 @@ export class FaqsListComponent {
   }
 
   ngOnInit(): void {
+    this.currentLanguage = this.publicService.getCurrentLanguage();
     this.initPageData();
   }
   private initPageData(): void {
@@ -74,8 +92,13 @@ export class FaqsListComponent {
     }
     let FAQsDataSubscription: Subscription = this.fAQsService.getFAQsList().pipe(
       tap((res: any) => {
-        if (res?.code === 200) {
-          this.FAQsList = res.data;
+        if (res?.status === 200) {
+          this.FAQsList = res?.data?.data;
+          this.faqsCount = res?.data?.total;
+          this.FAQsList.forEach((item: any) => {
+            item['title'] = item.title[this.currentLanguage];
+            item['description'] = item.description[this.currentLanguage];
+          });
           this.handleFAQsList();
         } else {
           this.handleError(res?.message);
@@ -86,15 +109,15 @@ export class FaqsListComponent {
         return []; // Return an empty array or appropriate fallback value
       }),
       finalize(() => {
-        [1, 2, 3, 4, 5].forEach(element => {
-          this.FAQsList.push({
-            id: 1,
-            title: 'هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدهاالتطبيق.',
-            description: ' هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق. إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربى زيادة عدد الفقرات كما تريد، النص لن يبدو مقسما ولا يحوي أخطاء لغوية، مولد النص العربى مفيد لمصممي المواقع على وجه الخصوص.هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثلهذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق. إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربى زيادة عدد الفقرات كما تريد، النص لن يبدو مقسما ولا يحوي'
-          })
-        });
+        // [1, 2, 3, 4, 5].forEach(element => {
+        //   this.FAQsList.push({
+        //     id: 1,
+        //     title: 'هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدهاالتطبيق.',
+        //     description: ' هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق. إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربى زيادة عدد الفقرات كما تريد، النص لن يبدو مقسما ولا يحوي أخطاء لغوية، مولد النص العربى مفيد لمصممي المواقع على وجه الخصوص.هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثلهذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق. إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربى زيادة عدد الفقرات كما تريد، النص لن يبدو مقسما ولا يحوي'
+        //   })
+        // });
         this.isLoadingFAQsList = false;
-        this.updateMetaTagsForSEO(); // Remove After Function Working Successfully
+        // this.updateMetaTagsForSEO(); // Remove After Function Working Successfully
       })
     ).subscribe();
 
@@ -162,6 +185,25 @@ export class FaqsListComponent {
     }
   }
   //End Delete FAQ Functions
+  // Start Pagination Functions
+  onPageChange(e: any): void {
+    this.page = e?.page + 1;
+    this.getFAQsList();
+  }
+  onPaginatorOptionsChange(e: any): void {
+    this.perPage = e?.value;
+    this.pagesCount = Math?.ceil(this.faqsCount / this.perPage);
+    this.page = 1;
+    this.getFAQsList();
+  }
+  changePageActiveNumber(number: number): void {
+    this.paginator?.changePage(number - 1);
+  }
+  // Hide dropdown to not make action when keypress on keyboard arrows
+  hide(): void {
+    this.dropdown?.accessibleViewChild?.nativeElement?.blur();
+  }
+  // End Pagination Functions
 
   /* --- Handle api requests messages --- */
   private handleSuccess(msg: string | null): any {

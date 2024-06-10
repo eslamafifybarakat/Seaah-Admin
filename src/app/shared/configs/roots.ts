@@ -54,14 +54,12 @@ export const roots = {
       toggleActivation: "kids/update-approval",
     },
     faqs: {
-      getAll: 'faqs',
+      getAll: 'home/faq',
       addEditFaq: 'addEditFaq',
       deleteFaq: 'deleteFaq',
     },
     blogs: {
       getAll: 'home/blog',
-      addEditBlog: 'home/blog',
-      deleteBlog: 'home/blog',
     },
     tuitionExpenses: {
       tuitionExpenses: 'tuition_expenses'
