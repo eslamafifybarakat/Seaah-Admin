@@ -35,6 +35,18 @@
           </ng-container>
         </div>
       </ng-template>
+
+      <ng-container *ngIf="blogsList?.length>0">
+        <div class="d-flex justify-content-center mt-5" [class.disabled]="isLoadingBlogsList">
+          <p-paginator #paginator [rows]="perPage" [totalRecords]="blogsCount" [showPageLinks]="true" [pageLinkSize]="3"
+            (onPageChange)="onPageChange($event)"></p-paginator>
+          <div class="d-flex align-items-center gap-3">
+            <p-dropdown [styleClass]="'paginator-options-dropdown'" [dropdownIcon]="'fas fa-caret-down'" #dropdown
+              [(ngModel)]="perPage" [options]="rowsOptions" (onChange)="onPaginatorOptionsChange($event)"
+              (onHide)="hide()"></p-dropdown>
+          </div>
+        </div>
+      </ng-container>
     </div>
   </div>
 </div>

@@ -5,7 +5,7 @@ import { PublicService } from './../../../../../../services/generic/public.servi
 import { MetaDetails, MetadataService } from './../../../../../../services/generic/metadata.service';
 import { LocalizationLanguageService } from './../../../../../../services/generic/localization-language.service';
 import { ConfirmDeleteComponent } from './../../../../../../shared/components/confirm-delete/confirm-delete.component';
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subscription, catchError, finalize, tap } from 'rxjs';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -14,11 +14,13 @@ import { BlogsService } from 'src/app/components/dashboard/services/blogs.servic
 import { blogsAr, blogsEn } from './blogs';
 import { BlogCardComponent } from '../blog-card/blog-card.component';
 import { AddEditBlogComponent } from '../add-edit-blog/add-edit-blog.component';
+import { Paginator, PaginatorModule } from 'primeng/paginator';
+import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
   selector: 'app-blogs-list',
   standalone: true,
-  imports: [CommonModule, TranslateModule, BlogCardComponent, SkeletonComponent],
+  imports: [CommonModule, TranslateModule, BlogCardComponent, SkeletonComponent, PaginatorModule, DropdownModule],
   templateUrl: './blogs-list.component.html',
   styleUrls: ['./blogs-list.component.scss']
 })
@@ -28,11 +30,23 @@ export class BlogsListComponent {
   private metaDetails: MetaDetails | undefined;
   private fullPageUrl: string = '';
   currentLanguage: string = '';
-  /* --- Start FAQs List Variables --- */
+
+  /* --- Start Blogs List Variables --- */
   blogsList: any = [];
   isLoadingBlogsList: boolean = false;
   blogsCount: number = 0;
-  /* --- End FAQs List Variables --- */
+  /* --- End Blogs List Variables --- */
+
+  // Start Pagination Variables
+  page: number = 1;
+  perPage: number = 10;
+  pagesCount: number = 0;
+  rowsOptions: number[] = [10, 15, 30];
+  @ViewChild('paginator') paginator: Paginator | undefined;
+  @ViewChild('dropdown') dropdown: any;
+  // End Pagination Variables
+
+  searchKeyword: any = null;
 
   constructor(
     private localizationLanguageService: LocalizationLanguageService,
@@ -68,10 +82,11 @@ export class BlogsListComponent {
     if (!preventLoading) {
       this.isLoadingBlogsList = true;
     }
-    let blogsDataSubscription: Subscription = this.blogsService.getBlogsList().pipe(
+    let blogsDataSubscription: Subscription = this.blogsService.getBlogsList(this.page, this.perPage, this.searchKeyword).pipe(
       tap((res: any) => {
         if (res?.status === 200) {
-          this.blogsList = res.data.data;
+          this.blogsList = res?.data?.data;
+          this.blogsCount = res?.data?.total;
           this.blogsList.forEach((item: any) => {
             item['title'] = item.title[this.currentLanguage];
             item['description'] = item.description[this.currentLanguage];
@@ -156,6 +171,27 @@ export class BlogsListComponent {
     }
   }
   //End Delete Blog Functions
+
+
+  // Start Pagination Functions
+  onPageChange(e: any): void {
+    this.page = e?.page + 1;
+    this.getBlogsList();
+  }
+  onPaginatorOptionsChange(e: any): void {
+    this.perPage = e?.value;
+    this.pagesCount = Math?.ceil(this.blogsCount / this.perPage);
+    this.page = 1;
+    this.getBlogsList();
+  }
+  changePageActiveNumber(number: number): void {
+    this.paginator?.changePage(number - 1);
+  }
+  // Hide dropdown to not make action when keypress on keyboard arrows
+  hide(): void {
+    this.dropdown?.accessibleViewChild?.nativeElement?.blur();
+  }
+  // End Pagination Functions
 
   /* --- Handle api requests messages --- */
   private handleSuccess(msg: string | null): any {
