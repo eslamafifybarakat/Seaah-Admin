@@ -49,7 +49,7 @@ export class FaqsListComponent {
   page: number = 1;
   perPage: number = 10;
   pagesCount: number = 0;
-  rowsOptions: number[] = [10, 15, 30];
+  rowsOptions: number[] = [5, 10, 15, 30];
   @ViewChild('paginator') paginator: Paginator | undefined;
   @ViewChild('dropdown') dropdown: any;
   // End Pagination Variables
